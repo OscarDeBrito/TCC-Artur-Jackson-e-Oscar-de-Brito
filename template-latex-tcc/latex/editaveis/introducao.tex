@@ -1,9 +1,169 @@
-\chapter*[Introdução]{Introdução}
-\addcontentsline{toc}{chapter}{Introdução}
 
-Este documento apresenta considerações gerais e preliminares relacionadas 
-à redação de relatórios de Projeto de Graduação da Faculdade UnB Gama 
-(FGA). São abordados os diferentes aspectos sobre a estrutura do trabalho, 
-uso de programas de auxilio a edição, tiragem de cópias, encadernação, etc.
+\chapter[Introdução]{Introdução}
 
-Este template é uma adaptação do ABNTeX2\footnote{\url{https://github.com/abntex/abntex2/}}.
+Este capítulo apresenta os conceitos fundamentais que sustentam o trabalho: manutenibilidade de software, 
+modelos de qualidade e \textit{code smells}, além de delimitar o escopo do problema, explicitar a 
+pergunta de pesquisa que orienta a investigação e descrever a organização geral do documento.
+
+\section{Contexto}
+
+A formatação do trabalho como um todo considera três elementos principais: 
+(1) pré-textuais, (2) textuais e (3) pós-textuais. Cada um destes, pode se 
+subdividir em outros elementos formando a estrutura global do trabalho, 
+conforme abaixo (as entradas itálico são \textit{opcionais}; em itálico e
+negrito são \textbf{\textit{essenciais}}):
+
+\begin{description}
+	\item [Pré-textuais] \
+
+	\begin{itemize}
+		\item Capa
+		\item Folha de rosto
+		\item \textit{Dedicatória}
+		\item \textit{Agradecimentos}
+		\item \textit{Epígrafe}
+		\item Resumo
+		\item Abstract
+		\item Lista de figuras
+		\item Lista de tabelas
+		\item Lista de símbolos e
+		\item Sumário
+	\end{itemize}
+
+	\item [Textuais] \
+
+	\begin{itemize}
+		\item \textbf{\textit{Introdução}}
+		\item \textbf{\textit{Desenvolvimento}}
+		\item \textbf{\textit{Conclusões}}
+	\end{itemize}
+
+	\item [Pós-Textuais] \
+	
+	\begin{itemize}
+		\item Referências bibliográficas
+		\item \textit{Bibliografia}
+		\item Anexos
+		\item Contracapa
+	\end{itemize}
+\end{description}
+
+Os aspectos específicos da formatação de cada uma dessas três partes 
+principais do relatório são tratados nos capítulos e seções seguintes.
+
+No modelo \LaTeX, os arquivos correspondentes a estas estruturas que devem
+ser editados manualmente estão na pasta \textbf{editáveis}. Os arquivos
+da pasta \textbf{fixos} tratam os elementos que não necessitam de 
+edição direta, e devem ser deixados como estão na grande maioria dos casos.
+
+\section{Problema}
+
+A seguir são apresentadas as orientações básicas sobre a formatação do
+documento. O modelo \LaTeX\ \textbf{já configura todas estas opções corretamente},
+de modo que para os usuários deste modelo o texto de toda esta Seção é 
+\textbf{meramente informativo}.
+
+\section{Questão de Pesquisa}
+
+\label{qp_principal}
+
+A pergunta de pesquisa foi construída com base na metodologia \textit{Goal Question Metric} (GQM). 
+Essa metodologia organiza, de forma hierárquica e \textit{top-down}, os objetivos a serem atingidos, as questões que orientam o alcance desses objetivos e 
+as métricas que permitem respondê-las de modo quantitativo, 
+conforme ilustrado na Figura~\ref{}. Essa estrutura foi ajustada ao escopo deste estudo conforme a (Tabela~\ref{tab:gqm-adaptado}), resultando na seguinte pergunta:
+
+\begin{table}[h]
+    \centering
+	\caption{GQM Adaptado}
+    \begin{tabular}{|p{5cm}|p{9cm}|}
+        \hline
+        \textbf{Característica} & \textbf{Valor} \\
+        \hline
+        \textbf{Analisar} & a característica de qualidade de produto de software referente à manutenibilidade e, em especial, a sub-característica de analisabilidade/modularidade, considerando 
+perspectivas internas \\ 
+        \hline
+        \textbf{Com o propósito de} & Caracterizar \\
+        \hline
+        \textbf{Com respeito ao} & avaliação da manutenibilidade de softwares sob o aspecto da analisabilidade \\
+        \hline
+        \textbf{Do ponto de vista de} & Pesquisadores da área de Engenharia de Software. \\
+        \hline
+        \textbf{No contexto do} & projetos de software livre voltados para aplicações web\\
+        \hline
+    \end{tabular} \\[0.5em]
+   	Fonte: Adaptado de \citeonline{Basili1994}
+	\label{tab:gqm-adaptado}
+\end{table}
+
+Considerando essa perspectiva definimos a sguinte questão principal de pesquisa deste estudo
+
+\begin{center} 
+\textbf{\textit{Como sistemas baseadas em (IA) tem auxiliado a garantia de qualidade de software, especialmente na detecção de anomalias em código-fonte pontecialmente problemático? }}
+\end{center}
+
+
+
+\section{Objetivos}
+
+Nas versões do relatório para revisão da Banca Examinadora em TCC1 e TCC2, 
+o aluno deve apresentar na Secretaria da FGA, uma cópia para cada membro da 
+Banca Examinadora.
+
+Após a aprovação em TCC2, o aluno deverá obrigatoriamente apresentar a 
+versão final de seu trabalho à Secretaria da FGA na seguinte forma:
+
+\begin{itemize}
+	\item 01 cópia encadernada para arquivo na FGA;
+	\item 01 cópia não encadernada (folhas avulsas) para arquivo na FGA;
+	\item 01 cópia em CD de todos os arquivos empregados no trabalho.
+\end{itemize}
+
+A cópia em CD deve conter, além do texto, todos os arquivos dos quais se 
+originaram os gráficos (excel, etc.) e figuras (jpg, bmp, gif, etc.) 
+contidos no trabalho. Caso o trabalho tenha gerado códigos fontes e 
+arquivos para aplicações especificas (programas em Fortran, C, Matlab, 
+etc.) estes deverão também ser gravados em CD. 
+
+O autor deverá certificar a não ocorrência de “vírus” no CD entregue a 
+secretaria. 
+
+\section{Estrutura do Trabalho}
+
+Nas versões do relatório para revisão da Banca Examinadora em TCC1 e TCC2, 
+o aluno deve apresentar na Secretaria da FGA, uma cópia para cada membro da 
+Banca Examinadora.
+
+Após a aprovação em TCC2, o aluno deverá obrigatoriamente apresentar a 
+versão final de seu trabalho à Secretaria da FGA na seguinte forma:
+
+\begin{itemize}
+	\item 01 cópia encadernada para arquivo na FGA;
+	\item 01 cópia não encadernada (folhas avulsas) para arquivo na FGA;
+	\item 01 cópia em CD de todos os arquivos empregados no trabalho.
+\end{itemize}
+
+A cópia em CD deve conter, além do texto, todos os arquivos dos quais se 
+originaram os gráficos (excel, etc.) e figuras (jpg, bmp, gif, etc.) 
+contidos no trabalho. Caso o trabalho tenha gerado códigos fontes e 
+arquivos para aplicações especificas (programas em Fortran, C, Matlab, 
+etc.) estes deverão também ser gravados em CD. 
+
+O autor deverá certificar a não ocorrência de “vírus” no CD entregue a 
+secretaria. 
+
+\section{Cronograma e Fluxo de Atividades}
+
+\subsection{Atividades primeira etapa}
+
+Esta subseção detalha as atividades realizadas na primeira etapa do tra-
+balho, os apresentando em forma de fluxo na Figura e às dispondo cronologi-
+camente na Figura \ref{fig:cronograma}.
+
+\begin{figure}[h]
+    \centering
+	\caption{Cronograma da Primeira Etapa}
+    \includegraphics[width=1.1\textwidth]{figuras/CronogramaAtividades.png}
+
+    \label{fig:cronograma}
+	Fonte: Autor
+\end{figure}
