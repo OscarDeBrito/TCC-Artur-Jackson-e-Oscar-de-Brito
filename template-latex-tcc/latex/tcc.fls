@@ -425,11 +425,9 @@ INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr7.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmbx12.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmbx8.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmbx6.tfm
-INPUT ./editaveis/elementosdopostexto.tex
-INPUT ./editaveis/elementosdopostexto.tex
-INPUT ./editaveis/elementosdopostexto.tex
-INPUT ./editaveis/elementosdopostexto.tex
-INPUT editaveis/elementosdopostexto.tex
+INPUT ./editaveis/planejamento.tex
+INPUT ./editaveis/planejamento.tex
+INPUT editaveis/planejamento.tex
 INPUT ./editaveis/conclusao.tex
 INPUT ./editaveis/conclusao.tex
 INPUT editaveis/conclusao.tex
