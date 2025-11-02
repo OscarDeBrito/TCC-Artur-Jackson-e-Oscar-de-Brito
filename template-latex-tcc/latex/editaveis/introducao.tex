@@ -7,54 +7,38 @@ pergunta de pesquisa que orienta a investigação e descrever a organização ge
 
 \section{Contexto}
 
-A formatação do trabalho como um todo considera três elementos principais: 
-(1) pré-textuais, (2) textuais e (3) pós-textuais. Cada um destes, pode se 
-subdividir em outros elementos formando a estrutura global do trabalho, 
-conforme abaixo (as entradas itálico são \textit{opcionais}; em itálico e
-negrito são \textbf{\textit{essenciais}}):
+Avaliar a qualidade de produtos de \textit{software} é essencial para orientar decisões de projeto, reduzir 
+subjetividades e padronizar a medição de atributos ao longo do ciclo de vida. Os primeiros referenciais surgiram 
+com o modelo de \citeonline{McCall77}, que organizou fatores e subfatores de qualidade e propôs um método de 
+avaliação quantitativa. Em seguida, \citeonline{boehm1978characteristics} ampliaram e sistematizaram essas ideias, 
+estabelecendo uma base conceitual que influenciou normas posteriores. A \citeonline{ISOIEC9126} consolidou um 
+vocabulário comum e, mais tarde, a \citeonline{ISOIEC25010} atualizou a taxonomia e introduziu a distinção entre 
+qualidade interna, externa e em uso, destacando \textit{manutenibilidade} como característica de primeira ordem 
+composta, entre outras, por \textit{analisabilidade}, \textit{modificabilidade} e \textit{testabilidade}.
 
-\begin{description}
-	\item [Pré-textuais] \
+Operacionalizar essas características exige métricas e instrumentos capazes de aproximar os modelos conceituais 
+da realidade do código-fonte. Nesse ponto emergem os \textit{code smells}, originalmente descritos por \citeonline{Fowler1999}, 
+como sinais recorrentes de problemas de projeto e implementação (por exemplo, \textit{Long Method}, \textit{God Class}, 
+\textit{Feature Envy}, \textit{Data Class}). Embora não sejam defeitos funcionais, tais indícios estão associados a maior 
+esforço de manutenção, risco de introdução de erros e degradação de atributos da qualidade interna \cite{Lanza2006}. 
+Assim, mapear e tratar \textit{smells} torna-se um caminho prático para apoiar a \textit{analisabilidade} prevista nos modelos de qualidade.
 
-	\begin{itemize}
-		\item Capa
-		\item Folha de rosto
-		\item \textit{Dedicatória}
-		\item \textit{Agradecimentos}
-		\item \textit{Epígrafe}
-		\item Resumo
-		\item Abstract
-		\item Lista de figuras
-		\item Lista de tabelas
-		\item Lista de símbolos e
-		\item Sumário
-	\end{itemize}
+Ferramentas de análise estática, como SonarQube, PMD, Checkstyle e SpotBugs, difundiram-se como meios de detectar \textit{smells} e 
+antipadrões por meio de regras, métricas e limiares \cite{sonarq,pmdbox,checkstyle,spotbugs}. Elas oferecem velocidade, 
+fácil integração a \textit{pipelines} de CI/CD e ampla cobertura de regras. Contudo, sua natureza heurística pode gerar 
+taxas relevantes de falsos positivos, sensibilidade limitada ao contexto do sistema e dificuldade para capturar indícios 
+mais sutis ou dependentes de semântica e histórico de evolução \cite{Sjoberg2013,Palomba2018}. Esses limites motivam a 
+busca por abordagens mais adaptativas.
 
-	\item [Textuais] \
+Nos últimos anos, com a popularização da Inteligência Artificial (IA), houve um aumento na aplicação de técnicas de IA na detecção e análise 
+de \textit{code smells}. Abordagens 
+incluem aprendizado supervisionado com métricas de código e AST, modelos baseados em 
+representações estruturais (grafos, \textit{code embeddings}), \textit{deep learning} e, mais recentemente, 
+\textit{Large Language Models} (LLMs).
 
-	\begin{itemize}
-		\item \textbf{\textit{Introdução}}
-		\item \textbf{\textit{Desenvolvimento}}
-		\item \textbf{\textit{Conclusões}}
-	\end{itemize}
-
-	\item [Pós-Textuais] \
-	
-	\begin{itemize}
-		\item Referências bibliográficas
-		\item \textit{Bibliografia}
-		\item Anexos
-		\item Contracapa
-	\end{itemize}
-\end{description}
-
-Os aspectos específicos da formatação de cada uma dessas três partes 
-principais do relatório são tratados nos capítulos e seções seguintes.
-
-No modelo \LaTeX, os arquivos correspondentes a estas estruturas que devem
-ser editados manualmente estão na pasta \textbf{editáveis}. Os arquivos
-da pasta \textbf{fixos} tratam os elementos que não necessitam de 
-edição direta, e devem ser deixados como estão na grande maioria dos casos.
+Ao articular modelos de qualidade clássicos (McCall, Boehm, ISO) com a prática contemporânea de detecção de \textit{code smells}, 
+este estudo busca fornecer uma síntese crítica e baseada em evidências sobre a real contribuição das técnicas de IA em especial 
+LLMs frente às ferramentas estáticas tradicionais, indicando oportunidades concretas de pesquisa e de adoção em ambientes de desenvolvimento.
 
 \section{Problema}
 
