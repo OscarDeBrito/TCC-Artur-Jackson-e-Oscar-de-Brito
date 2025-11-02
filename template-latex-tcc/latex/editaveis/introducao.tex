@@ -54,7 +54,7 @@ de modo que para os usuários deste modelo o texto de toda esta Seção é
 A pergunta de pesquisa foi construída com base na metodologia \textit{Goal Question Metric} (GQM). 
 Essa metodologia organiza, de forma hierárquica e \textit{top-down}, os objetivos a serem atingidos, as questões que orientam o alcance desses objetivos e 
 as métricas que permitem respondê-las de modo quantitativo, 
-conforme ilustrado na Figura~\ref{}. Essa estrutura foi ajustada ao escopo deste estudo conforme a (Tabela~\ref{tab:gqm-adaptado}), resultando na seguinte pergunta:
+conforme ilustrado na Figura~\ref{fig:gqm}. Essa estrutura foi ajustada ao escopo deste estudo conforme a (Tabela~\ref{tab:gqm-adaptado}), resultando na seguinte pergunta:
 
 \begin{table}[h]
     \centering
@@ -79,13 +79,20 @@ perspectivas internas \\
 	\label{tab:gqm-adaptado}
 \end{table}
 
-Considerando essa perspectiva definimos a sguinte questão principal de pesquisa deste estudo
+Considerando essa perspectiva definimos a seguinte questão principal de pesquisa deste estudo
 
 \begin{center} 
 \textbf{\textit{Como sistemas baseadas em (IA) tem auxiliado a garantia de qualidade de software, especialmente na detecção de anomalias em código-fonte pontecialmente problemático? }}
 \end{center}
 
+\begin{figure}[h]
+    \centering
+	\caption{Abordagem GQM}
+    \includegraphics[width=0.9\textwidth]{figuras/gqm.png}
 
+    \label{fig:gqm}
+	Fonte: Adaptado de \citeonline{Basili1994}
+\end{figure}
 
 \section{Objetivos}
 
@@ -139,9 +146,17 @@ secretaria.
 
 \subsection{Atividades primeira etapa}
 
-Esta subseção detalha as atividades realizadas na primeira etapa do tra-
-balho, os apresentando em forma de fluxo na Figura e às dispondo cronologi-
-camente na Figura \ref{fig:cronograma}.
+Esta subseção detalha as atividades realizadas na primeira etapa do trabalho, os apresentando em forma de fluxo na Figura \ref{fig:fluxograma} e às dispondo cronologicamente na 
+Figura \ref{fig:cronograma}.
+
+\begin{figure}[h]
+    \centering
+	\caption{Fluxo de Atividades da Primeira Etapa}
+    \includegraphics[width=1.0\textwidth]{figuras/fluxo-atividades.png}
+
+    \label{fig:fluxograma}
+	Fonte: Autor
+\end{figure}
 
 \begin{figure}[h]
     \centering
@@ -151,3 +166,18 @@ camente na Figura \ref{fig:cronograma}.
     \label{fig:cronograma}
 	Fonte: Autor
 \end{figure}
+
+\clearpage
+
+
+\begin{itemize}
+    \item \textbf{Contextualização sobre Engenharia de Software Experimental:} Estudo com o objetivo de contextualizar a respeito dos métodos de pesquisa empírica em Engenharia de Software, como revisão sistemática da literatura, survey, experimentos e estudo de caso. \cite{Wohlin:2012:ESE:2349018} \cite{yin2015estudo} \cite{Runeson2009}
+    \item \textbf{Definição do GQM:} Uso da abordagem Goal Question Metric (GQM) \cite{Basili1994} para a construção da questão principal de pesquisa, suas subquestões e as medidas a serem analisadas.
+    \item \textbf{Elaboração do Protocolo de Revisão da Literatura:} Estruturação e adaptação do protocolo de revisão sistemática da literatura proposto por \citeonline{kitchenham2007guidelines}. Essa sistematização organizará nosso processo de revivão da literatura. Este processo inclui a definição da string de busca baseada no protocolo PICO, adapatado da área da medicina \cite{pai_clinical_2004}. Por meio desse protocolo definimos sinônimos de termos, critérios de inclusão e exclusão de estudos, além do método de análise  e  extração de dados.
+    \item \textbf{Seleção dos Artigos:} Execução da filtragem dos estudos por meio da leitura de títulos, resumos e palavras-chave, com a aplicação dos critérios de inclusão e exclusão definidos no protocolo de revisão.
+    \item \textbf{Leitura do Material Selecionado:} Leitura dos estudos selecionados para aprofundar o conhecimento sobre o estado da arte em métodos de avaliação de manutenibilidade e abordagens de detcção de code smells.
+    \item \textbf{Definição da Proposta de Solução:} Definição dos code smells, as ferramentas e as atividades do TCC2.
+    \item \textbf{Redação da Monografia:} Escrita do texto da monografia, conforme a estrutura presente na Seção 1.5.
+    \item \textbf{Revisão:} Realização das correções e dos ajustes solicitados pelo orientador.
+    \item \textbf{Apresentação:} Preparação do material e apresentação do trabalho final para a banca examinadora.
+\end{itemize}
