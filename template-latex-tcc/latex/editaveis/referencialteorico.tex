@@ -5,38 +5,84 @@ conceitos, teorias e estudos relacionados ao tema abordado.
 
 \section{Engenharia de Software Experimental}
 
-A regra mais rígida com respeito a Introdução é que a mesma, que é 
-necessariamente parte integrante do texto, não deverá fazer agradecimentos 
-a pessoas ou instituições nem comentários pessoais do autor atinentes à 
-escolha ou à relevância do tema.
+Diferente de áreas científicas mais precisas, como a física, onde fenômenos podem ser modelados 
+com rigor matemático, a engenharia de software é uma disciplina profundamente influenciada pela 
+complexidade do comportamento humano e pelas interações dinâmicas que ocorrem durante o processo 
+de desenvolvimento, com decisões e práticas que variam conforme o contexto, a equipe envolvida e 
+as ferramentas utilizadas. Por isso, a experimentação se torna uma abordagem essencial para 
+garantir que escolhas metodológicas, técnicas e ferramentas sejam fundamentadas em dados empíricos. 
+A Engenharia de Software Experimental proporciona os meios para testar e validar abordagens, 
+possibilitando uma avaliação científica das práticas adotadas no desenvolvimento de sistemas \cite{Wohlin:2012:ESE:2349018}.
 
-A Introdução obedece a critérios do Método Cientifico e a exigências 
-didáticas. Na Introdução o leitor deve ser colocado dentro do espírito do 
-trabalho.
+Entre os métodos de pesquisa no contexto da Engenharia de Software apresentados por \citeonline{Basili1993}, 
+destaca-se o método empírico. Esse método baseia-se na observação direta e na coleta de dados reais, buscando validar teorias 
+e modelos por meio da análise de dados obtidos de experimentos práticos. A pesquisa empírica é amplamente utilizada na ciencias sociais onde se tem foco no comportamento humano,
+em que não podemos estabelecer leis da natureza. Portanto tornando-se essencial em um campo como a engenharia de software, que envolve a interação de múltiplos fatores humanos, 
+tecnológicos e organizacionais. \cite{Wohlin:2012:ESE:2349018}.
 
-Cabe mencionar que a Introdução de um trabalho pode, pelo menos em parte, 
-ser escrita com grande vantagem uma vez concluído o trabalho (ou o 
-Desenvolvimento e as Conclusões terem sido redigidos). Não só a pesquisa 
-costuma modificar-se durante a execução, mas também, ao fim do trabalho, o 
-autor tem melhor perspectiva ou visão de conjunto.
+O Experimento é uma das principais estratégias de pesquisa empírica. Ele envolve a manipulação controlada de fatores ou variáveis.
+Diferentes tratamentos são aplicados a ou por diferentes sujeitos, medindo os efeitos nas variáveis de resultado. É especialmente
+utilizado em estudos onde se deseja comparar o desempenho de diferentes técnicas, ferramentas ou metodologias de desenvolvimento de software \cite{Wohlin:2012:ESE:2349018}.
 
-Por seu caráter didático, a Introdução deve, ao seu primeiro parágrafo, 
-sugerir o mais claramente possível o que pretende o autor. Em seguida deve 
-procurar situar o problema a ser examinado em relação ao desenvolvimento 
-científico e técnico do momento. Assim sendo, sempre que pertinente, os 
-seguintes pontos devem ser abordados: 
 
+\subsection{Experimento}
+
+O experimento é uma abordagem para investigar hipóteses por meio da manipulação controlada de variáveis.
+Ele é projetado para estabelecer relações de causa e efeito, permitindo que os pesquisadores isolem o impacto de uma ou mais variáveis 
+independentes sobre uma ou mais variáveis dependentes. Segundo \citeonline{Wohlin:2012:ESE:2349018}, um experimento envolve as seguintes etapas principais:
+
+\subsubsection{Definição do Escopo}
+Nesta primeira etapa, a fundação do experimento é determinada, e o experimento é delimitado em termos de problema, objetivo e metas.
+O objetivo é garantir que a intenção do experimento possa ser cumprida.
+A meta do experimento é formalizada usando uma estrutura que define: Objeto de estudo, Propósito, Foco de qualidade, Perspectiva e Contexto.
+
+\subsubsection{Planejamento (Planning)}
+Esta fase prepara o "como" o experimento será conduzido.
+O planejamento estabelece a fundação para o experimento.
+As principais sub-etapas incluem:
 \begin{itemize}
 
-	\item Contextualização ou apresentação do tema em linhas gerais de 
-	forma clara e objetiva;
-	\item Apresentação da justificativa e/ou relevância do tema escolhido;
-	\item Apresentação da questão ou problema de pesquisa;
-	\item Declaração dos objetivos, gerais e específicos do trabalho;
-	\item Apresentação resumida da metodologia, e
-	\item Indicação de como o trabalho estará organizado.
+	\item Seleção do Contexto: Determinação do ambiente onde o experimento será executado . 
+	\item Formulação de Hipóteses: Onde a hipótese é formalizada, incluindo a hipótese nula. 
+	\item Seleção de Variáveis: Definição das variáveis dependentes (o que será medido) e independentes (o que será manipulado).
+	\item Seleção dos Sujeitos: Escolha da amostra da população de interesse.
+	\item Escolha do Tipo de Design: Definição do design experimental apropriado.
+	\item Instrumentação: Preparação dos instrumentos necessários, como objetos de experimento, diretrizes e instrumentos de medição.
+	\item Avaliação da Validade: Análise dos riscos (ameaças) à validade dos resultados em quatro categorias principais: conclusão, interna, construto e externa.
 
 \end{itemize}
+
+\subsubsection{Operação (Operation)}
+Fase de execução do experimento, onde os tratamentos são aplicados aos sujeitos e os dados são coletados.
+É crucial que o experimento seja conduzido de acordo com o plano para que os resultados sejam válidos.
+As principais sub-etapas incluem:
+
+\begin{itemize}
+    \item Preparação: Seleção e informação dos participantes (garantindo o consentimento e a ética) e preparação de materiais, como formulários e ferramentas.
+    \item Execução: Os sujeitos realizam suas tarefas conforme os diferentes tratamentos, e os dados são coletados (manualmente, com ferramentas ou automaticamente).
+    \item Validação de Dados: Verificação dos dados coletados para garantir que sejam razoáveis e corretos, e identificação de outliers ou 
+	de dados inválidos que precisam ser removidos.
+
+\end{itemize}
+
+\subsubsection{Análise e Interpretação (Analysis and Interpretation)}
+Nesta fase, os dados coletados são processados para que as conclusões possam ser tiradas.
+As etapas de interpretação quantitativa são:
+\begin{itemize}
+    \item Estatísticas Descritivas: Caracterização dos dados e visualização gráfica.
+    \item Redução do Conjunto de Dados: Exclusão de pontos de dados anormais ou falsos (como outliers), para obter um conjunto de dados válidos para a análise.
+    \item Teste de Hipóteses: Avaliação estatística das hipóteses do experimento, utilizando testes paramétricos ou não-paramétricos para ver se a 
+	hipótese nula pode ser rejeitada com um nível de significância definido.
+    \item Desenho de Conclusões: Determinação se a hipótese pode ser 
+	rejeitada, formando a base para decisões e conclusões sobre como usar os resultados.
+\end{itemize}
+
+\subsubsection{Apresentação e Empacotamento (Presentation and Package)}
+Esta atividade final envolve a documentação e comunicação das descobertas.
+O foco principal é a documentação dos resultados, seja em um artigo de pesquisa, um relatório para tomadores de decisão, ou 
+como parte da base de experiência de uma empresa. É essencial para o aprendizado e para facilitar a replicação do experimento 
+por outros pesquisadores.
+
 
 \section{Modelos de Qualidade}
 
