@@ -42,10 +42,41 @@ LLMs frente às ferramentas estáticas tradicionais, indicando oportunidades con
 
 \section{Problema}
 
-A seguir são apresentadas as orientações básicas sobre a formatação do
-documento. O modelo \LaTeX\ \textbf{já configura todas estas opções corretamente},
-de modo que para os usuários deste modelo o texto de toda esta Seção é 
-\textbf{meramente informativo}.
+Medir e detectar code smells é uma tarefa crítica no desenvolvimento de software para 
+garantir a boa qualidade do código \cite{Haroon2025}. Code smells são estruturas de código que indicam 
+violações dos princípios fundamentais de design \cite{Fowler2018} e afetam negativamente a testabilidade, a 
+manutenibilidade e a evolvabilidade dos produtos de software \cite{SharmaSpinellis2018}. Embora já exista
+muito conhecimento acumulado na área, ainda carecemos de métodos que superem a subjetividade inerente a 
+certos code smells, como o God Class \cite{Haroon2025}
+
+Frequentemente, os métodos tradicionais de inspeção manual são baseados em critérios subjetivos, como a 
+interpretação de desenvolvedores, e não possuem escalabilidade, o que afeta a confiabilidade dos resultados. 
+A natureza subjetiva dos code smells e a complexidade das relações no código-fonte tornam sua detecção um 
+desafio contínuo \cite{AlKhatib2023}, onde os profissionais frequentemente discordam em suas avaliações.
+\cite{ArcelliFontana2016}.
+
+No contexto do desenvolvimento e entrega contínua, esse desafio se torna ainda mais difícil. Métodos manuais 
+de análise são, por muitas vezes, trabalhosos o que impulsiona a necessidade de técnicas automatizadas para 
+detecção de code smells. A detecção deve ser oportuna, pois o custo de correção desses problemas tende a 
+aumentar quanto mais tarde eles forem detectados \cite{Moha2009}. A medição da qualidade do código se torna 
+ainda mais desafiadora ao lidar com ciclos contínuos de lançamentos.
+
+O code smell é uma propriedade multifacetada, contribuindo para o acúmulo de 'dívida técnica' 
+\cite{Hasantha2021}, o que aumenta a dificuldade na manutenção do código e reduz a qualidade ao longo do tempo. 
+A presença de code smell sinaliza um design deficiente e demonstra ser mais propensa a alterações e defeitos.
+Em essência, a falta de ferramentas inteligentes que forneçam feedback contínuo e 
+just-in-time para detecção de code smells pode comprometer ou mesmo inviabilizar a estratégia de negócio ao 
+degradar a qualidade e a manutenibilidade do software \cite{Haroon2025}.
+
+Nesse cenário, técnicas de Machine Learning (ML) têm se mostrado promissoras para detecção de code smells, 
+com o objetivo de melhorar a precisão e reduzir o viés associado a outras técnicas. Contudo, o principal 
+desafio na aplicação de algoritmos de ML reside na criação de uma representação vetorial adequada do trecho 
+de código analisado, jutamente com um bom treinamneto aplicado a ML. \cite{Haroon2025}.
+
+Visto que a eficácia desses modelos depende diretamente da forma como o código é encodado e da mitigação de 
+ameaças à validade, existe a necessidade contínua de investigar e refinar as técnicas de treinamento e 
+representação para garantir melhor uso dessas tecnicas.
+
 
 \section{Questão de Pesquisa}
 
