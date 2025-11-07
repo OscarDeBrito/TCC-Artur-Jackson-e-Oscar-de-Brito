@@ -25,20 +25,18 @@ Assim, mapear e tratar \textit{smells} torna-se um caminho prático para apoiar 
 
 Ferramentas de análise estática, como SonarQube, PMD, Checkstyle e SpotBugs, difundiram-se como meios de detectar \textit{smells} e 
 antipadrões por meio de regras, métricas e limiares \cite{sonarq,pmdbox,checkstyle,spotbugs}. Elas oferecem velocidade, 
-fácil integração a \textit{pipelines} de CI/CD e ampla cobertura de regras. Contudo, sua natureza heurística pode gerar 
-taxas relevantes de falsos positivos, sensibilidade limitada ao contexto do sistema e dificuldade para capturar indícios 
-mais sutis ou dependentes de semântica e histórico de evolução \cite{Sjoberg2013,Palomba2018}. Esses limites motivam a 
+fácil integração a \textit{pipelines} de CI/CD e ampla cobertura de regras. Contudo, métodos baseados em regras dependem fortemente dos limiares das métricas,
+tornando essas ferramentas propensas a gerar taxas relevantes de falsos positivos \cite{SharmaSpinellis2018}. Esses limites motivam a 
 busca por abordagens mais adaptativas.
 
 Nos últimos anos, com a popularização da Inteligência Artificial (IA), houve um aumento na aplicação de técnicas de IA na detecção e análise 
-de \textit{code smells}. Abordagens 
-incluem aprendizado supervisionado com métricas de código e AST, modelos baseados em 
+de \textit{code smells}. Abordagens incluem aprendizado supervisionado com métricas de código, modelos baseados em 
 representações estruturais (grafos, \textit{code embeddings}), \textit{deep learning} e, mais recentemente, 
 \textit{Large Language Models} (LLMs).
 
-Ao articular modelos de qualidade clássicos (McCall, Boehm, ISO) com a prática contemporânea de detecção de \textit{code smells}, 
-este estudo busca fornecer uma síntese crítica e baseada em evidências sobre a real contribuição das técnicas de IA em especial 
-LLMs frente às ferramentas estáticas tradicionais, indicando oportunidades concretas de pesquisa e de adoção em ambientes de desenvolvimento.
+Ao articular modelos de qualidade clássicos com a prática contemporânea de detecção de \textit{code smells}, 
+este estudo busca fornecer uma síntese crítica e baseada em evidências sobre a contribuição das técnicas de IA frente às ferramentas estáticas tradicionais, 
+indicando oportunidades concretas de pesquisa e de adoção em ambientes de desenvolvimento.
 
 \section{Problema}
 
@@ -197,11 +195,11 @@ Figura \ref{fig:cronograma}.
 
 
 \begin{itemize}
-    \item \textbf{Contextualização sobre Engenharia de Software Experimental:} Estudo com o objetivo de contextualizar a respeito dos métodos de pesquisa empírica em Engenharia de Software, como revisão sistemática da literatura, survey, experimentos e estudo de caso. \cite{Wohlin:2012:ESE:2349018} \cite{yin2015estudo} \cite{Runeson2009}
+    \item \textbf{Contextualização sobre Engenharia de Software Experimental:} O objetivo inicial foi fundamentar os princípios da Engenharia de Software Experimental, explorando metodologias empíricas como revisões sistemáticas da literatura, surveys, experimentos e estudos de caso. \cite{Wohlin:2012:ESE:2349018} \cite{yin2015estudo} \cite{Runeson2009}
     \item \textbf{Definição do GQM:} Uso da abordagem Goal Question Metric (GQM) \cite{Basili1994} para a construção da questão principal de pesquisa, suas subquestões e as medidas a serem analisadas.
-    \item \textbf{Elaboração do Protocolo de Revisão da Literatura:} Estruturação e adaptação do protocolo de revisão sistemática da literatura proposto por \citeonline{kitchenham2007guidelines}. Essa sistematização organizará nosso processo de revivão da literatura. Este processo inclui a definição da string de busca baseada no protocolo PICO, adapatado da área da medicina \cite{pai_clinical_2004}. Por meio desse protocolo definimos sinônimos de termos, critérios de inclusão e exclusão de estudos, além do método de análise  e  extração de dados.
-    \item \textbf{Seleção dos Artigos:} Execução da filtragem dos estudos por meio da leitura de títulos, resumos e palavras-chave, com a aplicação dos critérios de inclusão e exclusão definidos no protocolo de revisão.
-    \item \textbf{Leitura do Material Selecionado:} Leitura dos estudos selecionados para aprofundar o conhecimento sobre o estado da arte em métodos de avaliação de manutenibilidade e abordagens de detcção de code smells.
+    \item \textbf{Elaboração do Protocolo de Revisão da Literatura:} Estruturação e adaptação do protocolo de revisão sistemática da literatura proposto por \citeonline{kitchenham2007guidelines}. Este processo inclui a definição da string de busca baseada no protocolo PICO, adapatado da área da medicina \cite{pai_clinical_2004}. Por meio desse protocolo definimos sinônimos de termos, critérios de inclusão e exclusão de estudos, além do método de análise  e  extração de dados.
+    \item \textbf{Seleção dos Artigos:} A etapa envolveu a filtragem inicial dos estudos por meio da análise de títulos, resumos e palavras-chave, aplicando os critérios de inclusão e exclusão definidos no protocolo de revisão.
+    \item \textbf{Leitura do Material Selecionado:} Leitura dos estudos selecionados para aprofundar o conhecimento sobre métodos de avaliação de manutenibilidade e abordagens de detecção de code smells.
     \item \textbf{Definição da Proposta de Solução:} Definição dos code smells, as ferramentas e as atividades do TCC2.
     \item \textbf{Redação da Monografia:} Escrita do texto da monografia, conforme a estrutura presente na Seção 1.5.
     \item \textbf{Revisão:} Realização das correções e dos ajustes solicitados pelo orientador.
