@@ -96,23 +96,23 @@ A partir de meados dos anos 2000, a ISO e a IEC reorganizaram e ampliaram esse e
 dividindo o tema em cinco domínios:
 
 \begin{description}
-  \item[2501x — Modelo de qualidade:] define características/subcaracterísticas de qualidade de produto.
-  \item[2502x — Medição:] estabelece medidas, indicadores e procedimentos para quantificar as características do modelo.
-  \item[2503x — Requisitos:] orienta como derivar e especificar requisitos de qualidade (perfis, metas e critérios de aceitação).
-  \item[2504x — Avaliação:] descreve processo, evidências e relatórios para avaliar e comparar a qualidade.
-  \item[2500x — Gestão/Guia:] visão geral, termos e diretrizes para adoção e governança do SQuaRE na organização.
+  \item[2501x - Modelo de qualidade:] define características/subcaracterísticas de qualidade de produto.
+  \item[2502x - Medição:] estabelece medidas, indicadores e procedimentos para quantificar as características do modelo.
+  \item[2503x - Requisitos:] orienta como derivar e especificar requisitos de qualidade (perfis, metas e critérios de aceitação).
+  \item[2504x - Avaliação:] descreve processo, evidências e relatórios para avaliar e comparar a qualidade.
+  \item[2500x - Gestão/Guia:] visão geral, termos e diretrizes para adoção e governança do SQuaRE na organização.
 \end{description}
 
 Esse reagrupamento respondeu a duas demandas históricas: 
-(i) separar claramente \textit{o que} medir, \textit{como} medir e \textit{como} avaliar — alinhado às boas práticas de engenharia de medição em software e 
+(i) separar claramente \textit{o que} medir, \textit{como} medir e \textit{como} avaliar alinhado às boas práticas de engenharia de medição em software e 
 (ii) aproximar o modelo de qualidade das atividades de engenharia de requisitos e da avaliação contínua em ciclos iterativos, em linha com 
 abordagens orientadas a metas como GQM 
 
 No âmbito do SQuaRE, o sucessor direto do 9126 é a \cite{ISOIEC25010}, que atualiza o modelo de qualidade de produto e o de 
 qualidade em uso. Em relação ao 9126, há três movimentos centrais: (a) a antiga “eficiência” é refinada para \emph{eficiência de desempenho} 
-(\textit{performance efficiency}); (b) são adicionadas duas novas características — \emph{compatibilidade} (com foco em interoperabilidade e 
+(\textit{performance efficiency}); (b) são adicionadas duas novas características \emph{compatibilidade} (com foco em interoperabilidade e 
 coexistência) e \emph{segurança} (com subcaracterísticas como confidencialidade, integridade, autenticidade, responsabilização e não repúdio); 
-e (c) consolidam-se as dimensões de qualidade em uso — eficácia, eficiência, satisfação, liberdade de risco e cobertura de contexto — 
+e (c) consolidam-se as dimensões de qualidade em uso eficácia, eficiência, satisfação, liberdade de risco e cobertura de contexto 
 aproximando a avaliação da experiência real da pessoa usuária e do ambiente de operação \cite{Bevan2009}. 
 
 Em síntese, o avanço histórico percorre um modelo unificado e descritivo (ISO/IEC 9126) até um ecossistema modular (SQuaRE) que integra 
@@ -122,14 +122,14 @@ ao mesmo tempo em que se oferece maior aderência às práticas contemporâneas 
 
 
 \section{Metodologias Ágeis}
-As metodologias ágeis emergem como resposta prática aos limites dos modelos tradicionais de desenvolvimento—ciclos longos, 
-documentação prescritiva e baixa adaptabilidade—e ganham contorno conceitual com o \textit{Manifesto for Agile Software Development}, 
+As metodologias ágeis emergem como resposta prática aos limites dos modelos tradicionais de desenvolvimentociclos longos, 
+documentação prescritiva e baixa adaptabilidadee ganham contorno conceitual com o \textit{Manifesto for Agile Software Development}, 
 que privilegia indivíduos e interações, software em funcionamento, colaboração com o cliente e resposta a mudanças \cite{Beck2001Manifesto}.
 
 A partir desses valores, consolidou-se uma família de métodos e práticas que, mais do que um processo único, operam como um ecossistema de 
 princípios orientados à entrega contínua de valor e ao aprendizado incremental. O foco em ciclos curtos, feedback frequente e alinhamento
-contínuo com requisitos de negócio reforça atributos de qualidade do modelo \cite{ISOIEC25010}—especialmente \emph{manutenibilidade}, 
-\emph{confiabilidade} e \emph{usabilidade}—ao incentivar arquitetura evolutiva, testes automatizados e integração contínua para conter 
+contínuo com requisitos de negócio reforça atributos de qualidade do modelo \cite{ISOIEC25010}especialmente \emph{manutenibilidade}, 
+\emph{confiabilidade} e \emph{usabilidade}ao incentivar arquitetura evolutiva, testes automatizados e integração contínua para conter 
 dívida técnica e prevenir \textit{code smells}.
 
 No início dos anos 2000, dois vetores ajudaram a popularizar a abordagem: por um lado, o Scrum, com \textit{sprints}, papéis definidos 
@@ -146,7 +146,7 @@ Nesse caldo, a garantia de qualidade se desloca do “fim da linha”
 para o cotidiano da equipe: TDD e BDD funcionam como especificações executáveis que elevam \emph{testabilidade} e \emph{analisabilidade}; 
 \textit{pipelines} de CI/CD encurtam ciclos de feedback e detectam defeitos precocemente \cite{Fowler2006CI,HumbleFarley2010CD}; e a 
 refatoração contínua melhora o desenho sem alterar comportamento, atacando dívidas e sinais como \emph{God Class} e \emph{Long Method}. 
-Critérios explícitos—como Definições de Pronto e de Feito—tornam visíveis padrões mínimos de qualidade (cobertura de testes, revisão por
+Critérios explícitoscomo Definições de Pronto e de Feitotornam visíveis padrões mínimos de qualidade (cobertura de testes, revisão por
 pares, requisitos de segurança), ajustados ao contexto organizacional.
 
 Por fim, a experiência mostra que “adotar ágil” nominalmente, sem práticas técnicas e sem investimento deliberado em qualidade, 

@@ -1,43 +1,70 @@
 \chapter[Revisão Estruturada da Literatura]{Revisão Estruturada da Literatura}
 
+Neste capítulo descrevem-se, os procedimentos adotados 
+para identificar, selecionar, avaliar e sintetizar a literatura relevante ao tema deste trabalho. 
+A estratégia de busca concentrou-se na base Scopus, escolhida por sua ampla cobertura de 
+periódicos e conferências de referência nas áreas de Computação e Engenharia de Software, 
+bem como por seus recursos de filtragem e exportação de metadados que facilitam a rastreabilidade 
+do processo \cite{Scopus2025}. 
+
 \section{Protocolo}
 
-O estilo de redação deve atentar a boa prática da linguagem técnica. Para a 
-terminologia metrological usar o Vocabulário Internacional de Termos 
-Fundamentais e Gerais de Metrologia \cite{inmetro2003}.
-
-Grandezas dimensionais devem ser apresentadas em unidades consistentes com 
-o Sistema Internacional de Unidades  (SI). Outras unidades podem ser usadas 
-como unidades secundárias entre parenteses se necessário. Exceções são 
-relacionadas a unidades não-SI usadas como identificadores comerciais como 
-pro exemplo \lq\lq disquete de  3$\nicefrac{1}{2}$ polegadas\rq\rq. 
-
-Na apresentação de números ao longo do texto usar virgula para separar a 
-parte decimal de um número. Resultados experimentais devem ser apresentados 
-com sua respectiva incerteza de medição.
+O protocolo da revisão estruturada da literatura utilizado foi inspirado nas diretrizes propostas por 
+\citeonline{kitchenham2007guidelines}, com o objetivo de assegurar transparência e reprodutibilidade do processo.
 
 \subsection{String de busca}
 
-Recomendações de formatação de seções (texto informativo: o \LaTeX\
-\textbf{já formata as seções automaticamente, se utilizado o comando
-\texttt{\textbackslash section\{Nome da Seção\}}}):
+Para estruturar a string de busca, adotamos o protocolo PICO (Patient, Intervention, Comparison, Outcome), 
+originalmente proposto para área da saúde. O protocolo precisou ser adaptado para o contexto da Engenharia de Software \cite{pai_clinical_2004}.
+Como apresentado na Figura \ref{fig:pico}, o protocolo pode ser representado em forma de diagrama de Venn para facilitar a 
+visualização das relações entre os elementos.
 
-\begin{description}
+\begin{figure}[H]
+    \centering
+	\caption{Representação protocolo PICO}
+    \includegraphics[width=1\textwidth]{figuras/venn-PICO.png}
 
-	\item \textbf{1 SEÇÃO PRIMÁRIA - MAIÚSCULAS; NEGRITO; TAMANHO 12;}
+    \label{fig:pico}
+	Fonte: Adaptado de \citeonline{pai_clinical_2004}
+\end{figure}
 
-	\item 1.1 SEÇÃO SECUNDÁRIA – MAIÚSCULAS; NORMAL; TAMANHO 12; 
+Considerando o PICO no contexto da Engenharia de Software, cada elemento assume um significado 
+próprio. O termo \textit{Paciente} (Population), originalmente associado ao perfil clínico, 
+passa a denotar a área específica da engenharia de software. A \textit{Intervenção} (Intervention), antes entendida como tratamento, corresponde 
+aqui às abordagens avaliadas, tais como metodologias, métodos, técnicas, ferramentas ou procedimentos de 
+desenvolvimento e análise. Os \textit{Resultados} (Outcomes) preservam sua essência, representando os efeitos 
+observados e as métricas de interesse. Já a \textit{Comparação} (Comparison), por se alinhar mais diretamente 
+à área médica, pode não ser aplicável a todos os estudos em Engenharia de Software. As definições 
+utilizadas neste trabalho encontram-se na Tabela \ref{tab:picoadaptado}.
 
-	\item \textbf{1.1.1 Seção terciária - Minúsculas, com exceção da 
-	primeira letra; negrito; tamanho 12;}
+\begin{table}[H]
+    \centering
+	\caption{PICO Adaptado}
+    \begin{tabular}{|p{4cm}|p{3cm}|p{5cm}|}
+        \hline
+        \textbf{Elementos} & \textbf{Palavra chave} & \textbf{Sinônimos e Termos Relacionados} \\
+        \hline
+        \textbf{População} & Software engineering & software development, software system, software application, application development \\
+        \hline
+        \textbf{Intervenção} & Artificial Intelligence & AI, Machine Learning, ML, Predictive model, Large Language Model, LLM, Deep Learning, Neural network, Inteligência Artificial, IA, Solução baseada em IA, Sistemas de IA, Aprendizado de Máquina, Aprendizagem de Máquina, AM, Modelo preditivo, Aprendizado profundo, Aprendizagem profunda, Rede neural, Sistemas de ML\\
+        \hline
+        \textbf{Resultados} & Code Smell & code anomaly, Design Pattern, Clean code, Clean Code principle, Anti-pattern, Mysterious Name, Duplicated Code, Long Function, Long Parameter List, Global Data, Mutable Data, Divergent Change, Shotgun Surgery, Feature Envy, Data Clump, Primitive Obsession, Repeated Switch, Loop, Lazy Element, Speculative Generality, Temporary Field, Message Chain, Middle Man, Insider Trading, Large Class, Alternative Classes with Different Interfaces, Data Class, Refused Bequest \\
+        \hline
+    \end{tabular} \\[0.5em]
+   	Fonte: Autor
+	\label{tab:picoadaptado}
+\end{table}
 
-	\item 1.1.1.1 Seção quaternária - Minúsculas, com exceção da primeira 
-	letra; normal tamanho 12; 
+A string de busca foi composta com o operador lógico \textit{OR} para combinar os sinônimos e termos relacionados 
+dentro de cada elemento do protocolo PICO, de modo a abranger variações terminológicas. Em seguida, utilizou-se o 
+operador \textit{AND} para articular os diferentes elementos entre si, restringindo a recuperação aos estudos que 
+contêm simultaneamente os componentes necessários às perguntas de pesquisa. Por fim, utilizamos filtros como \textit{PUBYEAR} 
+para delimitar o período de publicação dos artigos. A string final foi adaptada para os requisitos 
+específicos da Scopus, resultando na seguinte string:
 
- 	\item \textit{1.1.1.1.1 Seção quinária - Minúsculas, com exceção da 
-	primeira letra; itálico; tamanho 12.}
-
-\end{description}
+\begin{center}
+    \textit{TITLE-ABS-KEY(( "Software engineering" OR "Software development" OR "Software system*" OR "Software application*" OR "Engenharia de software" OR "Desenvolvimento de software" OR "Sistema* de software" OR "Aplicação* de software" ) AND ( "Artificial Intelligence" OR "AI" OR "Machine Learning" OR "ML" OR "Predictive model*" OR "Large Language Model*" OR "LLM" OR "Deep Learning" OR "Neural network*" OR "Inteligência Artificial" OR "IA" OR "Soluç* baseada* em IA" OR "Sistema* de IA" OR "Aprendizado de Máquina" OR "Aprendizagem de Máquina" OR "AM" OR "Modelo* preditiv*" OR "Aprendizado profundo" OR "Aprendizagem profunda" OR "Rede* neural*" OR "Sistema* de ML" ) AND ( "Code Smell*" OR "code anomal*" OR "Design Pattern*" OR "Clean code" OR "Clean Code principle*" OR "Anti-pattern*" OR "Maus cheiro* de código" OR "Anomalia* de código" OR "Padrão* de projeto" OR "Código limpo" OR "Princípio* de código limpo" OR "Maus padrão*" OR "Mysterious Name" OR "Nome misterioso" OR "Duplicated Code" OR "Código duplicado" OR "Long Function" OR "Função longa" OR "Long Parameter List" OR "Lista longa de parâmetro*" OR "Global Data" OR "Dado* global*" OR "Mutable Data" OR "Dado* mutáve*" OR "Divergent Change" OR "Mudança divergente"OR "Shotgun Surgery" OR "Cirurgia de escopeta" OR "Cirurgia de espingarda" OR "Feature Envy" OR "Inveja de funcionalidade"OR "Data Clump*" OR "Aglomerado* de dado*" OR "Agrupamento de dado*" OR "Primitive Obsession" OR "Obsessão por tipo* primitivo*" OR "Repeated Switch*" OR "Estrutura* de decisão repetid*" OR "Loop*" OR "Laço* de repetiç*" OR "Lazy Element" OR "Elemento preguiçoso" OR "Speculative Generality" OR "Generalidade especulativa" OR "Temporary Field" OR "Campo temporário" OR "Message Chain*" OR "Cadeia* de mensagem*" OR "Middle Man" OR "Intermediário" OR "Intermediário desnecessário" OR "Insider Trading" OR "Negociação interna" OR "Large Class" OR "Classe grande" OR "Alternative Classes with Different Interfaces" OR "Classes alternativas com interfaces diferentes" OR "Data Class" OR "Classe de dado*" OR "Refused Bequest" OR "Herança recusada" ))AND PUBYEAR > 2021 AND PUBYEAR < 2026}
+\end{center}
 
 \section{Seleção dos Artigos}
 
