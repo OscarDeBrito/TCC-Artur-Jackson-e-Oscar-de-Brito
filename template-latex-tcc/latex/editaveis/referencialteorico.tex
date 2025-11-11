@@ -85,6 +85,40 @@ por outros pesquisadores.
 
 
 \section{Modelos de Qualidade}
+A padronização internacional da qualidade de produto de software consolidou-se com a família ISO/IEC 9126, cuja edição mais difundida é 
+a \citeonline{ISO9126}. Esse modelo organizou a qualidade do produto em seis características (funcionalidade, confiabilidade, usabilidade, 
+eficiência, manutenibilidade e portabilidade), desdobradas em subcaracterísticas, e articulou a relação entre qualidade interna, externa e 
+em uso, tratada em partes complementares da série. Essa consolidação dialoga com esforços anteriores de modelagem da qualidade, como os modelos 
+de \textit{quality characteristics} de Boehm \cite{boehm1978characteristics} e McCall \cite{McCall1977}, e a proposta de mapeamento de propriedades de produto
+ para atributos de qualidade de Dromey \cite{Dromey1995}.
+
+A partir de meados dos anos 2000, a ISO e a IEC reorganizaram e ampliaram esse escopo ao criar a família SQuaRE (ISO/IEC 25000), 
+dividindo o tema em cinco domínios:
+
+\begin{description}
+  \item[2501x — Modelo de qualidade:] define características/subcaracterísticas de qualidade de produto.
+  \item[2502x — Medição:] estabelece medidas, indicadores e procedimentos para quantificar as características do modelo.
+  \item[2503x — Requisitos:] orienta como derivar e especificar requisitos de qualidade (perfis, metas e critérios de aceitação).
+  \item[2504x — Avaliação:] descreve processo, evidências e relatórios para avaliar e comparar a qualidade.
+  \item[2500x — Gestão/Guia:] visão geral, termos e diretrizes para adoção e governança do SQuaRE na organização.
+\end{description}
+
+Esse reagrupamento respondeu a duas demandas históricas: 
+(i) separar claramente \textit{o que} medir, \textit{como} medir e \textit{como} avaliar — alinhado às boas práticas de engenharia de medição em software e 
+(ii) aproximar o modelo de qualidade das atividades de engenharia de requisitos e da avaliação contínua em ciclos iterativos, em linha com 
+abordagens orientadas a metas como GQM 
+
+No âmbito do SQuaRE, o sucessor direto do 9126 é a \citeonline{ISOIEC25010}, que atualiza o modelo de qualidade de produto e o de 
+qualidade em uso. Em relação ao 9126, há três movimentos centrais: (a) a antiga “eficiência” é refinada para \emph{eficiência de desempenho} 
+(\textit{performance efficiency}); (b) são adicionadas duas novas características — \emph{compatibilidade} (com foco em interoperabilidade e 
+coexistência) e \emph{segurança} (com subcaracterísticas como confidencialidade, integridade, autenticidade, responsabilização e não repúdio); 
+e (c) consolidam-se as dimensões de qualidade em uso — eficácia, eficiência, satisfação, liberdade de risco e cobertura de contexto — 
+aproximando a avaliação da experiência real da pessoa usuária e do ambiente de operação \cite{Bevan2009}. 
+
+Em síntese, o avanço histórico percorre um modelo unificado e descritivo (ISO/IEC 9126) até um ecossistema modular (SQuaRE) que integra 
+\emph{modelo → requisitos → medidas → avaliação}, culminando na \citeonline{ISOIEC25010}. Preserva-se a comparabilidade com a série anterior, 
+ao mesmo tempo em que se oferece maior aderência às práticas contemporâneas de desenvolvimento, operação e melhoria contínua.
+
 
 
 
