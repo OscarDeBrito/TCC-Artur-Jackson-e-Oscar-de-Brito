@@ -68,9 +68,113 @@ específicos da Scopus, resultando na seguinte string:
 
 \section{Seleção dos Artigos}
 
-Notas eventualmente necessárias devem ser numeradas de forma seqüencial ao 
-longo do texto no formato 1, 2, 3... sendo posicionadas no rodapé de cada 
-página na qual a nota é utilizada.\footnote{Como, por exemplo, esta nota. O \LaTeX\ tomará conta da numeração automaticamente.}
+Após a construção da string de busca, definiram-se critérios de inclusão e exclusão. 
+A seleção dos estudos foi conduzida da seguinte forma. Inicialmente, realizou-se a triagem por título, 
+resumo e palavras-chave dos estudos recuperados na string de busca, aplicando os critérios definidos para 
+filtrar os resultados mais relevantes. Duplicatas foram removidas previamente e 
+eventuais divergências de julgamento foram resolvidas por revisão adicional.
+
+No total, a busca inicial pela string de busca resultou em 325 artigos. Após a aplicação dos critérios de inclusão e exclusão,
+foram selecionados 42 artigos para leitura completa.
+
+A seguir, apresentam-se as tabelas que sintetizam as principais etapas do protocolo adotado nesta revisão. 
+A Tabela~\ref{tab:questoes_secundarias} descreve as questões secundárias que foram definidas. 
+Na Tabela~\ref{tab:criterios} são organizados os critérios de inclusão e exclusão utilizados na triagem.
+Em seguida, a Tabela~\ref{tab:form_extracao} apresenta o formulário de extração de dados adotado para sistematizar 
+as informações dos estudos selecionados, e a Tabela~\ref{tab:estudos_selecionados} lista o conjunto final de artigos 
+incluídos na síntese da literatura.
+
+\begin{table}[h]
+    \centering
+    \caption{Questões secundárias de pesquisa}
+    \label{tab:questoes_secundarias}
+    \begin{tabular}{|p{4cm}|p{9cm}|}
+        \hline
+        \textbf{Item} & \textbf{Descrição} \\
+        \hline
+        Questões secundárias de pesquisa &
+        \begin{enumerate}[leftmargin=*, label=\arabic*.]
+            \item Quais tipos de code smells são mais frequentemente investigados na literatura?
+            \item As ferramentas de inteligência artificial estão realmente sendo utilizadas na detecção de code smells?
+            \item Quais abordagens de inteligência artificial são mais utilizadas na detecção de code smells?
+            \item Quais ferramentas de análise estática são mais comumente empregadas na detecção de code smells?
+            \item Quais métricas de avaliação são mais comumente usadas para medir a eficácia da detecção de code smells?
+            \item Quais limitações e desafios são mais relatados nos estudos sobre detecção de code smells com IA?
+            \item Quantos estudos apresentam validação experimental dos resultados?
+            \item Quantos artigos foram publicados em revistas acadêmicas?
+            \item Quais as principais atenções com os falsos positivos, segundo a literatura?
+        \end{enumerate} \\
+        \hline
+    \end{tabular}\\[0.4em]
+    Fonte: Autor.
+\end{table}
+
+
+\begin{table}[h]
+    \centering
+    \caption{Critérios de Inclusão e Exclusão}
+    \label{tab:criterios}
+    \begin{tabular}{|p{5cm}|p{10cm}|}
+        \hline
+        \textbf{Item} & \textbf{Descrição} \\
+        \hline
+        
+        \textbf{Critérios de Inclusão} &
+        \begin{enumerate}[leftmargin=*, label=\arabic*.]
+            \item Aborda a detecção ou análise de code smells em código-fonte.
+            \item Apresenta ou avalia ferramentas baseadas em inteligência artificial e/ou ferramentas de análise estática para detecção de code smells.
+        \end{enumerate} \\
+        \hline
+        
+        \textbf{Critérios de Exclusão} &
+        \begin{enumerate}[leftmargin=*, label=\arabic*.]
+            \item Publicação não disponível nas bases (Scopus/ IEEE Xplore/ ACM DIGITAL Library).
+            \item Artigos em idiomas diferentes de inglês ou português.
+            \item Publicação com data anterior a 2022.
+            \item Publicações duplicadas.
+            \item Conjunto de papers.
+        \end{enumerate} \\
+        \hline
+    \end{tabular}\\[0.4em]
+    Fonte: Autor.
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{Formulário de extração de dados}
+    \label{tab:form_extracao}
+    \begin{tabular}{|p{4cm}|p{9cm}|}
+        \hline
+        \textbf{Item} & \textbf{Descrição} \\
+        \hline
+        Formulário de extração &
+        \begin{enumerate}[leftmargin=*, label=\arabic*.]
+            \item Título
+            \item Resumo
+            \item Palavras-chave
+            \item Autores
+            \item Ano de publicação
+            \item Fonte de publicação
+            \item Code smells investigados
+            \item Abordagem de inteligência artificial
+            \item Ferramentas de inteligência artificial
+            \item Ferramentas de Analise estática
+            \item Métricas de avaliação utilizadas
+            \item Limitações e desafios
+            \item Apresenta validação experimental
+            \item Publicado em Revista Acadêmica
+            \item Pesquisa secundária
+            \item Tipo de validação experimental
+            \item Principais atenções com os falsos positivos
+        \end{enumerate} \\
+        \hline
+    \end{tabular}\\[0.4em]
+    \small Fonte: Autor.
+\end{table}
+
+
+% Adicionar tabela dos estudos selecionados aqui
+
 
 \section{Resultados}
 
