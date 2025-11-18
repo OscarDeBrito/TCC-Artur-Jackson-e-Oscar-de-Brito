@@ -139,7 +139,8 @@ incluídos na síntese da literatura.
     Fonte: Autor.
 \end{table}
 
-\begin{table}[h]
+\clearpage
+\begin{table}[H]
     \centering
     \caption{Formulário de extração de dados}
     \label{tab:form_extracao}
@@ -172,10 +173,6 @@ incluídos na síntese da literatura.
     \small Fonte: Autor.
 \end{table}
 
-
-% tabela em fonte menor e com menos espaço lateral nas colunas
-{\small
-\setlength{\tabcolsep}{3pt}%
 
 {\small
 \setlength{\tabcolsep}{3pt}%
@@ -260,44 +257,260 @@ incluídos na síntese da literatura.
 
 \section{Resultados}
 
-Equações matemáticas devem ser numeradas seqüencialmente e alinhadas a 
-esquerda com recuo de 0,6 cm. Usar numerais arábicos entre parênteses, 
-alinhado a direita, no formato Times New Roman de 9 pts. para numerara as 
-equações como mostrado na Eq. \ref{eqn01} (novamente, o \LaTeX\ formata as
-equações automaticamente).
+Após a leitura integral dos estudos selecionados, as informações relevantes foram coletadas 
+por meio do formulário de extração disponibilizado na plataforma Parsifal. 
+A escolha dessa ferramenta deve-se ao seu conjunto de recursos que facilitam a 
+organização, o registro e o acompanhamento sistemático das etapas da revisão da 
+literatura. Concluída a etapa de extração, todos os dados foram reunidos em uma planilha 
+pública, na qual cada linha corresponde a um artigo incluído e cada coluna representa um dos 
+elementos definidos no formulário apresentado na Tabela 3.
 
-Referências a equações no corpo do texto devem ser feitas como \lq\lq Eq. 
-\ref{eqn01}\rq\rq\ quando no meio de uma frase ou como \lq\lq Equação 
-\ref{eqn01}\rq\rq\ quando no inicio de uma sentença. Um espaçamento de 11 
-pontos deve ser deixado acima, abaixo e entre equações subseqüentes. Para uma 
-apresentação compacta das equações deve-se usar os símbolos e expressões 
-matemáticos mais adequados e parênteses para evitar ambigüidades em 
-denominadores. Os símbolos usados nas equações citados no texto devem 
-apresentar exatamente a mesma formatação usada nas equações.
-\begin{equation}
-\label{eqn01}
-	\frac{d\mathbf{C}}{dw} = \frac{du}{dw}\cdot \mathbf{F}_u + 
-		\frac{dv}{dw}\cdot \mathbf{F}_v 
-\end{equation}
+As subseções seguintes apresentam a síntese dos resultados obtidos para cada uma das questões secundárias de pesquisa estabelecidas para esta revisão.
 
-O significado de todos os símbolos mostrados nas equações deve ser apresentado 
-na lista de símbolos no inicio do trabalho, embora, em certas circunstancias o 
-autor possa para maior clareza descrever o significado de certos símbolos no 
-corpo do texto, logo após a equação.
+\subsection{Quais tipos de code smells são mais frequentemente investigados na literatura?}
 
-Se uma equação aparecer no meio do parágrafo, como esta
-\begin{equation}
-x^n + y^n = z^n,
-\end{equation}
-onde $x, y, z, n \in \mathbf{N}$, o texto subsequente faz parte do parágrafo e 
-não deve ser identado.
+A análise dos estudos considerados no artigo revela que há um conjunto relativamente 
+estável de \textit{code smells} que aparecem de forma recorrente nos produtos de software 
+avaliados. Entre eles, quatro se destacam com maior frequência: \textit{God Class}, 
+\textit{Long Method}, \textit{Feature Envy} e \textit{Data Class}, mencionados de forma 
+consistente tanto no estudo principal quanto nos trabalhos secundários utilizados como base. 
+Diversos artigos também incluem variações conceituais desses cheiros, como 
+\textit{Large Class/Blob}, \textit{Complex Class}, \textit{Spaghetti Code}, 
+\textit{Shotgun Surgery} e \textit{Long Parameter List}, mas estes aparecem de maneira 
+menos uniforme entre os estudos. Em alguns casos, o foco da análise recai sobre um único 
+cheiro (por exemplo, \textit{Feature Envy} ou \textit{Long Method}).
 
-\subsection{Questão secundaria 1}
-\subsection{Questão secundaria 2}
-\subsection{Questão secundaria 3}
-\subsection{Questão secundaria 4}
+Os \textit{code smells} relacionados ao excesso de responsabilidades, métodos extensos, 
+acoplamento indevido e estruturas de dados anêmicas são os mais frequentemente 
+identificados e avaliados. Ademais, nos casos em que o SonarQube foi utilizado, seus 
+diagnósticos reforçam esse padrão, evidenciando grande incidência de problemas associados 
+à complexidade, duplicações, excesso de parâmetros e outras formas de fragilidade 
+estrutural do código. 
 
-\begin{citacao}
-Foram desenvolvidos métodos eficazes de especificação, \textit{design} e implementação de software.  Novas notações e ferramentas reduziram o esforço necessário para produzir sistemas grandes e complexos \cite{Sommerville2007}.
-\end{citacao}
+Em resumo, os resultados convergem para um núcleo recorrente de smells — 
+\textit{God Class}, \textit{Long Method}, \textit{Feature Envy} e \textit{Data Class} — 
+que formam a base das análises de qualidade nos produtos estudados.
+
+
+\subsection{Quais abordagens de inteligência artificial são mais utilizadas na detecção de code smells?}
+
+Os artigos analisados empregam um conjunto variado de abordagens de Inteligência 
+Artificial para detecção de \textit{code smells}. A estratégia mais recorrente é o 
+aprendizado de máquina supervisionado, no qual modelos classificam trechos de código 
+como ``smelly'' ou ``clean'', utilizando diferentes tipos de algoritmos lineares, não 
+lineares e \textit{ensemble}. Outra linha importante é o aprendizado profundo 
+(\textit{Deep Learning}), especialmente por meio de redes recorrentes (como \textit{LSTM}, 
+\textit{Bi-LSTM} e \textit{GRU}) e redes convolucionais (\textit{CNN}), capazes de capturar 
+padrões semânticos e estruturais mais complexos.
+
+Os estudos também exploram \textit{transfer learning}, aproveitando modelos previamente 
+treinados para gerar representações semânticas do código e melhorar o desempenho em 
+tarefas específicas, além do uso de redes neurais em grafos (\textit{GNNs}) para representar 
+estruturas internas do código, bem como modelagem probabilística profunda.
+
+Por fim, alguns estudos incorporam IA generativa e \textit{LLMs} como apoio ao processo de 
+análise, além de técnicas de \textit{XAI} para aumentar a interpretabilidade.
+
+\subsection{As ferramentas de inteligência artificial estão realmente sendo utilizadas na detecção de code smells?}
+
+A literatura analisada evidencia o uso de uma ampla variedade de ferramentas de 
+Inteligência Artificial para detecção de \textit{code smells}, distribuídas principalmente 
+em três grupos: métodos tradicionais de aprendizado de máquina, modelos de aprendizado 
+profundo e arquiteturas \textit{Transformer} especializadas em código. Entre as técnicas clássicas, 
+destacam-se algoritmos como \textit{Logistic Regression}, \textit{Naive Bayes}, \textit{SVM}, 
+\textit{Decision Tree}, \textit{Random Forest}, \textit{KNN}, \textit{Gradient Boosting} 
+e \textit{XGBoost}. 
+
+No campo do aprendizado profundo, os estudos utilizam redes neurais convolucionais e 
+recorrentes, especialmente \textit{LSTM}, \textit{Bi-LSTM}, \textit{GRU} e \textit{CNN}. 
+Modelos pré-treinados baseados em \textit{Transformers} também aparecem de forma recorrente, incluindo 
+\textit{CodeBERT}, \textit{CuBERT}, \textit{CodeT5}, \textit{code2vec}, \textit{code2seq} 
+e variantes como \textit{RABERT}, \textit{FABERT} e \textit{DistilBERT}. 
+
+Em paralelo, uma parte da literatura explora IA generativa, como \textit{ChatGPT}, 
+\textit{Claude}, \textit{Gemini} e \textit{Copilot}, além de técnicas associadas como 
+\textit{RAG} e \textit{prompt engineering}. Outras abordagens incluem modelos baseados 
+em grafos (\textit{GCN}, \textit{GAT}, \textit{GraphSAGE}), meta-heurísticas de otimização 
+(como \textit{Grey Wolf}, \textit{Firefly}, \textit{Cuckoo Search} e \textit{Harris Hawks}) 
+e métodos probabilísticos como \textit{Sum-Product Networks (SPN)}. 
+
+Em síntese, os estudos utilizam desde algoritmos clássicos até arquiteturas profundas e 
+\textit{Transformers} de última geração, refletindo a diversidade de técnicas de IA aplicadas à 
+detecção de \textit{code smells}.
+
+
+\subsection{Quais ferramentas de análise estática são mais comumente empregadas na detecção de code smells?}
+
+Nos artigos analisados, foi visto que a variação no uso de ferramentas de análise 
+estática, mas também evidencia que muitos estudos não aplicam diretamente uma 
+ferramenta, utilizando apenas \textit{datasets} previamente rotulados por 
+analisadores clássicos ou extraindo características por meio de \textit{parsers}, 
+ASTs ou métricas personalizadas. Entre os trabalhos que empregaram análise 
+estática de forma explícita, destacam-se ferramentas consolidadas como 
+\textit{iPlasma}, \textit{Anti-Pattern Scanner}, 
+\textit{JDeodorant}, \textit{CK Tool}, \textit{CKJM}, 
+\textit{DFMC4J} (via Eclipse JDT), \textit{tree-sitter}, o plugin \textit{Metric} 
+(Eclipse) e extensões do \textit{IntelliJ IDEA}. 
+
+Alguns estudos utilizaram análise estática de forma indireta, baseando-se em 
+métricas estruturais extraídas por ferramentas terceiras, sem executá-las 
+no próprio experimento — cenário comum em trabalhos que utilizaram 
+\textit{datasets} curados, como MLCQ, MSR/KBS, Qualitas Corpus, JUnit e 
+repositórios Tera-Promise. Em outros casos, a análise estática foi realizada 
+por \textit{parsers} específicos, como \textit{javalang}, \textit{tree-sitter} ou 
+analisadores léxicos customizados, geralmente empregados para gerar ASTs 
+e extrair métricas estruturais.
+
+Além dessas ferramentas, alguns estudos empregaram o 
+\textit{SonarQube} tanto para detectar \textit{code smells} quanto para gerar 
+métricas e validar a refatoração sugerida por modelos de IA. Em cenários 
+mais específicos, surgem implementações proprietárias, como softwares 
+customizados desenvolvidos em C\# ou Python para cálculo de métricas e 
+definição de regras de análise.
+
+Em síntese, os artigos utilizam desde ferramentas robustas de análise estática 
+— como \textit{SonarQube}, \textit{PMD}, \textit{CK Tool} e \textit{JDeodorant} — 
+até \textit{parsers}, ASTs e métricas customizadas, refletindo a diversidade 
+das estratégias de extração de características antes da aplicação dos métodos 
+de Inteligência Artificial.
+
+\subsection{Quais métricas de avaliação são mais comumente usadas para medir a eficácia da detecção de code smells?}
+
+Foi envidenciado que a eficácia da detecção de \textit{code smells} é 
+avaliada, majoritamente, por métricas derivadas da matriz de confusão, com foco especial 
+em medidas de desempenho de classificadores binários. Entre as métricas mais empregadas, 
+destacam-se \textit{Accuracy}, \textit{Precision}, \textit{Recall} e \textit{F1-Score}, 
+utilizadas na maior parte dos estudos para avaliar acertos globais, controle de falsos 
+positivos, sensibilidade na detecção de casos positivos e o equilíbrio entre precisão dos acertos. 
+
+Outra métrica amplamente adotada é o \textit{Matthews Correlation Coefficient (MCC)}, 
+considerada mais robusta para cenários desbalanceados por incorporar os quatro componentes 
+da matriz de confusão (TP, TN, FP, FN). Em alguns estudos, métricas adicionais também foram 
+empregadas, como \textit{Balanced Accuracy}, \textit{Specificity}, \textit{False Positive Rate}, 
+\textit{Macro-F1}, \textit{Utility Ratio}, \textit{MAE}, \textit{RMSE} e \textit{Brier Score}.
+
+Além das métricas orientadas ao desempenho dos classificadores, parte da literatura também 
+avalia métricas de qualidade de código, como complexidade ciclomática (CC), linhas de código 
+(LOC), acoplamento (CBO), coesão (LCOM) e profundidade de herança (DIT), comparadas antes 
+e depois dos processos de detecção ou refatoração. Em estudos qualitativos surgem ainda 
+indicadores como \textit{Task Completion Rate}, \textit{Normalized Score}, tempo de execução, 
+e medidas de concordância entre avaliadores, como \textit{Cohen's Kappa} e 
+\textit{Krippendorff's Alpha}.
+
+Em síntese, a avaliação combinada de \textit{Precision}, \textit{Recall}, \textit{F1-Score}, 
+\textit{Accuracy} representa o núcleo das métricas utilizadas, sendo complementada por medidas 
+estruturais de código e análises qualitativas nos estudos mais recentes.
+
+
+\subsection{Quais limitações e desafios são mais relatados nos estudos sobre detecção de code smells com IA?}
+
+A análise dos estudos revela que a detecção de \textit{code smells} por meio de técnicas 
+de Inteligência Artificial ainda enfrenta limitações significativas em diversas frentes. 
+Um dos principais obstáculos está relacionado à \textbf{qualidade dos dados}, marcada 
+pelo forte desbalanceamento entre exemplos de código limpo e instâncias de \textit{smells}, 
+o que reduz o desempenho dos modelos, especialmente no \textit{recall}. Soma-se a isso a 
+\textbf{subjetividade na rotulagem}, pois não há consenso universal sobre a definição de 
+cada smell, gerando inconsistências, ruído nos datasets e baixa concordância entre 
+avaliadores humanos e ferramentas heurísticas. A limitação de muitos conjuntos de dados 
+a poucos projetos, majoritariamente em Java, compromete a validade externa e a 
+generalização dos modelos.
+
+Outro desafio recorrente refere-se à \textbf{representação do código}. Abordagens 
+tradicionais baseadas em métricas dependem de limiares arbitrários e capturam apenas 
+aspectos superficiais do design. Métodos que tratam o código como texto ignoram sua 
+estrutura sintática e semântica, enquanto algumas técnicas de \textit{embedding} não 
+conseguem modelar adequadamente dependências entre métodos, classes e atributos. 
+Smells mais complexos, como \textit{Feature Envy}, exigem análise contextual envolvendo 
+múltiplos arquivos, tornando o problema ainda mais desafiador para modelos atuais.
+
+Diversos estudos também relatam limitações de \textbf{desempenho computacional} e de 
+\textbf{otimização}. Arquiteturas profundas, como \textit{Transformers} e \textit{GNNs}, apresentam alto 
+custo de processamento, tornando difícil seu uso em ferramentas em tempo real. A 
+dificuldade no ajuste de hiperparâmetros aumenta o risco de sobreajuste, especialmente 
+diante da escassez de dados representativos. Em muitos casos, embora os modelos 
+obtenham alta precisão, ainda produzem grande quantidade de falsos positivos, 
+sobrecarregando desenvolvedores com alertas desnecessários.
+
+As pesquisas também indicam limitações relativas à \textbf{generalização e escopo}. A 
+predominância de estudos focados em Java dificulta a extrapolação dos resultados para 
+outras linguagens. A análise costuma abranger apenas um conjunto restrito de smells, 
+principalmente \textit{God Class}, \textit{Long Method}, \textit{Feature Envy} e 
+\textit{Data Class}, o que impede a aplicação dos modelos em ambientes reais, onde 
+diversos tipos de anomalias coexistem.
+
+Por fim, há desafios associados à \textbf{interpretabilidade e adoção prática}. Modelos 
+de \textit{deep learning} permanecem como “caixas-pretas”, dificultando a compreensão 
+das decisões de classificação. Já abordagens com \textit{LLMs} enfrentam limitações de 
+janela de contexto e podem gerar código incorreto ou não compilável. Ferramentas de 
+análise estática ainda produzem muitos falsos positivos e raramente oferecem mecanismos 
+de priorização dos smells, dificultando decidir quais problemas corrigir primeiro.
+
+Em síntese, os desafios observados abrangem desde a confiabilidade dos dados e a 
+adequação das representações do código até limitações computacionais, metodológicas e 
+práticas. Esses fatores mostram que, apesar dos avanços recentes, a detecção automática 
+de \textit{code smells} ainda carece de melhorias para atingir maturidade e ser aplicada 
+de maneira robusta em contextos industriais.
+
+\subsection{Quantos estudos apresentam validação experimental dos resultados?}
+
+A análise dos 42 artigos selecionados revela que a grande maioria apresenta algum 
+tipo de validação experimental. Dos estudos avaliados, \textbf{41 artigos (97,6\%)} 
+incluem experimentação empírica para avaliar suas abordagens, enquanto apenas 
+\textbf{1 artigo (2,4\%)} não apresenta qualquer forma de validação. Esse resultado 
+indica que a literatura recente sobre detecção de \textit{code smells} baseada em 
+Inteligência Artificial tem forte ênfase em métodos empiricamente testados, reforçando 
+a maturidade e a preocupação da área com reprodutibilidade e rigor experimental.
+
+\subsection{Quantos artigos foram publicados em revistas acadêmicas?}
+
+A análise selecionados mostra que a maior parte das publicações 
+foi veiculada em periódicos acadêmicos. Ao todo, \textbf{31 artigos (73,8\%)} 
+foram publicados em revistas científicas, enquanto \textbf{11 artigos (26,2\%)} 
+foram divulgados em anais de conferências ou outros meios não periódicos. 
+Esse resultado indica uma predominância de estudos com maior rigor editorial 
+e revisão por pares, reforçando a credibilidade da literatura recente sobre 
+detecção de \textit{code smells}.
+
+
+\subsection{Quais as principais atenções com os falsos positivos, segundo a literatura?}
+
+A análise dos artigos revela que os falsos positivos constituem uma das principais 
+preocupações na detecção automática de \textit{code smells}, devido ao impacto direto 
+na utilidade prática das ferramentas e na confiança dos desenvolvedores. Em diversos 
+estudos, destaca-se que uma taxa elevada de falsos positivos pode gerar retrabalho, 
+aumentar o custo de manutenção e comprometer a adoção de sistemas de IA, já que 
+trechos de código limpo são indevidamente marcados como problemáticos, exigindo 
+inspeções manuais desnecessárias.
+
+Os trabalhos também apontam que a natureza subjetiva dos \textit{code smells}, a 
+inconsistência na rotulagem e a baixa qualidade de alguns datasets contribuem para 
+a ocorrência de falsos positivos. Em particular, smells complexos — como 
+\textit{Feature Envy} e \textit{Large Class} — são especialmente suscetíveis a erros, 
+pois dependem de relações semânticas profundas e contexto entre múltiplos arquivos, 
+o que muitos modelos não capturam de maneira adequada. Abordagens baseadas apenas 
+em métricas estruturais, regras fixas ou limiares manuais tendem a superestimar 
+ocorrências, aumentando ainda mais o número de alarmes incorretos.
+
+Os estudos mais recentes enfatizam o papel da métrica de \textit{Precision} (Precisão) 
+como indicador central para monitorar falsos positivos, e vários trabalhos utilizam 
+\textit{F1-score}, \textit{ROC-AUC} e especialmente o \textit{Matthews Correlation 
+Coefficient} (MCC) para avaliar o equilíbrio entre erros positivos e negativos. Alguns 
+modelos priorizam a alta precisão mesmo à custa de \textit{recall}, reduzindo falsos 
+positivos, mas deixando de detectar parte dos smells reais — um \textit{trade-off} 
+recorrente na literatura.
+
+Em abordagens com modelos generativos e \textit{LLMs}, as atenções incluem o risco de 
+respostas incorretas, interpretações equivocadas ou sugestões de refatoração que 
+não fazem sentido, exigindo validação humana contínua. Estudos também relatam o 
+uso de ferramentas auxiliares, como aplicativos de comparação de código, para 
+detectar inconsistências inseridas automaticamente pelas IAs e minimizar falsos 
+positivos durante o processo de revisão.
+
+Por fim, parte da literatura propõe estratégias para mitigar o problema, como 
+melhorias de precisão por meio de meta-heurísticas, detecção em múltiplas etapas, 
+balanceamento de classes com SMOTE, calibração probabilística e uso de conjuntos de 
+dados revisados manualmente. Em conjunto, os artigos demonstram que controlar os 
+falsos positivos é essencial para garantir que as técnicas de IA para detecção de 
+\textit{code smells} sejam efetivamente úteis, confiáveis e aplicáveis em ambientes 
+reais de desenvolvimento.
 
