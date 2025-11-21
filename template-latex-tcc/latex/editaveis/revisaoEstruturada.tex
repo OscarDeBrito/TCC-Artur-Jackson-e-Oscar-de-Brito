@@ -263,22 +263,22 @@ A escolha dessa ferramenta deve-se ao seu conjunto de recursos que facilitam a
 organização, o registro e o acompanhamento sistemático das etapas da revisão da 
 literatura. Concluída a etapa de extração, todos os dados foram reunidos em uma planilha 
 pública, na qual cada linha corresponde a um artigo incluído e cada coluna representa um dos 
-elementos definidos no formulário apresentado na Tabela 3.
+elementos definidos no formulário apresentado na Tabela~\ref{tab:form_extracao}.
 
 As subseções seguintes apresentam a síntese dos resultados obtidos para cada uma das questões secundárias de pesquisa estabelecidas para esta revisão.
 
 \subsection{Quais tipos de code smells são mais frequentemente investigados na literatura?}
 
-A análise dos estudos considerados no artigo revela que há um conjunto relativamente 
+A análise dos estudos revisados revela que há um conjunto relativamente 
 estável de \textit{code smells} que aparecem de forma recorrente nos produtos de software 
 avaliados. Entre eles, quatro se destacam com maior frequência: \textit{God Class}, 
 \textit{Long Method}, \textit{Feature Envy} e \textit{Data Class}, mencionados de forma 
-consistente tanto no estudo principal quanto nos trabalhos secundários utilizados como base. 
+consistente tanto no estudo principal quanto nos trabalhos secundários utilizados como base \cite{Ho2025EnseSmells,Madeyski2023Industry,Sahu2024Predicting}. 
 Diversos artigos também incluem variações conceituais desses cheiros, como 
 \textit{Large Class/Blob}, \textit{Complex Class}, \textit{Spaghetti Code}, 
 \textit{Shotgun Surgery} e \textit{Long Parameter List}, mas estes aparecem de maneira 
-menos uniforme entre os estudos. Em alguns casos, o foco da análise recai sobre um único 
-cheiro (por exemplo, \textit{Feature Envy} ou \textit{Long Method}).
+menos uniforme entre os estudos \cite{Huang2024AligningXAI}. Em alguns casos, o foco da análise recai sobre um único 
+cheiro (por exemplo, \textit{Feature Envy} ou \textit{Long Method}) \cite{AlFraihat2024FeatureEnvy}.
 
 Os \textit{code smells} relacionados ao excesso de responsabilidades, métodos extensos, 
 acoplamento indevido e estruturas de dados anêmicas são os mais frequentemente 
@@ -287,8 +287,8 @@ diagnósticos reforçam esse padrão, evidenciando grande incidência de problem
 à complexidade, duplicações, excesso de parâmetros e outras formas de fragilidade 
 estrutural do código. 
 
-Em resumo, os resultados convergem para um núcleo recorrente de smells — 
-\textit{God Class}, \textit{Long Method}, \textit{Feature Envy} e \textit{Data Class} — 
+Em resumo, os resultados convergem para um núcleo recorrente de smells 
+\textit{God Class}, \textit{Long Method}, \textit{Feature Envy} e \textit{Data Class} 
 que formam a base das análises de qualidade nos produtos estudados.
 
 
@@ -303,13 +303,13 @@ lineares e \textit{ensemble}. Outra linha importante é o aprendizado profundo
 \textit{Bi-LSTM} e \textit{GRU}) e redes convolucionais (\textit{CNN}), capazes de capturar 
 padrões semânticos e estruturais mais complexos.
 
-Os estudos também exploram \textit{transfer learning}, aproveitando modelos previamente 
+Os estudos também exploram \textit{transfer learning} \cite{Sandouka2025CrossLanguage}, aproveitando modelos previamente 
 treinados para gerar representações semânticas do código e melhorar o desempenho em 
 tarefas específicas, além do uso de redes neurais em grafos (\textit{GNNs}) para representar 
 estruturas internas do código, bem como modelagem probabilística profunda.
 
 Por fim, alguns estudos incorporam IA generativa e \textit{LLMs} como apoio ao processo de 
-análise, além de técnicas de \textit{XAI} para aumentar a interpretabilidade.
+análise, além de técnicas de \textit{XAI} para aumentar a interpretabilidade e priorização\cite{Huang2024AligningXAI,Rashid2025InterpretableDL}.
 
 \subsection{As ferramentas de inteligência artificial estão realmente sendo utilizadas na detecção de code smells?}
 
@@ -354,7 +354,7 @@ estática de forma explícita, destacam-se ferramentas consolidadas como
 
 Alguns estudos utilizaram análise estática de forma indireta, baseando-se em 
 métricas estruturais extraídas por ferramentas terceiras, sem executá-las 
-no próprio experimento — cenário comum em trabalhos que utilizaram 
+no próprio experimento cenário comum em trabalhos que utilizaram 
 \textit{datasets} curados, como MLCQ, MSR/KBS, Qualitas Corpus, JUnit e 
 repositórios Tera-Promise. Em outros casos, a análise estática foi realizada 
 por \textit{parsers} específicos, como \textit{javalang}, \textit{tree-sitter} ou 
@@ -369,7 +369,7 @@ customizados desenvolvidos em C\# ou Python para cálculo de métricas e
 definição de regras de análise.
 
 Em síntese, os artigos utilizam desde ferramentas robustas de análise estática 
-— como \textit{SonarQube}, \textit{PMD}, \textit{CK Tool} e \textit{JDeodorant} — 
+como \textit{SonarQube}, \textit{PMD}, \textit{CK Tool} e \textit{JDeodorant} 
 até \textit{parsers}, ASTs e métricas customizadas, refletindo a diversidade 
 das estratégias de extração de características antes da aplicação dos métodos 
 de Inteligência Artificial.
@@ -484,8 +484,8 @@ inspeções manuais desnecessárias.
 
 Os trabalhos também apontam que a natureza subjetiva dos \textit{code smells}, a 
 inconsistência na rotulagem e a baixa qualidade de alguns datasets contribuem para 
-a ocorrência de falsos positivos. Em particular, smells complexos — como 
-\textit{Feature Envy} e \textit{Large Class} — são especialmente suscetíveis a erros, 
+a ocorrência de falsos positivos. Em particular, smells complexos como 
+\textit{Feature Envy} e \textit{Large Class} são especialmente suscetíveis a erros, 
 pois dependem de relações semânticas profundas e contexto entre múltiplos arquivos, 
 o que muitos modelos não capturam de maneira adequada. Abordagens baseadas apenas 
 em métricas estruturais, regras fixas ou limiares manuais tendem a superestimar 
@@ -496,7 +496,7 @@ como indicador central para monitorar falsos positivos, e vários trabalhos util
 \textit{F1-score}, \textit{ROC-AUC} e especialmente o \textit{Matthews Correlation 
 Coefficient} (MCC) para avaliar o equilíbrio entre erros positivos e negativos. Alguns 
 modelos priorizam a alta precisão mesmo à custa de \textit{recall}, reduzindo falsos 
-positivos, mas deixando de detectar parte dos smells reais — um \textit{trade-off} 
+positivos, mas deixando de detectar parte dos smells reais um \textit{trade-off} 
 recorrente na literatura.
 
 Em abordagens com modelos generativos e \textit{LLMs}, as atenções incluem o risco de 
