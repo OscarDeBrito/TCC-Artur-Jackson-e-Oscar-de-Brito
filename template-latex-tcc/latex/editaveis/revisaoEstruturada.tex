@@ -298,15 +298,15 @@ Os artigos analisados empregam um conjunto variado de abordagens de Inteligênci
 Artificial para detecção de \textit{code smells}. A estratégia mais recorrente é o 
 aprendizado de máquina supervisionado, no qual modelos classificam trechos de código 
 como ``smelly'' ou ``clean'', utilizando diferentes tipos de algoritmos lineares, não 
-lineares e \textit{ensemble}. Outra linha importante é o aprendizado profundo 
+lineares e \textit{ensemble} \cite{Jain2024MetaHeuristic}. Outra linha importante é o aprendizado profundo 
 (\textit{Deep Learning}), especialmente por meio de redes recorrentes (como \textit{LSTM}, 
 \textit{Bi-LSTM} e \textit{GRU}) e redes convolucionais (\textit{CNN}), capazes de capturar 
-padrões semânticos e estruturais mais complexos.
+padrões semânticos e estruturais mais complexos \cite{Yahya2023DeepLearningSmells,Ho2023FusionCNNLSTM}.
 
 Os estudos também exploram \textit{transfer learning} \cite{Sandouka2025CrossLanguage}, aproveitando modelos previamente 
 treinados para gerar representações semânticas do código e melhorar o desempenho em 
 tarefas específicas, além do uso de redes neurais em grafos (\textit{GNNs}) para representar 
-estruturas internas do código, bem como modelagem probabilística profunda.
+estruturas internas do código, bem como modelagem probabilística profunda \cite{Zhang2024LargeClassGNN}.
 
 Por fim, alguns estudos incorporam IA generativa e \textit{LLMs} como apoio ao processo de 
 análise, além de técnicas de \textit{XAI} para aumentar a interpretabilidade e priorização\cite{Huang2024AligningXAI,Rashid2025InterpretableDL}.
@@ -319,23 +319,23 @@ em três grupos: métodos tradicionais de aprendizado de máquina, modelos de ap
 profundo e arquiteturas \textit{Transformer} especializadas em código. Entre as técnicas clássicas, 
 destacam-se algoritmos como \textit{Logistic Regression}, \textit{Naive Bayes}, \textit{SVM}, 
 \textit{Decision Tree}, \textit{Random Forest}, \textit{KNN}, \textit{Gradient Boosting} 
-e \textit{XGBoost}. 
+e \textit{XGBoost} \cite{Sahu2024Predicting, Schuetz2023FailurePrediction}. 
 
 No campo do aprendizado profundo, os estudos utilizam redes neurais convolucionais e 
 recorrentes, especialmente \textit{LSTM}, \textit{Bi-LSTM}, \textit{GRU} e \textit{CNN}. 
 Modelos pré-treinados baseados em \textit{Transformers} também aparecem de forma recorrente, incluindo 
 \textit{CodeBERT}, \textit{CuBERT}, \textit{CodeT5}, \textit{code2vec}, \textit{code2seq} 
-e variantes como \textit{RABERT}, \textit{FABERT} e \textit{DistilBERT}. 
+e variantes como \textit{RABERT}, \textit{FABERT} e \textit{DistilBERT} \cite{Ho2025EnseSmells,Ali2025TransformerSmells}. 
 
 Em paralelo, uma parte da literatura explora IA generativa, como \textit{ChatGPT}, 
 \textit{Claude}, \textit{Gemini} e \textit{Copilot}, além de técnicas associadas como 
-\textit{RAG} e \textit{prompt engineering}. Outras abordagens incluem modelos baseados 
+\textit{RAG} e \textit{prompt engineering} \cite{Abtahi2025LLMStaticAnalysis, Tkachuk2025RefactoringGAI}. Outras abordagens incluem modelos baseados 
 em grafos (\textit{GCN}, \textit{GAT}, \textit{GraphSAGE}), meta-heurísticas de otimização 
 (como \textit{Grey Wolf}, \textit{Firefly}, \textit{Cuckoo Search} e \textit{Harris Hawks}) 
-e métodos probabilísticos como \textit{Sum-Product Networks (SPN)}. 
+e métodos probabilísticos como \textit{Sum-Product Networks (SPN)} \cite{Rajput2024GreyWolfSVM, Jain2024MetaHeuristic}. 
 
 Em síntese, os estudos utilizam desde algoritmos clássicos até arquiteturas profundas e 
-\textit{Transformers} de última geração, refletindo a diversidade de técnicas de IA aplicadas à 
+\textit{Transformers} de última geração, refletindo a diversidade de ferramentas e técnicas de IA aplicadas à 
 detecção de \textit{code smells}.
 
 
@@ -350,20 +350,20 @@ estática de forma explícita, destacam-se ferramentas consolidadas como
 \textit{iPlasma}, \textit{Anti-Pattern Scanner}, 
 \textit{JDeodorant}, \textit{CK Tool}, \textit{CKJM}, 
 \textit{DFMC4J} (via Eclipse JDT), \textit{tree-sitter}, o plugin \textit{Metric} 
-(Eclipse) e extensões do \textit{IntelliJ IDEA}. 
+(Eclipse) e extensões do \textit{IntelliJ IDEA} \cite{Yadav2024Survey,Moreira2024CIBSE}. 
 
 Alguns estudos utilizaram análise estática de forma indireta, baseando-se em 
 métricas estruturais extraídas por ferramentas terceiras, sem executá-las 
 no próprio experimento cenário comum em trabalhos que utilizaram 
 \textit{datasets} curados, como MLCQ, MSR/KBS, Qualitas Corpus, JUnit e 
-repositórios Tera-Promise. Em outros casos, a análise estática foi realizada 
+repositórios Tera-Promise \cite{Ho2025EnseSmells,Yahya2023DeepLearningSmells}. Em outros casos, a análise estática foi realizada 
 por \textit{parsers} específicos, como \textit{javalang}, \textit{tree-sitter} ou 
 analisadores léxicos customizados, geralmente empregados para gerar ASTs 
 e extrair métricas estruturais.
 
 Além dessas ferramentas, alguns estudos empregaram o 
 \textit{SonarQube} tanto para detectar \textit{code smells} quanto para gerar 
-métricas e validar a refatoração sugerida por modelos de IA. Em cenários 
+métricas e validar a refatoração sugerida por modelos de IA \cite{Nizam2023DeepLearningSmells}. Em cenários 
 mais específicos, surgem implementações proprietárias, como softwares 
 customizados desenvolvidos em C\# ou Python para cálculo de métricas e 
 definição de regras de análise.
@@ -381,21 +381,21 @@ avaliada, majoritamente, por métricas derivadas da matriz de confusão, com foc
 em medidas de desempenho de classificadores binários. Entre as métricas mais empregadas, 
 destacam-se \textit{Accuracy}, \textit{Precision}, \textit{Recall} e \textit{F1-Score}, 
 utilizadas na maior parte dos estudos para avaliar acertos globais, controle de falsos 
-positivos, sensibilidade na detecção de casos positivos e o equilíbrio entre precisão dos acertos. 
+positivos, sensibilidade na detecção de casos positivos e o equilíbrio entre precisão dos acertos \cite{Yahya2024SQDS,Yadav2024Survey,Sahu2024Predicting}. 
 
 Outra métrica amplamente adotada é o \textit{Matthews Correlation Coefficient (MCC)}, 
 considerada mais robusta para cenários desbalanceados por incorporar os quatro componentes 
-da matriz de confusão (TP, TN, FP, FN). Em alguns estudos, métricas adicionais também foram 
+da matriz de confusão (TP, TN, FP, FN) \cite{Huang2024AligningXAI,Ho2023FusionCNNLSTM}. Em alguns estudos, métricas adicionais também foram 
 empregadas, como \textit{Balanced Accuracy}, \textit{Specificity}, \textit{False Positive Rate}, 
 \textit{Macro-F1}, \textit{Utility Ratio}, \textit{MAE}, \textit{RMSE} e \textit{Brier Score}.
 
 Além das métricas orientadas ao desempenho dos classificadores, parte da literatura também 
 avalia métricas de qualidade de código, como complexidade ciclomática (CC), linhas de código 
 (LOC), acoplamento (CBO), coesão (LCOM) e profundidade de herança (DIT), comparadas antes 
-e depois dos processos de detecção ou refatoração. Em estudos qualitativos surgem ainda 
+e depois dos processos de detecção ou refatoração \cite{Haroon2025CodeInsight}. Em estudos qualitativos surgem ainda 
 indicadores como \textit{Task Completion Rate}, \textit{Normalized Score}, tempo de execução, 
 e medidas de concordância entre avaliadores, como \textit{Cohen's Kappa} e 
-\textit{Krippendorff's Alpha}.
+\textit{Krippendorff's Alpha} \cite{Huang2024DeveloperFeatures}.
 
 Em síntese, a avaliação combinada de \textit{Precision}, \textit{Recall}, \textit{F1-Score}, 
 \textit{Accuracy} representa o núcleo das métricas utilizadas, sendo complementada por medidas 
