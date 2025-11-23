@@ -408,27 +408,24 @@ A análise dos estudos revela que a detecção de \textit{code smells} por meio 
 de Inteligência Artificial ainda enfrenta limitações significativas em diversas frentes. 
 Um dos principais obstáculos está relacionado à \textbf{qualidade dos dados}, marcada 
 pelo forte desbalanceamento entre exemplos de código limpo e instâncias de \textit{smells}, 
-o que reduz o desempenho dos modelos, especialmente no \textit{recall}. Soma-se a isso a 
+o que reduz o desempenho dos modelos, especialmente no \textit{recall} \cite{Khleel2022DeepCNNBadSmells}. Soma-se a isso a 
 \textbf{subjetividade na rotulagem}, pois não há consenso universal sobre a definição de 
 cada smell, gerando inconsistências, ruído nos datasets e baixa concordância entre 
-avaliadores humanos e ferramentas heurísticas. A limitação de muitos conjuntos de dados 
+avaliadores humanos e ferramentas heurísticas \cite{Ho2025EnseSmells}. A limitação de muitos conjuntos de dados 
 a poucos projetos, majoritariamente em Java, compromete a validade externa e a 
 generalização dos modelos.
 
 Outro desafio recorrente refere-se à \textbf{representação do código}. Abordagens 
 tradicionais baseadas em métricas dependem de limiares arbitrários e capturam apenas 
 aspectos superficiais do design. Métodos que tratam o código como texto ignoram sua 
-estrutura sintática e semântica, enquanto algumas técnicas de \textit{embedding} não 
-conseguem modelar adequadamente dependências entre métodos, classes e atributos. 
-Smells mais complexos, como \textit{Feature Envy}, exigem análise contextual envolvendo 
-múltiplos arquivos, tornando o problema ainda mais desafiador para modelos atuais.
+estrutura sintática e semântica, o que explica o baixo desempenho na detecção 
+de Smells mais complexos, como \textit{Feature Envy}, que exigem análise contextual envolvendo 
+múltiplos arquivos, tornando o problema ainda mais desafiador para modelos atuais \cite{Abdelkader2025SPNCodeSmells}.
 
 Diversos estudos também relatam limitações de \textbf{desempenho computacional} e de 
 \textbf{otimização}. Arquiteturas profundas, como \textit{Transformers} e \textit{GNNs}, apresentam alto 
-custo de processamento, tornando difícil seu uso em ferramentas em tempo real. A 
-dificuldade no ajuste de hiperparâmetros aumenta o risco de sobreajuste, especialmente 
-diante da escassez de dados representativos. Em muitos casos, embora os modelos 
-obtenham alta precisão, ainda produzem grande quantidade de falsos positivos, 
+custo de processamento, tornando difícil seu uso em ferramentas em tempo real \cite{Ali2025TransformerSmells}. 
+Em muitos casos, embora os modelos obtenham alta precisão, ainda produzem grande quantidade de falsos positivos, 
 sobrecarregando desenvolvedores com alertas desnecessários.
 
 As pesquisas também indicam limitações relativas à \textbf{generalização e escopo}. A 
@@ -436,12 +433,12 @@ predominância de estudos focados em Java dificulta a extrapolação dos resulta
 outras linguagens. A análise costuma abranger apenas um conjunto restrito de smells, 
 principalmente \textit{God Class}, \textit{Long Method}, \textit{Feature Envy} e 
 \textit{Data Class}, o que impede a aplicação dos modelos em ambientes reais, onde 
-diversos tipos de anomalias coexistem.
+diversos tipos de anomalias coexistem \cite{Ali2025TransformerSmells}.
 
 Por fim, há desafios associados à \textbf{interpretabilidade e adoção prática}. Modelos 
 de \textit{deep learning} permanecem como “caixas-pretas”, dificultando a compreensão 
-das decisões de classificação. Já abordagens com \textit{LLMs} enfrentam limitações de 
-janela de contexto e podem gerar código incorreto ou não compilável. Ferramentas de 
+das decisões de classificação \cite{Rashid2025InterpretableDL}. Já abordagens com \textit{LLMs} enfrentam limitações de 
+tamanho de contexto, dificultando o processamento de projetos de software grandes e complexos \cite{Baumgartner2024AIDrivenRefactoring}. Ferramentas de 
 análise estática ainda produzem muitos falsos positivos e raramente oferecem mecanismos 
 de priorização dos smells, dificultando decidir quais problemas corrigir primeiro.
 
@@ -484,31 +481,23 @@ inspeções manuais desnecessárias.
 
 Os trabalhos também apontam que a natureza subjetiva dos \textit{code smells}, a 
 inconsistência na rotulagem e a baixa qualidade de alguns datasets contribuem para 
-a ocorrência de falsos positivos. Em particular, smells complexos como 
+a ocorrência de falsos positivos \cite{Ho2025EnseSmells}. Em particular, smells complexos como 
 \textit{Feature Envy} e \textit{Large Class} são especialmente suscetíveis a erros, 
 pois dependem de relações semânticas profundas e contexto entre múltiplos arquivos, 
-o que muitos modelos não capturam de maneira adequada. Abordagens baseadas apenas 
+o que muitos modelos não capturam de maneira adequada \cite{Abdelkader2025SPNCodeSmells}. Abordagens baseadas apenas 
 em métricas estruturais, regras fixas ou limiares manuais tendem a superestimar 
 ocorrências, aumentando ainda mais o número de alarmes incorretos.
 
-Os estudos mais recentes enfatizam o papel da métrica de \textit{Precision} (Precisão) 
-como indicador central para monitorar falsos positivos, e vários trabalhos utilizam 
-\textit{F1-score}, \textit{ROC-AUC} e especialmente o \textit{Matthews Correlation 
-Coefficient} (MCC) para avaliar o equilíbrio entre erros positivos e negativos. Alguns 
+A análise dos estudos demonstram o papel de métricas como \textit{Precision} (Precisão), 
+\textit{F1-score}, \textit{ROC-AUC} e o \textit{Matthews Correlation 
+Coefficient} (MCC) como indicadores centrais para monitorar falsos positivos. Alguns 
 modelos priorizam a alta precisão mesmo à custa de \textit{recall}, reduzindo falsos 
 positivos, mas deixando de detectar parte dos smells reais um \textit{trade-off} 
 recorrente na literatura.
 
-Em abordagens com modelos generativos e \textit{LLMs}, as atenções incluem o risco de 
-respostas incorretas, interpretações equivocadas ou sugestões de refatoração que 
-não fazem sentido, exigindo validação humana contínua. Estudos também relatam o 
-uso de ferramentas auxiliares, como aplicativos de comparação de código, para 
-detectar inconsistências inseridas automaticamente pelas IAs e minimizar falsos 
-positivos durante o processo de revisão.
-
 Por fim, parte da literatura propõe estratégias para mitigar o problema, como 
 melhorias de precisão por meio de meta-heurísticas, detecção em múltiplas etapas, 
-balanceamento de classes com SMOTE, calibração probabilística e uso de conjuntos de 
+balanceamento de classes com técnicas como SMOTE, calibração probabilística e uso de conjuntos de 
 dados revisados manualmente. Em conjunto, os artigos demonstram que controlar os 
 falsos positivos é essencial para garantir que as técnicas de IA para detecção de 
 \textit{code smells} sejam efetivamente úteis, confiáveis e aplicáveis em ambientes 
