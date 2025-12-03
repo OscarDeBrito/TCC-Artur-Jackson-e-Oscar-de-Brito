@@ -104,8 +104,8 @@ dividindo o tema em cinco domínios:
 \end{description}
 
 Esse reagrupamento respondeu a duas demandas históricas: 
-(i) separar claramente \textit{o que} medir, \textit{como} medir e \textit{como} avaliar alinhado às boas práticas de engenharia de medição em software e 
-(ii) aproximar o modelo de qualidade das atividades de engenharia de requisitos e da avaliação contínua em ciclos iterativos, em linha com 
+Primeiramente separar claramente o que medir, como medir e como avaliar alinhado às boas práticas de engenharia de medição em software e 
+em seguida aproximar o modelo de qualidade das atividades de engenharia de requisitos e da avaliação contínua em ciclos iterativos, em linha com 
 abordagens orientadas a metas como GQM 
 
 No âmbito do SQuaRE, o sucessor direto do 9126 é a \cite{ISOIEC25010}, que atualiza o modelo de qualidade de produto e o de 
@@ -116,20 +116,20 @@ e (c) consolidam-se as dimensões de qualidade em uso eficácia, eficiência, sa
 aproximando a avaliação da experiência real da pessoa usuária e do ambiente de operação \cite{Bevan2009}. 
 
 Em síntese, o avanço histórico percorre um modelo unificado e descritivo (ISO/IEC 9126) até um ecossistema modular (SQuaRE) que integra 
-\emph{modelo → requisitos → medidas → avaliação}, culminando na \cite{ISOIEC25010}. Preserva-se a comparabilidade com a série anterior, 
+\emph{modelo → requisitos → medidas → avaliação}, culminando na \cite{ISOIEC25010}. Mantendo a comparação com a série anterior, 
 ao mesmo tempo em que se oferece maior aderência às práticas contemporâneas de desenvolvimento, operação e melhoria contínua.
 
 
 
 \section{Metodologias Ágeis}
-As metodologias ágeis emergem como resposta prática aos limites dos modelos tradicionais de desenvolvimentociclos longos, 
+As metodologias ágeis emergem como resposta prática aos limites dos modelos clássicos de desenvolvimento em ciclos longos, 
 documentação prescritiva e baixa adaptabilidadee ganham contorno conceitual com o \textit{Manifesto for Agile Software Development}, 
 que privilegia indivíduos e interações, software em funcionamento, colaboração com o cliente e resposta a mudanças \cite{Beck2001Manifesto}.
 
 A partir desses valores, consolidou-se uma família de métodos e práticas que, mais do que um processo único, operam como um ecossistema de 
 princípios orientados à entrega contínua de valor e ao aprendizado incremental. O foco em ciclos curtos, feedback frequente e alinhamento
-contínuo com requisitos de negócio reforça atributos de qualidade do modelo \cite{ISOIEC25010}especialmente \emph{manutenibilidade}, 
-\emph{confiabilidade} e \emph{usabilidade}ao incentivar arquitetura evolutiva, testes automatizados e integração contínua para conter 
+contínuo com requisitos de negócio e reforça atributos de qualidade do modelo \cite{ISOIEC25010} especialmente \emph{manutenibilidade}, 
+\emph{confiabilidade} e \emph{usabilidade} ao incentivar arquitetura evolutiva, testes automatizados e integração contínua para conter 
 dívida técnica e prevenir \textit{code smells}.
 
 No início dos anos 2000, dois vetores ajudaram a popularizar a abordagem: por um lado, o Scrum, com \textit{sprints}, papéis definidos 
@@ -142,19 +142,18 @@ melhoria evolutiva para estabilizar o sistema e promover previsibilidade (lead/c
 \textit{Lean Software} destacou a eliminação de desperdícios, a amplificação do aprendizado e a entrega rápida como base para 
 reduzir filas, variabilidade e retrabalho \cite{Poppendieck2003Lean}. 
 
-Nesse caldo, a garantia de qualidade se desloca do “fim da linha”
+Assim, a garantia de qualidade se desloca do “fim da linha”
 para o cotidiano da equipe: TDD e BDD funcionam como especificações executáveis que elevam \emph{testabilidade} e \emph{analisabilidade}; 
 \textit{pipelines} de CI/CD encurtam ciclos de feedback e detectam defeitos precocemente \cite{Fowler2006CI,HumbleFarley2010CD}; e a 
 refatoração contínua melhora o desenho sem alterar comportamento, atacando dívidas e sinais como \emph{God Class} e \emph{Long Method}. 
-Critérios explícitoscomo Definições de Pronto e de Feitotornam visíveis padrões mínimos de qualidade (cobertura de testes, revisão por
+Critérios explícitos como Definições de Pronto e de Feito tornam visíveis padrões mínimos de qualidade (cobertura de testes, revisão por
 pares, requisitos de segurança), ajustados ao contexto organizacional.
 
 Por fim, a experiência mostra que “adotar ágil” nominalmente, sem práticas técnicas e sem investimento deliberado em qualidade, 
 apenas acelera a geração de dívida técnica. O risco do \textit{cargo cult} é real: cerimônias sem propósito, indicadores usados de f
 orma disfuncional e pressão por entrega que sacrifica atributos essenciais do \cite{ISOIEC25010}. A eficácia depende de disciplina técnica, 
 gestão do conhecimento e alinhamento contínuo a objetivos de produto. Essa trajetória torna natural a ponte para o próximo tópico: 
-\textit{code smells} como sinais precoces de degradação do design que, se ignorados, comprometem as características de qualidade e 
-justamente os alguns dos pilares que a abordagem ágil busca sustentar.
+\textit{code smells} como sinais precoces de degradação do design que, se ignorados, comprometem as características de qualidade e alguns dos pilares que a abordagem ágil busca sustentar.
 
 
 \section{Code Smells}
@@ -184,8 +183,8 @@ como John McCarthy propuseram a construção de máquinas capazes de simular o p
 
 Ao longo das décadas seguintes, a IA evoluiu por diferentes paradigmas: inicialmente dominada por sistemas simbólicos 
 baseados em regras e lógica formal; depois, a partir dos anos 1990, fortalecida por métodos estatísticos e técnicas de 
-aprendizado supervisionado aplicadas ao processamento de linguagem natural; 
-e, posteriormente, impulsionada pelo avanço das redes neurais profundas e dos modelos distribuídos de representação 
+aprendizado supervisionado aplicadas ao processamento de linguagem natural,
+e posteriormente, impulsionada pelo avanço das redes neurais profundas e dos modelos distribuídos de representação 
 semântica \cite{Goodfellow2016}. Um desses marcos ocorreu em 2017, com o surgimento da arquitetura transformer, que 
 introduziu novos mecanismos e permitiu treinar modelos em larga escala com maior eficiência
 \cite{Vaswani2017}, estabelecendo as bases para os Modelos de Linguagem de Grande Escala (LLMs) que hoje dominam o 
@@ -202,7 +201,7 @@ semânticas e padrões complexos \cite{Goodfellow2016}, e com o surgimento da ar
 de \textit{self-attention}, permitindo capturar dependências de longo alcance \cite{Vaswani2017}. 
 Essa inovação estabeleceu as bases técnicas para o treinamento de modelos em escala massiva, preparando o terreno para os LLMs contemporâneos.
 
-Os LLMs são fundamentados majoritariamente nessa arquitetura, utilziando a estrutura de \textit{self-attention} que possibilita ao modelo atribuir 
+Os LLMs são fundamentados majoritariamente nessa arquitetura, utilizando a estrutura de \textit{self-attention} que possibilita ao modelo atribuir 
 diferentes pesos às palavras de uma mesma sentença, identificando aquelas mais relevantes para compreender o significado 
 do enunciado \cite{Vaswani2017}, permitindo aplicações como síntese textual, tradução, sumarização e resposta automática 
 a perguntas, sem necessidade de instruções específicas para cada tarefa.
