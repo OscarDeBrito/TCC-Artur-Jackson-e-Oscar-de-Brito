@@ -3,7 +3,7 @@
 
 Este capítulo tem como objetivo introduzir o leitor(a) aos temas principais que serão abordados neste trabalho. São apresentados conceitos como manutenibilidade de software, 
 modelos de qualidade e \textit{code smells}, além de delimitar o escopo do problema, explicitar a 
-pergunta de pesquisa que orienta a investigação e descrever a organização geral do documento.
+questão de pesquisa que orienta a investigação e descrever a organização geral do documento.
 
 \section{Contexto}
 
@@ -35,7 +35,7 @@ representações estruturais (grafos, \textit{code embeddings}), \textit{deep le
 \textit{Large Language Models} (LLMs).
 
 Ao articular modelos de qualidade clássicos com a prática contemporânea de detecção de \textit{code smells}, 
-este estudo busca fornecer uma síntese crítica e baseada em evidências sobre a contribuição das técnicas de IA frente às ferramentas estáticas tradicionais, 
+este estudo busca fornecer uma síntese crítica e baseada em evidências sobre a contribuição das técnicas de IA frente às ferramentas de análise estáticas tradicionais, 
 indicando oportunidades concretas de pesquisa e de adoção em ambientes de desenvolvimento.
 
 \section{Problema}
@@ -43,7 +43,7 @@ indicando oportunidades concretas de pesquisa e de adoção em ambientes de dese
 Medir e detectar code smells é uma tarefa crítica no desenvolvimento de software para 
 garantir a boa qualidade do código \cite{Haroon2025}. Code smells são estruturas de código que indicam 
 violações dos princípios fundamentais de design \cite{Fowler2018} e afetam negativamente a testabilidade, a 
-manutenibilidade e a evolvabilidade dos produtos de software \cite{SharmaSpinellis2018}. Embora já exista
+manutenibilidade e a evolução dos produtos de software \cite{SharmaSpinellis2018}. Embora já exista
 muito conhecimento acumulado na área, ainda carecemos de métodos que superem a subjetividade inerente a 
 certos code smells, como o God Class \cite{Haroon2025}
 
@@ -54,7 +54,7 @@ desafio contínuo \cite{AlKhatib2023}, onde os profissionais frequentemente disc
 \cite{ArcelliFontana2016}.
 
 No contexto do desenvolvimento e entrega contínua, esse desafio se torna ainda mais difícil. Métodos manuais 
-de análise são, por muitas vezes, trabalhosos o que impulsiona a necessidade de técnicas automatizadas para 
+de análise são, por muitas vezes, trabalhosos, o que impulsiona a necessidade de técnicas automatizadas para 
 detecção de code smells. A detecção deve ser oportuna, pois o custo de correção desses problemas tende a 
 aumentar quanto mais tarde eles forem detectados \cite{Moha2009}. A medição da qualidade do código se torna 
 ainda mais desafiadora ao lidar com ciclos contínuos de lançamentos.
@@ -71,7 +71,7 @@ com o objetivo de melhorar a precisão e reduzir o viés associado a outras téc
 desafio na aplicação de algoritmos de ML reside na criação de uma representação vetorial adequada do trecho 
 de código analisado, jutamente com um bom treinamneto aplicado a ML. \cite{Haroon2025}.
 
-Visto que a eficácia desses modelos depende diretamente da forma como o código é encodado e da mitigação de 
+Visto que a eficácia desses modelos depende diretamente da forma como o código é empacotado e da mitigação de 
 ameaças à validade, existe a necessidade contínua de investigar e refinar as técnicas de treinamento e 
 representação para garantir melhor uso dessas tecnicas.
 
@@ -80,10 +80,10 @@ representação para garantir melhor uso dessas tecnicas.
 
 \label{qp_principal}
 
-A pergunta de pesquisa foi construída com base na metodologia \textit{Goal Question Metric} (GQM). 
+A questão de pesquisa foi construída com base na metodologia \textit{Goal Question Metric} (GQM)\cite{Basili1994}. 
 Essa metodologia organiza, de forma hierárquica e \textit{top-down}, os objetivos a serem atingidos, as questões que orientam o alcance desses objetivos e 
 as métricas que permitem respondê-las de modo quantitativo, 
-conforme ilustrado na Figura~\ref{fig:gqm}. Essa estrutura foi ajustada ao escopo deste estudo conforme a (Tabela~\ref{tab:gqm-adaptado}), resultando na seguinte pergunta:
+conforme ilustrado na Figura~\ref{fig:gqm}. Essa estrutura foi ajustada ao escopo deste estudo conforme a (Tabela~\ref{tab:gqm-adaptado}), resultando na seguinte questão principal de pesquisa :
 
 \begin{table}[h]
     \centering
@@ -92,8 +92,7 @@ conforme ilustrado na Figura~\ref{fig:gqm}. Essa estrutura foi ajustada ao escop
         \hline
         \textbf{Característica} & \textbf{Valor} \\
         \hline
-        \textbf{Analisar} & a característica de qualidade de produto de software referente à manutenibilidade e, em especial, a sub-característica de analisabilidade/modularidade, considerando 
-perspectivas internas \\ 
+        \textbf{Analisar} & a característica de qualidade de produto de software referente à manutenibilidade e, em especial, a subcaracterística de analisabilidade/modularidade,  \textcolor{red}{Vejam comentário na caixa rosa} considerando as visão de qualidade interna \\ 
         \hline
         \textbf{Com o propósito de} & Caracterizar \\
         \hline
@@ -114,6 +113,9 @@ Considerando essa perspectiva definimos a seguinte questão principal de pesquis
 \textbf{\textit{Como sistemas baseadas em (IA) tem auxiliado a garantia de qualidade de software, especialmente na detecção de anomalias em código-fonte pontecialmente problemático? }}
 \end{center}
 
+\todo[inline, color=pink]{Embora em nossas conversas eu tenha mencionado manutenibilidade, estamos mais para analisabilidade e modificabilidade. É importante que definamos qual exatamente e como mediremos essa subcaracterística}
+
+
 \begin{figure}[h]
     \centering
 	\caption{Abordagem GQM}
@@ -126,9 +128,7 @@ Considerando essa perspectiva definimos a seguinte questão principal de pesquis
 \section{Objetivos}
 
 O objetivo geral deste trabalho é analisar a contribuição de abordagens baseadas em Inteligência Artificial
-(IA), em comparação com ferramentas de análise estática, na detecção de code smells, considerando as 
-subcaracterísticas de manutenibilidade, especialmente analisabilidade e modularidade, em projetos de 
-software livre voltados a aplicações web.
+(IA), em comparação com ferramentas de análise estática, na detecção de code smells, considerando a característica de manutenibilidade, especialmente subcaracterística analisabilidade,  em projetos de software livre, voltados a aplicações web.
 
     Para alcançar o objetivo proposto, foram definidos os seguintes objetivos específicos:
 
@@ -136,8 +136,6 @@ software livre voltados a aplicações web.
 	\item Mapear as principais abordagens de Inteligência Artificial (IA) aplicadas à detecção de code smells em produtos de software.;
 	\item Comparar ferramentas baseadas em IA com ferramentas de análise estática quanto ao desempenho 
     relacionado às subcaracterísticas de manutenibilidade, especialmente analisabilidade e modificabilidade.;
-	\item Planejar um experimento?;
-    \item Conduzir o experimento?;
     \item Identificar limitações e desafios na aplicação de técnicas de IA à garantia da qualidade de 
     código, em comparação com os métodos tradicionais de análise estática
     \item  Apresentar as conclusões e os insights resultantes desta investigação.
@@ -150,20 +148,17 @@ A seguir, são apresentados os capítulos que compõem a estrutura deste trabalh
 
 
 \begin{itemize}
-	\item Introdução: apresenta a contextualização do trabalho, o problema de pesquisa, a
+	\item Introdução: é apresentada uma contextualização do trabalho, o problema investigado, a
  definição da questão de pesquisa e dos objetivos do trabalho. Por fim, descreve a
- estrutura e o cronograma das atividades realizadas.;
-	\item Referencial Teórico: Apresenta os fundamentos conceituais e metodológicos que 
+ estrutura e o cronograma das atividades realizadas;
+	\item Referencial Teórico: são apresentados os fundamentos conceituais e metodológicos que 
     sustentam o desenvolvimento deste trabalho, abordando os princípios da Engenharia de Software 
     Experimental, os modelos de qualidade aplicáveis à manutenibilidade, os conceitos de code smells e 
     de Inteligência Artificial (IA), que servem como base para o experimento conduzido;
-	\item Revisão Estruturada da Literatura: explicita o processo empregado para seleção
- que fundamentam este trabalho incluindo o protocolo de pesquisa e filtragem dos
- estudos e os resultados obtidos.
- 	\item Planejamento?
- 	\item Conclusão: consolida os achados obtidos parcial ou integralmente e como esses re
-sultados respondem à questão de pesquisa principal, bem como as limitações do
- estudo e as possibilidades de aprofundamento de trabalhos futuros.
+	\item Revisão Estruturada da Literatura: formaliza e documenta o processo empregado para a seleção dos estudos
+ que fundamentam este trabalho, incluindo o protocolo de busca, adaptado da revisão sistemática de literatura \cite{kitchenham2007guidelines}; 
+    \item  Planejamento do experimento controlado; 
+ 	\item Conclusão: consolida os achados obtidos parcial ou integralmente e como esses resultados respondem à questão de pesquisa principal. Além disso, são discutidas as limitações do estudo e as possibilidades de aprofundamento em trabalhos futuros.
 \end{itemize} 
 
 \section{Cronograma e Fluxo de Atividades}
@@ -192,12 +187,12 @@ Figura \ref{fig:cronograma}.
 \end{figure}
 
 \begin{itemize}
-    \item \textbf{Contextualização sobre Engenharia de Software Experimental:} O objetivo inicial foi fundamentar os princípios da Engenharia de Software Experimental, explorando metodologias empíricas como revisões sistemáticas da literatura, surveys, experimentos e estudos de caso. \cite{Wohlin:2012:ESE:2349018} \cite{yin2015estudo} \cite{Runeson2009}
+    \item \textbf{Contextualização sobre Engenharia de Software Experimental:} O objetivo inicial foi fundamentar os princípios da Engenharia de Software Experimental, explorando metodologias empíricas como revisões sistemáticas da literatura, questionários, experimentos e estudos de caso. \cite{Wohlin:2012:ESE:2349018} \cite{yin2015estudo} \cite{Runeson2009}
     \item \textbf{Definição do GQM:} Uso da abordagem Goal Question Metric (GQM) \cite{Basili1994} para a construção da questão principal de pesquisa, suas subquestões e as medidas a serem analisadas.
     \item \textbf{Elaboração do Protocolo de Revisão da Literatura:} Estruturação e adaptação do protocolo de revisão sistemática da literatura proposto por \citeonline{kitchenham2007guidelines}. Este processo inclui a definição da string de busca baseada no protocolo PICO, adapatado da área da medicina \cite{pai_clinical_2004}. Por meio desse protocolo definimos sinônimos de termos, critérios de inclusão e exclusão de estudos, além do método de análise  e  extração de dados.
     \item \textbf{Seleção dos Artigos:} A etapa envolveu a filtragem inicial dos estudos por meio da análise de títulos, resumos e palavras-chave, aplicando os critérios de inclusão e exclusão definidos no protocolo de revisão.
     \item \textbf{Leitura do Material Selecionado:} Leitura dos estudos selecionados para aprofundar o conhecimento sobre métodos de avaliação de manutenibilidade e abordagens de detecção de code smells.
-    \item \textbf{Definição da Proposta de Solução:} Definição dos code smells, as ferramentas e as atividades do TCC2.
+    \item \textbf{Definição da Proposta de Solução:} Planejamento do experimento controlado a ser executado nas atividades do TCC2.
     \item \textbf{Redação da Monografia:} Escrita do texto da monografia, conforme a estrutura presente na Seção 1.5.
     \item \textbf{Revisão:} Realização das correções e dos ajustes solicitados pelo orientador.
     \item \textbf{Apresentação:} Preparação do material e apresentação do trabalho final para a banca examinadora.
