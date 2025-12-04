@@ -1,6 +1,6 @@
 \chapter[Referencial teórico]{Referencial Teórico}
 
-Este capítulo apresenta a fundamentação teórica que sustenta esse trabalho, trazendo a tona os principais 
+Neste capítulo é apresentada a fundamentação teórica que sustenta este trabalho, trazendo a tona os principais 
 conceitos, teorias e estudos relacionados ao tema abordado.
 
 \section{Engenharia de Software Experimental}
@@ -16,12 +16,12 @@ possibilitando uma avaliação científica das práticas adotadas no desenvolvim
 
 Entre os métodos de pesquisa no contexto da Engenharia de Software apresentados por \citeonline{Basili1993}, 
 destaca-se o método empírico. Esse método baseia-se na observação direta e na coleta de dados reais, buscando validar teorias 
-e modelos por meio da análise de dados obtidos de experimentos práticos. A pesquisa empírica é amplamente utilizada na ciencias sociais onde se tem foco no comportamento humano,
-em que não podemos estabelecer leis da natureza. Portanto tornando-se essencial em um campo como a engenharia de software, que envolve a interação de múltiplos fatores humanos, 
+e modelos por meio da análise de dados obtidos nas observações. A pesquisa empírica é amplamente utilizada na ciencias sociais onde se tem foco no comportamento humano,
+em que não podemos estabelecer leis da natureza. Portanto, tornando-se essencial em um campo como a engenharia de software, que envolve a interação de múltiplos fatores humanos, 
 tecnológicos e organizacionais. \cite{Wohlin:2012:ESE:2349018}.
 
 O Experimento é uma das principais estratégias de pesquisa empírica. Ele envolve a manipulação controlada de fatores ou variáveis.
-Diferentes tratamentos são aplicados a ou por diferentes sujeitos, medindo os efeitos nas variáveis de resultado. É especialmente
+Diferentes tratamentos são aplicados a diferentes sujeitos, medindo os efeitos nas variáveis de resultado. É especialmente
 utilizado em estudos onde se deseja comparar o desempenho de diferentes técnicas, ferramentas ou metodologias de desenvolvimento de software \cite{Wohlin:2012:ESE:2349018}.
 
 
@@ -36,10 +36,10 @@ Nesta primeira etapa, a fundação do experimento é determinada, e o experiment
 O objetivo é garantir que a intenção do experimento possa ser cumprida.
 A meta do experimento é formalizada usando uma estrutura que define: Objeto de estudo, Propósito, Foco de qualidade, Perspectiva e Contexto.
 
-\subsubsection{Planejamento (Planning)}
+\subsubsection{Planejamento}
 Esta fase prepara o "como" o experimento será conduzido.
 O planejamento estabelece a fundação para o experimento.
-As principais sub-etapas incluem:
+As principais subetapas incluem:
 \begin{itemize}
 
 	\item Seleção do Contexto: Determinação do ambiente onde o experimento será executado . 
@@ -52,7 +52,7 @@ As principais sub-etapas incluem:
 
 \end{itemize}
 
-\subsubsection{Operação (Operation)}
+\subsubsection{Operação}
 Fase de execução do experimento, onde os tratamentos são aplicados aos sujeitos e os dados são coletados.
 É crucial que o experimento seja conduzido de acordo com o plano para que os resultados sejam válidos.
 As principais sub-etapas incluem:
@@ -65,7 +65,7 @@ As principais sub-etapas incluem:
 
 \end{itemize}
 
-\subsubsection{Análise e Interpretação (Analysis and Interpretation)}
+\subsubsection{Análise e Interpretação}
 Nesta fase, os dados coletados são processados para que as conclusões possam ser tiradas.
 As etapas de interpretação quantitativa são:
 \begin{itemize}
@@ -77,20 +77,23 @@ As etapas de interpretação quantitativa são:
 	rejeitada, formando a base para decisões e conclusões sobre como usar os resultados.
 \end{itemize}
 
-\subsubsection{Apresentação e Empacotamento (Presentation and Package)}
-Esta atividade final envolve a documentação e comunicação das descobertas.
+\subsubsection{Apresentação e Empacotamento}
+Esta atividade final envolve a documentação e comunicação das descobertas, "achados".
 O foco principal é a documentação dos resultados, seja em um artigo de pesquisa, um relatório para tomadores de decisão, ou 
 como parte da base de experiência de uma empresa. É essencial para o aprendizado e para facilitar a replicação do experimento 
 por outros pesquisadores.
 
 
 \section{Modelos de Qualidade}
+
+
+
 A padronização internacional da qualidade de produto de software consolidou-se com a família ISO/IEC 9126, cuja edição mais difundida é 
 a \citeonline{ISO9126}. Esse modelo organizou a qualidade do produto em seis características (funcionalidade, confiabilidade, usabilidade, 
 eficiência, manutenibilidade e portabilidade), desdobradas em subcaracterísticas, e articulou a relação entre qualidade interna, externa e 
-em uso, tratada em partes complementares da série. Essa consolidação dialoga com esforços anteriores de modelagem da qualidade, como os modelos 
-de \textit{quality characteristics} de Boehm \cite{boehm1978characteristics} e McCall \cite{McCall1977}, e a proposta de mapeamento de propriedades de produto
- para atributos de qualidade de Dromey \cite{Dromey1995}.
+em uso, tratada em partes complementares da série. Essa consolidação foi possível e diretamente influenciada, pelos modelos seminais propostos Barry Boehm \cite{boehm1978characteristics}, John McCall \cite{McCall1977} e Geoff Dromey \cite{Dromey1995}.
+
+
 
 A partir de meados dos anos 2000, a ISO e a IEC reorganizaram e ampliaram esse escopo ao criar a família SQuaRE (ISO/IEC 25000), 
 dividindo o tema em cinco domínios:
@@ -109,7 +112,7 @@ Esse reagrupamento respondeu a duas demandas históricas:
 abordagens orientadas a metas como GQM 
 
 No âmbito do SQuaRE, o sucessor direto do 9126 é a \cite{ISOIEC25010}, que atualiza o modelo de qualidade de produto e o de 
-qualidade em uso. Em relação ao 9126, há três movimentos centrais: (a) a antiga “eficiência” é refinada para \emph{eficiência de desempenho} 
+qualidade em uso. Em relação ao 9126, há três alterações centrais: (a) a antiga “eficiência” é refinada para \emph{eficiência de desempenho} 
 (\textit{performance efficiency}); (b) são adicionadas duas novas características \emph{compatibilidade} (com foco em interoperabilidade e 
 coexistência) e \emph{segurança} (com subcaracterísticas como confidencialidade, integridade, autenticidade, responsabilização e não repúdio); 
 e (c) consolidam-se as dimensões de qualidade em uso eficácia, eficiência, satisfação, liberdade de risco e cobertura de contexto 
@@ -122,14 +125,14 @@ ao mesmo tempo em que se oferece maior aderência às práticas contemporâneas 
 
 
 \section{Metodologias Ágeis}
-As metodologias ágeis emergem como resposta prática aos limites dos modelos tradicionais de desenvolvimentociclos longos, 
-documentação prescritiva e baixa adaptabilidadee ganham contorno conceitual com o \textit{Manifesto for Agile Software Development}, 
+As metodologias ágeis emergem como resposta prática aos limites dos modelos tradicionais de desenvolvimento com ciclos longos, 
+documentação prescritiva e baixa adaptabilidade ganham contorno conceitual com o \textit{Manifesto for Agile Software Development}, 
 que privilegia indivíduos e interações, software em funcionamento, colaboração com o cliente e resposta a mudanças \cite{Beck2001Manifesto}.
 
 A partir desses valores, consolidou-se uma família de métodos e práticas que, mais do que um processo único, operam como um ecossistema de 
-princípios orientados à entrega contínua de valor e ao aprendizado incremental. O foco em ciclos curtos, feedback frequente e alinhamento
+princípios orientados à entrega contínua de valor e ao aprendizado incremental. O foco em ciclos curtos, \texti{feedback} frequente e alinhamento
 contínuo com requisitos de negócio reforça atributos de qualidade do modelo \cite{ISOIEC25010}especialmente \emph{manutenibilidade}, 
-\emph{confiabilidade} e \emph{usabilidade}ao incentivar arquitetura evolutiva, testes automatizados e integração contínua para conter 
+\emph{confiabilidade} e \emph{usabilidade} ao incentivar arquitetura evolutiva, testes automatizados e integração contínua para conter 
 dívida técnica e prevenir \textit{code smells}.
 
 No início dos anos 2000, dois vetores ajudaram a popularizar a abordagem: por um lado, o Scrum, com \textit{sprints}, papéis definidos 
@@ -142,20 +145,21 @@ melhoria evolutiva para estabilizar o sistema e promover previsibilidade (lead/c
 \textit{Lean Software} destacou a eliminação de desperdícios, a amplificação do aprendizado e a entrega rápida como base para 
 reduzir filas, variabilidade e retrabalho \cite{Poppendieck2003Lean}. 
 
-Nesse caldo, a garantia de qualidade se desloca do “fim da linha”
+A garantia de qualidade se desloca do “fim da linha”
 para o cotidiano da equipe: TDD e BDD funcionam como especificações executáveis que elevam \emph{testabilidade} e \emph{analisabilidade}; 
 \textit{pipelines} de CI/CD encurtam ciclos de feedback e detectam defeitos precocemente \cite{Fowler2006CI,HumbleFarley2010CD}; e a 
 refatoração contínua melhora o desenho sem alterar comportamento, atacando dívidas e sinais como \emph{God Class} e \emph{Long Method}. 
-Critérios explícitoscomo Definições de Pronto e de Feitotornam visíveis padrões mínimos de qualidade (cobertura de testes, revisão por
+Critérios explícitos como 'Definições de Pronto' e de 'Feito'tornam visíveis padrões mínimos de qualidade (cobertura de testes, revisão por
 pares, requisitos de segurança), ajustados ao contexto organizacional.
 
 Por fim, a experiência mostra que “adotar ágil” nominalmente, sem práticas técnicas e sem investimento deliberado em qualidade, 
-apenas acelera a geração de dívida técnica. O risco do \textit{cargo cult} é real: cerimônias sem propósito, indicadores usados de f
-orma disfuncional e pressão por entrega que sacrifica atributos essenciais do \cite{ISOIEC25010}. A eficácia depende de disciplina técnica, 
-gestão do conhecimento e alinhamento contínuo a objetivos de produto. Essa trajetória torna natural a ponte para o próximo tópico: 
-\textit{code smells} como sinais precoces de degradação do design que, se ignorados, comprometem as características de qualidade e 
-justamente os alguns dos pilares que a abordagem ágil busca sustentar.
+apenas acelera a geração de dívida técnica. O risco do \textit{cargo cult} é real: cerimônias sem propósito, indicadores usados de forma disfuncional e pressão por entrega que sacrifica atributos essenciais \textcolor{blue}{do}\todo[color=yellow]{Corrijam essa citação. Essa informação não vem da ISO25010} \cite{ISOIEC25010}. 
 
+
+
+
+A eficácia depende de disciplina técnica, 
+gestão do conhecimento e alinhamento contínuo a objetivos de produto e do negócio. Foi nesse contexto de mudança de visão e paradgima de desenvolvimento que surgiram os \textit{code smells}, percebidos com sinais precoces de degradação do projeto e implementação que, se ignorados, comprometem as características de qualidade.
 
 \section{Code Smells}
 
@@ -166,7 +170,7 @@ de refatoração preventiva. Seu catálogo original reúne 22 tipos de smells, c
 observado, como duplicação de código, métodos longos, classes grandes, divergência de mudança, inveja de funcionalidade 
 (feature envy) e classes de dados, entre outros \cite{Fowler1999}.
 
-A proposta de Fowler consolidou uma linguagem comum para discutir más práticas de projeto e abriu caminho 
+A proposta de Fowler consolidou uma linguagem comum para discutir más práticas de projeto, de implementação e abriu caminho 
 para catálogos posteriores que buscaram ampliar, formalizar e automatizar a identificação desses indícios. 
 Ao longo dos anos, diferentes pesquisadores refinaram o conceito e propuseram novas taxonomias, expandindo o 
 número e o escopo dos smells reconhecidos. Por exemplo, \citeonline{Lanza2006} introduziram critérios 
