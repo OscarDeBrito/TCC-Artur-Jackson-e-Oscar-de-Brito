@@ -131,7 +131,7 @@ incluídos na síntese da literatura.
             \item Artigos em idiomas diferentes de inglês ou português.
             \item Publicação com data anterior a 2022.
             \item Publicações duplicadas.
-            \item Conjunto de papers.
+            \item Compêndio de artigos.
         \end{enumerate} \\
         \hline
     \end{tabular}\\[0.4em]
@@ -247,7 +247,7 @@ incluídos na síntese da literatura.
 \end{longtable}}
 
 
-
+\textcolor{blue}{Parsifal}\todo[color=yellow]{Incluir nota de rodapé com endereço do parsifal.}
 
 
 
@@ -255,12 +255,14 @@ incluídos na síntese da literatura.
 \section{Resultados}
 
 Após a leitura integral dos estudos selecionados, as informações relevantes foram coletadas 
-por meio do formulário de extração disponibilizado na plataforma Parsifal. 
+por meio do formulário de extração disponibilizado na plataforma \textcolor{blue}{Parsifal}\todo[color=yellow]{Incluir nota de rodapé com endereço do parsifal}. 
 A escolha dessa ferramenta deve-se ao seu conjunto de recursos que facilitam a 
 organização, o registro e o acompanhamento sistemático das etapas da revisão da 
 literatura. Concluída a etapa de extração, todos os dados foram reunidos em uma planilha 
 pública, na qual cada linha corresponde a um artigo incluído e cada coluna representa um dos 
-elementos definidos no formulário apresentado na Tabela~\ref{tab:form_extracao}.
+elementos definidos no formulário apresentado na Tabela \ref{tab:form_extracao}.
+
+\textcolor{blue}{Tabela}\todo[color=yellow]{Incluir link para a planilha}
 
 As subseções seguintes apresentam a síntese dos resultados obtidos para cada uma das questões secundárias de pesquisa estabelecidas para esta revisão.
 
@@ -271,11 +273,13 @@ estável de \textit{code smells} que aparecem de forma recorrente nos produtos d
 avaliados. Entre eles, quatro se destacam com maior frequência: \textit{God Class}, 
 \textit{Long Method}, \textit{Feature Envy} e \textit{Data Class}, mencionados de forma 
 consistente tanto no estudo principal quanto nos trabalhos secundários utilizados como base \cite{Ho2025EnseSmells,Madeyski2023Industry,Sahu2024Predicting}. 
-Diversos artigos também incluem variações conceituais desses cheiros, como 
+Diversos artigos também incluem variações conceituais desses maus cheiros, como 
 \textit{Large Class/Blob}, \textit{Complex Class}, \textit{Spaghetti Code}, 
 \textit{Shotgun Surgery} e \textit{Long Parameter List}, mas estes aparecem de maneira 
 menos uniforme entre os estudos \cite{Huang2024AligningXAI}. Em alguns casos, o foco da análise recai sobre um único 
 cheiro (por exemplo, \textit{Feature Envy} ou \textit{Long Method}) \cite{AlFraihat2024FeatureEnvy}.
+
+\textcolor{blue}{SonarQube}\todo[color=yellow]{Incluir nota de rodapé com o end. do sonar}
 
 Os \textit{code smells} relacionados ao excesso de responsabilidades, métodos extensos, 
 acoplamento indevido e estruturas de dados anêmicas são os mais frequentemente 
@@ -342,7 +346,12 @@ Nos artigos analisados, foi visto que a variação no uso de ferramentas de aná
 estática, mas também evidencia que muitos estudos não aplicam diretamente uma 
 ferramenta, utilizando apenas \textit{datasets} previamente rotulados por 
 analisadores clássicos ou extraindo características por meio de \textit{parsers}, 
-ASTs ou métricas personalizadas. Entre os trabalhos que empregaram análise 
+ASTs ou métricas personalizadas. 
+
+\todo[inline, color=pink]{O inicio dessa frase anerior ficou confuso.}
+
+
+Entre os trabalhos que empregaram análise 
 estática de forma explícita, destacam-se ferramentas consolidadas como 
 \textit{iPlasma}, \textit{Anti-Pattern Scanner}, 
 \textit{JDeodorant}, \textit{CK Tool}, \textit{CKJM}, 
@@ -351,7 +360,7 @@ estática de forma explícita, destacam-se ferramentas consolidadas como
 
 Alguns estudos utilizaram análise estática de forma indireta, baseando-se em 
 métricas estruturais extraídas por ferramentas terceiras, sem executá-las 
-no próprio experimento cenário comum em trabalhos que utilizaram 
+no próprio estudo, cenário comum em trabalhos que utilizaram 
 \textit{datasets} curados, como MLCQ, MSR/KBS, Qualitas Corpus, JUnit e 
 repositórios Tera-Promise \cite{Ho2025EnseSmells,Yahya2023DeepLearningSmells}. Em outros casos, a análise estática foi realizada 
 por \textit{parsers} específicos, como \textit{javalang}, \textit{tree-sitter} ou 
@@ -443,7 +452,7 @@ Em síntese, os desafios observados abrangem desde a confiabilidade dos dados e 
 adequação das representações do código até limitações computacionais, metodológicas e 
 práticas. Esses fatores mostram que, apesar dos avanços recentes, a detecção automática 
 de \textit{code smells} ainda carece de melhorias para atingir maturidade e ser aplicada 
-de maneira robusta em contextos industriais.
+em larga escala em contextos industriais.
 
 \subsection{Quantos estudos apresentam validação experimental dos resultados?}
 
@@ -489,14 +498,20 @@ A análise dos estudos demonstram o papel de métricas como \textit{Precision} (
 \textit{F1-score}, \textit{ROC-AUC} e o \textit{Matthews Correlation 
 Coefficient} (MCC) como indicadores centrais para monitorar falsos positivos. Alguns 
 modelos priorizam a alta precisão mesmo à custa de \textit{recall}, reduzindo falsos 
-positivos, mas deixando de detectar parte dos smells reais um \textit{trade-off} 
+positivos, mas deixando de detectar parte dos smells reais, um balancemento  
 recorrente na literatura.
 
 Por fim, parte da literatura propõe estratégias para mitigar o problema, como 
 melhorias de precisão por meio de meta-heurísticas, detecção em múltiplas etapas, 
 balanceamento de classes com técnicas como SMOTE, calibração probabilística e uso de conjuntos de 
-dados revisados manualmente. Em conjunto, os artigos demonstram que controlar os 
+dados revisados manualmente. 
+
+\todo[inline, color=pink]{Reescrever. Como vocês puderam ver, code smells já é estudado há quase três décadas. Os falsos positivos realmente são um problema. Contudo, a análise de code smells já é utilizada em ambientes reais, também há bastante tempo.}
+
+Em conjunto, os artigos demonstram que controlar os 
 falsos positivos é essencial para garantir que as técnicas de IA para detecção de 
 \textit{code smells} sejam efetivamente úteis, confiáveis e aplicáveis em ambientes 
 reais de desenvolvimento.
 
+
+\todo[inline, color=pink]{Façam um revisão geral nos termos utilizados em inglês. Tem muito estrangeirismo no texto.}
