@@ -88,16 +88,27 @@ Essas distribuições permitem a comparação estatística entre os tratamentos.
 \subsection{Desenho do Experimento}
 
 O experimento seguirá um \textit{blocked subject design}, uma vez que todos os tratamentos serão aplicados aos mesmos objetos (trechos de código mapeados no dataset MLCQ). 
-Para cada trecho de código:
+Assim, para cada trecho de código $i$ são obtidas três observações de acerto ou
+erro, uma para cada tratamento, o que permite comparações pareadas.
+
+O procedimento geral para cada snippet é:
+
 \begin{enumerate}
-    \item obtém-se a detecção do SonarQube;
-    \item obtém-se a detecção do ChatGPT mediante prompt padronizado;
-    \item obtém-se a detecção do Gemini, também via prompt padronizado;
-    \item compara-se cada saída ao rótulo do MLCQ.
+    \item reconstruir o trecho de código a partir dos metadados do MLCQ;
+    \item submeter o trecho ao SonarQube e registrar se houve detecção de
+    \textit{code smell};
+    \item submeter o trecho ao ChatGPT por meio de um prompt padronizado, obtendo a
+    respectiva classificação;
+    \item submeter o trecho ao Gemini com o mesmo prompt padronizado, obtendo a
+    respectiva classificação;
+    \item comparar as três saídas com o rótulo humano e registrar as variáveis
+    dependentes (acerto, falso positivo, falso negativo) para cada tratamento.
 \end{enumerate}
 
-O experimento não envolve aleatorização de sujeitos humanos.
-
+Como os tratamentos são aplicados sobre o mesmo conjunto de trechos de código, não há
+necessidade de aleatorização de sujeitos humanos. No entanto, a ordem de submissão
+dos trechos aos LLMs poderá ser randomizada para evitar efeitos sistemáticos ligados
+à posição ou ao contexto de chamadas à API.
 
 \subsection{Instrumentação}
 
