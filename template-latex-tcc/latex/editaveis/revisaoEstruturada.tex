@@ -80,7 +80,7 @@ A seguir, apresentam-se as tabelas que sintetizam as principais etapas do protoc
 A Tabela \ref{tab:questoes_secundarias} descreve as questões secundárias que foram definidas para orientar a revisão. 
 Na Tabela \ref{tab:criterios} são organizados os critérios de inclusão e exclusão utilizados na triagem.
 Em seguida, a Tabela \ref{tab:form_extracao} apresenta o formulário de extração de dados adotado para sistematizar 
-as informações dos estudos selecionados, e a Tabela \ref{tab:estudos_selecionados}  \textcolor{blue}{lista}\todo[color=yellow]{Verifiquem o nome dessa tabela. Está quebrando} o conjunto final de artigos 
+as informações dos estudos selecionados, e a Tabela \ref{tab:artigos-selecionados}  lista o conjunto final de artigos 
 incluídos na síntese da literatura.
 
 \begin{table}[h]
@@ -246,23 +246,17 @@ incluídos na síntese da literatura.
     42 & Detecting Code Smells with AI: a Prototype Study & Não & Sim & Não \\ \hline
 \end{longtable}}
 
-
-\textcolor{blue}{Parsifal}\todo[color=yellow]{Incluir nota de rodapé com endereço do parsifal.}
-
-
-
-
 \section{Resultados}
 
 Após a leitura integral dos estudos selecionados, as informações relevantes foram coletadas 
-por meio do formulário de extração disponibilizado na plataforma \textcolor{blue}{Parsifal}\todo[color=yellow]{Incluir nota de rodapé com endereço do parsifal}. 
+por meio do formulário de extração disponibilizado na plataforma \textcolor{blue}{Parsifal}\footnote{Disponível em: \href{https://parsif.al/}{Parsifal}. Acesso em: 6 dez. 2025.}. 
 A escolha dessa ferramenta deve-se ao seu conjunto de recursos que facilitam a 
 organização, o registro e o acompanhamento sistemático das etapas da revisão da 
-literatura. Concluída a etapa de extração, todos os dados foram reunidos em uma planilha 
-pública, na qual cada linha corresponde a um artigo incluído e cada coluna representa um dos 
+literatura. Concluída a etapa de extração, todos os dados foram reunidos em uma \textcolor{blue}{Planilha Pública}\footnote{Disponível em: \href{https://docs.google.com/spreadsheets/d/1M7O3XaPWmCosbVVUEL5x_SoTdyJq00plgjIqLLp0WLQ/edit?usp=sharing}{Planilha pública no Google Sheets}. Acesso em: 6 dez. 2025.}. , na qual cada linha corresponde a um artigo incluído e cada coluna representa um dos 
 elementos definidos no formulário apresentado na Tabela \ref{tab:form_extracao}.
 
-\textcolor{blue}{Tabela}\todo[color=yellow]{Incluir link para a planilha}
+
+
 
 As subseções seguintes apresentam a síntese dos resultados obtidos para cada uma das questões secundárias de pesquisa estabelecidas para esta revisão.
 
@@ -279,12 +273,11 @@ Diversos artigos também incluem variações conceituais desses maus cheiros, co
 menos uniforme entre os estudos \cite{Huang2024AligningXAI}. Em alguns casos, o foco da análise recai sobre um único 
 cheiro (por exemplo, \textit{Feature Envy} ou \textit{Long Method}) \cite{AlFraihat2024FeatureEnvy}.
 
-\textcolor{blue}{SonarQube}\todo[color=yellow]{Incluir nota de rodapé com o end. do sonar}
 
 Os \textit{code smells} relacionados ao excesso de responsabilidades, métodos extensos, 
 acoplamento indevido e estruturas de dados anêmicas são os mais frequentemente 
-identificados e avaliados. Ademais, nos casos em que o SonarQube foi utilizado, seus 
-diagnósticos reforçam esse padrão, evidenciando grande incidência de problemas associados 
+identificados e avaliados. Ademais, nos casos em que o \textcolor{blue}{SonarQube}\footnote{Disponível em: \href{https://www.sonarqube.org/}{SonarQube}. Acesso em: 6 dez. 2025.}
+foi utilizado, seus diagnósticos reforçam esse padrão, evidenciando grande incidência de problemas associados 
 à complexidade, duplicações, excesso de parâmetros e outras formas de fragilidade 
 estrutural do código. 
 
@@ -342,13 +335,11 @@ detecção de \textit{code smells}.
 
 \subsection{Quais ferramentas de análise estática são mais comumente empregadas na detecção de code smells?}
 
-Nos artigos analisados, foi visto que a variação no uso de ferramentas de análise 
-estática, mas também evidencia que muitos estudos não aplicam diretamente uma 
-ferramenta, utilizando apenas \textit{datasets} previamente rotulados por 
+Nos artigos analisados, observa-se uma grande variação no uso de ferramentas de análise
+estática, além disso, muitos estudos não aplicam diretamente uma ferramenta, utilizando apenas \textit{datasets} previamente rotulados por 
 analisadores clássicos ou extraindo características por meio de \textit{parsers}, 
 ASTs ou métricas personalizadas. 
 
-\todo[inline, color=pink]{O inicio dessa frase anerior ficou confuso.}
 
 
 Entre os trabalhos que empregaram análise 
