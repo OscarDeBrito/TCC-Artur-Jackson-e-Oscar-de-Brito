@@ -5,13 +5,16 @@ realizado na segunda etapa do trabalho.
 
 \section{Definição do Escopo do Experimento}
 
-O experimento utilizará como base o dataset MLCQ apresentado por \citeonline{MadeyskiLewowski2020MLCQ}, composto por trechos de código anotados manualmente por desenvolvedores 
-quanto à presença e severidade de \textit{code smells}. A detecção realizada pelos tratamentos será comparada aos rótulos humanos do MLCQ, 
-que atuam como referência.
-
 \subsection{Objetivo}
 
-O objetivo deste experimento é investigar empiricamente o papel de sistemas baseados em IA na garantia da qualidade de software, 
+A literatura tem destacado que a detecção automática de
+code smells ainda enfrenta limitações importantes, especialmente quando baseada
+exclusivamente em regras sintáticas fixas, como ocorre em ferramentas tradicionais de
+análise estática. Paralelamente, modelos de linguagem de grande porte (LLMs) têm sido
+crescentemente empregados em tarefas de compreensão e geração de código, indicando
+um potencial para apoiar atividades relacionadas à garantia da qualidade de software.
+
+Nesse contexto, o objetivo deste experimento é investigar empiricamente o papel de sistemas baseados em IA na garantia da qualidade de software, 
 por meio da avaliação da capacidade de modelos de linguagem (LLMs) em detectar code smells um tipo de anomalia 
 frequentemente associada à degradação da qualidade do código.
 
@@ -23,30 +26,57 @@ na detecção de anomalias em código-fonte pontecialmente problemático? }), a 
 foi utilizada para definição das perguntas específicas, derivadas da pergunta principal e suas respectivas métricas
 
 \begin{itemize}
-    \item \textbf{Q1}: Como a detecção de \textit{code smells} feita por LLMs (ChatGPT e Gemini) se compara aos resultados gerados por uma ferramenta de análise estática tradicional, como o SonarQube?
-    \item \textbf{Q2}: LLMs reduzem o número de falsos positivos e falsos negativos em comparação com ferramentas baseadas em regras fixas?
-\end{itemize}
+    \item \textbf{Questão Específica 1}: Como a detecção de \textit{code smells} feita por LLMs (ChatGPT e Gemini) se compara aos resultados gerados por uma ferramenta de análise estática tradicional, como o SonarQube?
+    
+    \begin{itemize}
+        \item Métrica 1.1 - Média de acertos por tratamento: proporção média de classificações corretas 
+        (acerto por trecho de código) para cada abordagem.
+        \item Métrica 1.2 - Mediana e variância das distribuições de acertos: avaliação de estabilidade e dispersão 
+        entre as abordagens.
+    \end{itemize}
 
-Dessas questões derivam-se as hipóteses estatísticas:
-
-\begin{itemize}
-    \item \textbf{Hipótese Nula ($H_{0}$):} Não há diferença estatisticamente significativa na eficácia de detecção de \textit{code smells} entre a Ferramenta de Análise Estática e LLMs.
-    \item \textbf{Hipótese Alternativa ($H_{1}$):} Há uma diferença estatisticamente significativa na eficácia de detecção de \textit{code smells} entre a Ferramenta de Análise Estática e LLMs.
+    \item \textbf{Questão Específica 2}: LLMs reduzem o número de falsos positivos e falsos negativos em comparação com ferramentas baseadas em regras fixas?
+    
+    \begin{itemize}
+        \item Métrica 2.1 - Média de falsos positivos por tratamento: proporção média de casos em que a ferramenta 
+        indica code smell quando o rótulo humano indica ausência.
+        \item Métrica 2.2 - Média de falsos negativos por tratamento: proporção média de casos em que a ferramenta 
+        não identifica corretamente o code smell comparado ao rotulado no MLCQ.
+        \item Métrica 2.3 - Razão FP/FN por abordagem: medida complementar que evidencia tendências específicas 
+        de erro de cada técnica.
+    \end{itemize}
 \end{itemize}
 
 \section{Planejamento}
 
 \subsection{Contexto}
 
-O experimento será conduzido no contexto dos projetos open-source que compõem o MLCQ. 
-Cada trecho será classificado pelos três tratamentos e comparado ao rótulo humano. Por envolver modelos fechados (LLMs), 
-preserva-se a versão do modelo e o conjunto de prompts, de forma a garantir reprodutibilidade.
+O experimento será conduzido no contexto dos projetos \textit{open-source} que compõem o
+dataset MLCQ, apresentado por \citeonline{MadeyskiLewowski2020MLCQ}. O MLCQ reúne trechos de código
+extraídos de sistemas Java reais e anotados manualmente por desenvolvedores quanto à presença,
+tipo e severidade de \textit{code smells}, funcionando como referência (rótulo humano) para a
+avaliação dos tratamentos experimentais.
+
+Cada trecho de código será reconstruído a partir dos metadados fornecidos pelo dataset
+(\textit{repository}, \textit{commit hash}, \textit{path}, \textit{start line} e \textit{end line}),
+garantindo a fidelidade ao código original existente no momento da anotação. As abordagens de detecção serão então aplicadas sobre o mesmo conjunto de trechos,
+permitindo comparações pareadas entre abordagens distintas de detecção de \textit{code smells}.
+
+Como dois dos tratamentos envolvem modelos fechados (LLMs), preserva-se a versão do modelo,
+as configurações utilizadas e os prompts empregados, de forma a garantir reprodutibilidade.
+Além disso, o experimento não envolve sujeitos humanos, ocorrendo exclusivamente no
+ambiente técnico composto pelo dataset, repositórios GitHub e ferramentas automatizadas.
 
 \subsection{Formulação das hipóteses}
 
 As hipóteses foram formuladas de forma a permitir testes estatísticos entre os tratamentos. 
-A hipótese nula afirma que não há diferença entre os desempenhos médios dos tratamentos; já a hipótese alternativa 
+A hipótese nula afirma que não há diferença entre os desempenhos médios dos tratamentos. Já a hipótese alternativa 
 pressupõe que ao menos um tratamento apresenta desempenho superior ou inferior aos demais.
+
+\begin{itemize}
+    \item \textbf{Hipótese Nula ($H_{0}$):} Não há diferença estatisticamente significativa na eficácia de detecção de \textit{code smells} entre a Ferramenta de Análise Estática e LLMs.
+    \item \textbf{Hipótese Alternativa ($H_{1}$):} Há uma diferença estatisticamente significativa na eficácia de detecção de \textit{code smells} entre a Ferramenta de Análise Estática e LLMs.
+\end{itemize}
 
 \subsection{Variáveis do Experimento}
 
@@ -76,7 +106,7 @@ e cada tratamento, obtém-se:
 A partir das três variáveis primárias, serão calculadas métricas agregadas por tratamento, como:
 
 \begin{itemize}
-    \item Média de acertos por snippet;
+    \item Média de acertos por trecho de código;
     \item Média de falsos positivos;
     \item Média de falsos negativos;
     \item Mediana, variância e intervalo de confiança das distribuições.
@@ -87,11 +117,19 @@ Essas distribuições permitem a comparação estatística entre os tratamentos.
 
 \subsection{Desenho do Experimento}
 
-O experimento seguirá um \textit{blocked subject design}, uma vez que todos os tratamentos serão aplicados aos mesmos objetos (trechos de código mapeados no dataset MLCQ). 
+O experimento caracteriza-se como um \textbf{experimento orientado à tecnologia}
+(\textit{technology-oriented experiment}), conforme classificação apresentada por
+\citeonline{Wohlin:2012:ESE:2349018}. Nesse tipo de estudo, não há participação de sujeitos humanos;
+o foco está na avaliação comparativa de técnicas, ferramentas ou algoritmos aplicados
+a artefatos de software.
+
+O desenho adotado é do tipo \textbf{within-object design}, no qual todos os tratamentos
+são aplicados ao mesmo conjunto de objetos experimentais (neste caso, os trechos de
+código extraídos do MLCQ). 
 Assim, para cada trecho de código $i$ são obtidas três observações de acerto ou
 erro, uma para cada tratamento, o que permite comparações pareadas.
 
-O procedimento geral para cada snippet é:
+O procedimento geral para cada trecho de código é:
 
 \begin{enumerate}
     \item reconstruir o trecho de código a partir dos metadados do MLCQ;
@@ -112,26 +150,58 @@ dos trechos aos LLMs poderá ser randomizada para evitar efeitos sistemáticos l
 
 \subsection{Instrumentação}
 
-Serão utilizados os seguintes instrumentos para apoiar a execução do experimento:
+A instrumentação se refere às ferramentas e artefatos que serão utilizados para a
+execução do experimento. Serão utilizados os seguintes instrumentos para apoiar a execução do experimento:
 
 \begin{itemize}
-    \item \textbf{Dataset MLCQ}: utilizado como fonte dos metadados de cada instância de \textit{code smell}, incluindo \textit{repository}, 
-    \textit{commit hash}, \textit{path}, \textit{start line} e \textit{end line}, que servirão de base para reconstrução dos trechos de código.
+    \item \textbf{Dataset MLCQ}\footnote{Disponível em: \href{https://doi.org/10.5281/zenodo.3590101}{https://doi.org/10.5281/zenodo.3590101}. Acesso em: 6 dez. 2025.}: o MLCQ é um
+    conjunto de dados de código Java anotado manualmente por desenvolvedores quanto
+    à presença, tipo e severidade de code smells. 
+    No experimento, o MLCQ será utilizado como fonte dos metadados de cada instância de 
+    \textit{code smell}, incluindo \textit{repository}, \textit{commit hash}, 
+    \textit{path}, \textit{start line} e \textit{end line}, que servirão de base 
+    para reconstrução dos trechos de código e como referência.
+
+    \item \textbf{Git}\footnote{Disponível em: \href{https://git-scm.com/}{https://git-scm.com/}. Acesso em: 6 dez. 2025.}: o Git é um sistema de controle de versão distribuído amplamente
+    utilizado para gerenciamento de código-fonte. No experimento, o Git será empregado
+    para clonar os repositórios necessários, realizar \textit{checkout} em commits
+    específicos indicados no MLCQ e assegurar a integridade e consistência dos trechos
+    de código reconstruídos.
     
-    \item \textbf{GitHub}: a partir das informações fornecidas pelo MLCQ, os repositórios originais serão acessados 
-    (via \textit{clone} local ou API do GitHub) para obtenção dos arquivos correspondentes a cada \textit{commit}. Os trechos de código serão extraídos com base nas linhas inicial e final indicadas no dataset.
+    \item \textbf{GitHub}\footnote{Disponível em: \href{https://github.com/}{https://github.com/}. Acesso em: 6 dez. 2025.}: o GitHub é uma plataforma de hospedagem e versionamento de
+    código baseada em Git, amplamente utilizada para projetos open-source. A partir
+    das informações fornecidas pelo MLCQ, os repositórios originais serão acessados 
+    (via \textit{clone} local ou API do GitHub) para obtenção dos arquivos 
+    correspondentes a cada \textit{commit}. Os trechos de código analisados no 
+    experimento serão extraídos com base nas linhas inicial e final indicadas no dataset.
     
-    \item \textbf{Scripts em Python}: responsáveis por automatizar a reconstrução dos trechos a partir do MLCQ e do GitHub, pela execução dos tratamentos 
+    \item \textbf{Scripts em Python}: A linguagem Python\footnote{Documentação oficial do Python disponível em: \href{https://www.python.org/}{https://www.python.org/}. Acesso em: 6 dez. 2025.}
+    será responsável por automatizar a reconstrução dos trechos a partir do MLCQ e do GitHub, pela execução dos tratamentos 
     (SonarQube e LLMs) e pela comparação das respostas com a rotulação humana, gerando as variáveis dependentes (acerto, falso positivo, falso negativo).
     
-    \item \textbf{SonarQube}: ferramenta de Análise Estática configurada com o \textit{rule set} padrão para Java, utilizada como um dos tratamentos de 
+    \item \textbf{SonarQube}\footnote{Disponível em: \href{https://www.sonarqube.org/}{https://www.sonarqube.org/}. Acesso em: 6 dez. 2025.}: ferramenta de Análise Estática configurada com o \textit{rule set} padrão para Java, utilizada como um dos tratamentos de 
     detecção de \textit{code smells}.
     
-    \item \textbf{Modelos de Linguagem (LLMs)}: utilização de prompts padronizados para coleta das respostas do ChatGPT e do Gemini.
+     \item \textbf{ChatGPT}\footnote{Documentação em: \href{https://platform.openai.com/docs}{https://platform.openai.com/docs}. Acesso em: 6 dez. 2025.}:
+    o ChatGPT é um modelo de linguagem de grande porte desenvolvido pela OpenAI,
+    baseado na arquitetura \textit{transformer}. Ele é capaz de interpretar instruções
+    em linguagem natural e analisar trechos de código, gerando respostas descritivas
+    ou classificações. No experimento, o ChatGPT será utilizado com prompts
+    padronizados para fornecer uma classificação binária (presença ou ausência de
+    \textit{code smell}) para cada trecho de código reconstruído a partir do MLCQ.
+
+    \item \textbf{Gemini}\footnote{Documentação em: \href{https://ai.google.dev/}{https://ai.google.dev/}. Acesso em: 6 dez. 2025.}:
+    o Gemini é um modelo de linguagem de grande porte desenvolvido pelo Google,
+    também fundamentado na arquitetura \textit{transformer}. Ele é projetado para lidar
+    com tarefas complexas envolvendo compreensão, geração e análise de linguagem.
+    No experimento, o Gemini será igualmente acessado via prompts padronizados,
+    produzindo uma classificação binária sobre a presença ou ausência de 
+    \textit{code smell} em cada trecho avaliado.
     
-    \item \textbf{Ferramentas de análise estatística}: planilhas eletrônicas e scripts em Python (por exemplo, com as bibliotecas \textit{pandas}, \textit{numpy} e 
-    \textit{scipy}) para cálculo das métricas descritas no planejamento (médias de acerto, taxas de falsos positivos e falsos negativos, entre outras) e 
-    para aplicação dos testes estatísticos necessários.
+    \item \textbf{Ferramentas de análise estatística}: serão utilizadas planilhas eletrônicas e scripts Python com bibliotecas como 
+    \textit{pandas}\footnote{Disponível em: \href{https://pandas.pydata.org/}{https://pandas.pydata.org/}. Acesso em: 6 dez. 2025.} e
+    \textit{numpy}\footnote{Disponível em: \href{https://numpy.org/}{https://numpy.org/}. Acesso em: 6 dez. 2025.}
+    para cálculo das métricas, construção das distribuições e execução dos testes estatísticos necessários.
 \end{itemize}
 
 \subsection{Validade do Experimento}
