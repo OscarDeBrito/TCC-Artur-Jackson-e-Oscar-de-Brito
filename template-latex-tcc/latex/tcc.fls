@@ -448,7 +448,6 @@ INPUT ./editaveis/errata.tex
 INPUT ./editaveis/errata.tex
 INPUT editaveis/errata.tex
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmss17.tfm
-INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbx10.tfm
 INPUT ./fixos/folhaDeAprovacao.tex
 INPUT ./fixos/folhaDeAprovacao.tex
 INPUT ./fixos/folhaDeAprovacao.tex
