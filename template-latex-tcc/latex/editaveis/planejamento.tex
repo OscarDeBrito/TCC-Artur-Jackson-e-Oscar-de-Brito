@@ -3,10 +3,151 @@
 Este capitulo apresenta a proposta e planejamento do experimento a ser
 realizado na segunda etapa do trabalho.
 
-\section{Definição}
-
 \section{Definição do Escopo do Experimento}
+
+O experimento utilizará como base o dataset MLCQ apresentado por \citeonline{MadeyskiLewowski2020MLCQ}, composto por trechos de código anotados manualmente por desenvolvedores 
+quanto à presença e severidade de \textit{code smells}. A detecção realizada pelos tratamentos será comparada aos rótulos humanos do MLCQ, 
+que atuam como referência.
+
+\subsection{Objetivo}
+
+O objetivo deste experimento é investigar empiricamente o papel de sistemas baseados em IA na garantia da qualidade de software, 
+por meio da avaliação da capacidade de modelos de linguagem (LLMs) em detectar code smells um tipo de anomalia 
+frequentemente associada à degradação da qualidade do código.
+
+\subsection{Questão de Pesquisa}
+
+Visando responder a questão principal de pesquisa do trabalho apresentado na Secção \ref{qp_principal} 
+(\textit{Como sistemas baseados em (IA) tem auxiliado a garantia de qualidade de software, especialmente 
+na detecção de anomalias em código-fonte pontecialmente problemático? }), a metodologia GQM \citeonline{Basili1994} 
+foi utilizada para definição das perguntas específicas, derivadas da pergunta principal e suas respectivas métricas
+
+\begin{itemize}
+    \item \textbf{Q1}: Como a detecção de \textit{code smells} feita por LLMs (ChatGPT e Gemini) se compara aos resultados gerados por uma ferramenta de análise estática tradicional, como o SonarQube?
+    \item \textbf{Q2}: LLMs reduzem o número de falsos positivos e falsos negativos em comparação com ferramentas baseadas em regras fixas?
+\end{itemize}
+
+Dessas questões derivam-se as hipóteses estatísticas:
+
+\begin{itemize}
+    \item \textbf{Hipótese Nula ($H_{0}$):} Não há diferença estatisticamente significativa na eficácia de detecção de \textit{code smells} entre a Ferramenta de Análise Estática e LLMs.
+    \item \textbf{Hipótese Alternativa ($H_{1}$):} Há uma diferença estatisticamente significativa na eficácia de detecção de \textit{code smells} entre a Ferramenta de Análise Estática e LLMs.
+\end{itemize}
 
 \section{Planejamento}
 
+\subsection{Contexto}
 
+O experimento será conduzido no contexto dos projetos open-source que compõem o MLCQ. 
+Cada trecho será classificado pelos três tratamentos e comparado ao rótulo humano. Por envolver modelos fechados (LLMs), 
+preserva-se a versão do modelo e o conjunto de prompts, de forma a garantir reprodutibilidade.
+
+\subsection{Formulação das hipóteses}
+
+As hipóteses foram formuladas de forma a permitir testes estatísticos entre os tratamentos. 
+A hipótese nula afirma que não há diferença entre os desempenhos médios dos tratamentos; já a hipótese alternativa 
+pressupõe que ao menos um tratamento apresenta desempenho superior ou inferior aos demais.
+
+\subsection{Variáveis do Experimento}
+
+As variáveis são definidas conforme terminologia de \citeonline{Wohlin:2012:ESE:2349018}.
+
+\subsubsection*{Fator Experimental}
+O experimento possui um único fator: \textbf{Identificação de code smell}. Este fator possui três níveis (tratamentos):
+\begin{enumerate}
+    \item SonarQube (abordagem baseada em regras);
+    \item ChatGPT (LLM);
+    \item Gemini (LLM).
+\end{enumerate}
+
+\subsubsection*{Variável Independente}
+A variável independente é categórica e corresponde ao \textbf{tratamento aplicado ao trecho de código}. Ou seja, o tipo de abordagem de detecção atribuída ao trecho de código.
+
+\subsubsection*{Variáveis Dependentes}
+As variáveis dependentes são numéricas e derivadas da comparação entre a predição do tratamento e o rótulo humano. Para cada trecho de código 
+e cada tratamento, obtém-se:
+
+\begin{itemize}
+    \item VD1: Acerto (0 = incorreto, 1 = correto);
+    \item VD2: Falso positivo (0/1);
+    \item VD3: Falso negativo (0/1).
+\end{itemize}
+
+A partir das três variáveis primárias, serão calculadas métricas agregadas por tratamento, como:
+
+\begin{itemize}
+    \item Média de acertos por snippet;
+    \item Média de falsos positivos;
+    \item Média de falsos negativos;
+    \item Mediana, variância e intervalo de confiança das distribuições.
+\end{itemize}
+
+Essas distribuições permitem a comparação estatística entre os tratamentos.
+
+
+\subsection{Desenho do Experimento}
+
+O experimento seguirá um \textit{blocked subject design}, uma vez que todos os tratamentos serão aplicados aos mesmos objetos (trechos de código mapeados no dataset MLCQ). 
+Para cada trecho de código:
+\begin{enumerate}
+    \item obtém-se a detecção do SonarQube;
+    \item obtém-se a detecção do ChatGPT mediante prompt padronizado;
+    \item obtém-se a detecção do Gemini, também via prompt padronizado;
+    \item compara-se cada saída ao rótulo do MLCQ.
+\end{enumerate}
+
+O experimento não envolve aleatorização de sujeitos humanos.
+
+
+\subsection{Instrumentação}
+
+Serão utilizados os seguintes instrumentos para apoiar a execução do experimento:
+
+\begin{itemize}
+    \item \textbf{Dataset MLCQ}: utilizado como fonte dos metadados de cada instância de \textit{code smell}, incluindo \textit{repository}, 
+    \textit{commit hash}, \textit{path}, \textit{start line} e \textit{end line}, que servirão de base para reconstrução dos trechos de código.
+    
+    \item \textbf{GitHub}: a partir das informações fornecidas pelo MLCQ, os repositórios originais serão acessados 
+    (via \textit{clone} local ou API do GitHub) para obtenção dos arquivos correspondentes a cada \textit{commit}. Os trechos de código serão extraídos com base nas linhas inicial e final indicadas no dataset.
+    
+    \item \textbf{Scripts em Python}: responsáveis por automatizar a reconstrução dos trechos a partir do MLCQ e do GitHub, pela execução dos tratamentos 
+    (SonarQube e LLMs) e pela comparação das respostas com a rotulação humana, gerando as variáveis dependentes (acerto, falso positivo, falso negativo).
+    
+    \item \textbf{SonarQube}: ferramenta de Análise Estática configurada com o \textit{rule set} padrão para Java, utilizada como um dos tratamentos de 
+    detecção de \textit{code smells}.
+    
+    \item \textbf{Modelos de Linguagem (LLMs)}: utilização de prompts padronizados para coleta das respostas do ChatGPT e do Gemini.
+    
+    \item \textbf{Ferramentas de análise estatística}: planilhas eletrônicas e scripts em Python (por exemplo, com as bibliotecas \textit{pandas}, \textit{numpy} e 
+    \textit{scipy}) para cálculo das métricas descritas no planejamento (médias de acerto, taxas de falsos positivos e falsos negativos, entre outras) e 
+    para aplicação dos testes estatísticos necessários.
+\end{itemize}
+
+\subsection{Validade do Experimento}
+
+São consideradas as seguintes ameaças à validade:
+
+\subsubsection*{Validade de Constructo}
+
+Esta ameaça diz respeito ao grau em que as medições representam o fenômeno teórico.
+O constructo “detecção de code smell” pode ser interpretado de maneira distinta por cada abordagem: 
+humanos utilizam julgamento semântico; SonarQube utiliza regras sintáticas; LLMs utilizam inferência estatística. 
+Essa diferença pode introduzir divergências inerentes entre os tratamentos.
+
+\subsubsection*{Validade Interna}
+
+Refere-se ao controle das causas que podem afetar os resultados.
+A execução dos LLMs depende de versões específicas dos modelos e dos prompts utilizados. Alterações nessas versões podem afetar resultados. 
+A extração incorreta de trechos do MLCQ pode introduzir erro no experimento.
+
+\subsubsection*{Validade Externa}
+
+Esta ameaça refere-se à generalização dos resultados.
+O dataset MLCQ inclui apenas código Java open-source, o que limita a extrapolação para outras linguagens ou código fechado. 
+Além disso, o estudo considera um conjunto delimitado de code smells.
+
+\subsubsection*{Validade de Conclusão}
+
+A comparação dos tratamentos depende da análise estatística das distribuições das variáveis dependentes. 
+Testes serão adotados conforme a natureza dos dados pareados. Garantir tamanho de amostra 
+suficiente por smell é fundamental para evitar conclusões inválidas.
