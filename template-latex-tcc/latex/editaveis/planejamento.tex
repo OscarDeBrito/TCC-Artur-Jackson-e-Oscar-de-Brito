@@ -47,6 +47,64 @@ foi utilizada para definição das perguntas específicas, derivadas da pergunta
     \end{itemize}
 \end{itemize}
 
+
+\subsection{Trabalhos Relacionados}
+
+Durante a definição da abordagem empírica adotada neste Trabalho de Conclusão de Curso, foram selecionados estudos
+metodológicos em Engenharia de Software que serviram de referência para o planejamento e a condução do experimento. 
+
+A principal influência para a estruturação do método foi o livro de \citeonline{Wohlin:2012:ESE:2349018}, que sistematiza o processo de 
+experimentação em Engenharia de Software, descrevendo etapas, papéis, ameaças à validade e formas de análise dos 
+dados. As diretrizes propostas pelos autores foram utilizadas como base para o planejamento do experimento, definição das 
+variáveis, seleção dos sujeitos e elaboração dos instrumentos de coleta e análise. 
+
+Além disso, o trabalho dialoga com a classificação de métodos de pesquisa em Engenharia de Software apresentada por 
+\citeonline{Basili1994}, que distingue, entre outros, o método empírico como aquele voltado à investigação do comportamento humano 
+em contextos reais de desenvolvimento.  
+
+Por fim, as contribuições de \citeonline{Wohlin:2012:ESE:2349018} sobre investigação empírica em Engenharia de Software foram consideradas 
+como apoio, especialmente no que diz respeito à caracterização de estudos observacionais e experimentais e à 
+discussão sobre validade interna, externa e de construção. Em conjunto, esses trabalhos forneceram a estrutura conceitual e 
+metodológico que orientou a condução do experimento no trabalho.
+
+No que se refere a base de qualidade adotada, foram considerados os modelos clássicos de \citeonline{McCall1977} e 
+\citeonline{boehm1978characteristics}, que organizaram fatores e subfatores de qualidade e propuseram uma estrutura hierárquica para análise 
+de produtos de software. Esses referenciais fornecem uma base conceitual para relacionar propriedades de projeto e 
+implementação a atributos de qualidade interna e de manutenibilidade, servindo como fundamento para a discussão sobre 
+como code smells podem impactar a qualidade do produto ao longo de seu ciclo de vida.
+
+A partir desses modelos, normas posteriores como a \citeonline{ISOIEC9126} e a \citeonline{ISOIEC25010} consolidaram e refinaram a taxonomia de 
+características de qualidade, destacando, entre outras, a analisabilidade. Neste trabalho, tais modelos 
+foram utilizados como pano de fundo conceitual para enquadrar os code smells como indícios de degradação da qualidade interna 
+e para justificar o foco na detecção e análise desses problemas de projeto.
+
+Para o estudo de code smells, o trabalho de \citeonline{Fowler1999} foi crucial para a aplicação desenvolvida neste estudo, 
+pois forneceu o referencial conceitual e o catálogo original de code smells que orientaram a seleção dos 
+tipos de problemas de projeto analisados. A partir dessa base, foi possível alinhar a detecção e a interpretação 
+dos \textit{smells} aos modelos de qualidade adotados.
+
+Partindo para a vertente de detecção automática de code smells, o estudo de \citeonline{MadeyskiLewowski2020MLCQ} foi 
+fundamental, pois apresentou o \textit{dataset} MLCQ, que reúne trechos de código Java anotados manualmente quanto à presença 
+de diferentes \textit{code smells}. Esse \textit{dataset} serve como base para a avaliação comparativa das abordagens de detecção 
+adotadas no experimento, fornecendo rótulos humanos que funcionam como referência  para medir a eficácia 
+das técnicas avaliadas. Em complemento, o estudo de \citeonline{Fontana2016} descreve outra base de dados, que foi bastante utilizada nos estudos, com características 
+semelhantes ao MLCQ, que também foi considerada como referência para a seleção dos code smells analisados e para a 
+definição das avaliações utilizadas neste trabalho.
+
+Para o uso de LLMs na análise de código, o trabalho de \cite{Abtahi2025LLMStaticAnalysis, Tkachuk2025RefactoringGAI} foi 
+relevante, pois explorou o potencial de modelos de linguagem para tarefas de análise estática e refatoração de código. 
+Esses estudos demonstraram a viabilidade de empregar LLMs para compreender e avaliar trechos de código, fornecendo 
+ideias sobre como esses modelos podem ser aplicados na detecção de \textit{code smells}. As abordagens metodológicas 
+e os resultados apresentados nesses trabalhos serviram como base para a formulação das hipóteses e o desenho experimental 
+adotado neste estudo.
+
+Em síntese, os trabalhos aqui discutidos forneceram a base conceitual e empírica para a definição do problema, a escolha dos
+\textit{code smells} de interesse, a seleção dos \textit{datasets} e a adoção de LLMs como tratamento experimental. A partir desse
+referencial, a próxima seção apresenta o planejamento do experimento, detalhando o contexto, as variáveis, os tratamentos
+e os procedimentos de coleta e análise de dados adotados neste estudo.
+
+
+
 \section{Planejamento}
 
 \subsection{Contexto}
