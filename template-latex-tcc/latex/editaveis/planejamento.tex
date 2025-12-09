@@ -176,13 +176,30 @@ Com base nessa variável primária, serão calculadas as seguintes métricas est
 
 \subsection{Formulação das hipóteses}
 
-As hipóteses foram formuladas de forma a permitir testes estatísticos entre os tratamentos. 
-A hipótese nula afirma que não há diferença entre os desempenhos médios dos tratamentos. Já a hipótese alternativa 
-pressupõe que ao menos um tratamento apresenta desempenho superior ou inferior aos demais.
+As hipóteses foram definidas de forma a permitir a comparação estatística entre os
+tratamentos, considerando a distribuição da quantidade de \textit{code smells} identificados
+por projeto. Seja $W_i$ a mediana da distribuição de \textit{code smells} identificados pelo
+tratamento $i$, onde $i \in \{1,2,3,4,5\}$ representa, respectivamente:
+SonarQube, ChatGPT, Gemini, Copilot e DeepSeek.
+
+A hipótese nula estabelece que todos os tratamentos produzem distribuições equivalentes.
+A hipótese alternativa assume que ao menos um tratamento difere significativamente
+dos demais.
 
 \begin{itemize}
-    \item \textbf{Hipótese Nula ($H_{0}$):} Não há diferença estatisticamente significativa na eficácia de detecção de \textit{code smells} entre a Ferramenta de Análise Estática e LLMs.
-    \item \textbf{Hipótese Alternativa ($H_{1}$):} Há uma diferença estatisticamente significativa na eficácia de detecção de \textit{code smells} entre a Ferramenta de Análise Estática e LLMs.
+    \item \textbf{Hipótese Nula ($H_{0}$):} 
+    \[
+        W_{1} = W_{2} = W_{3} = W_{4} = W_{5}
+    \]
+    Isto é, não há diferença estatisticamente significativa entre as medianas das quantidades
+    de \textit{code smells} identificados pelos diferentes tratamentos.
+
+    \item \textbf{Hipótese Alternativa ($H_{1}$):}
+    \[
+        \exists\, i,j \mid W_{i} \neq W_{j}
+    \]
+    Ou seja, ao menos um tratamento identifica uma quantidade de \textit{code smells}
+    estatisticamente diferente dos demais.
 \end{itemize}
 
 \subsection{Desenho do Experimento}
@@ -193,30 +210,37 @@ O experimento caracteriza-se como um \textbf{experimento orientado à tecnologia
 o foco está na avaliação comparativa de técnicas, ferramentas ou algoritmos aplicados
 a artefatos de software.
 
-O desenho adotado é do tipo \textbf{within-object design}, no qual todos os tratamentos
-são aplicados ao mesmo conjunto de objetos experimentais (neste caso, os trechos de
-código extraídos do MLCQ). 
-Assim, para cada trecho de código $i$ são obtidas três observações de acerto ou
-erro, uma para cada tratamento, o que permite comparações pareadas.
+O desenho experimental adotado é o \textbf{Completely Randomized Design}, 
+no qual os tratamentos são aplicados em ordem aleatória sobre cada objeto experimental.
+Nesse tipo de design, todos os objetos pertencem a um único grupo, e a aleatorização 
+garante que cada tratamento seja aplicado em condições equivalentes, reduzindo vieses 
+decorrentes de ordem ou de efeitos sistemáticos de execução.
 
-O procedimento geral para cada trecho de código é:
+%O procedimento geral para cada trecho de código é:
 
-\begin{enumerate}
-    \item reconstruir o trecho de código a partir dos metadados do MLCQ;
-    \item submeter o trecho ao SonarQube e registrar se houve detecção de
-    \textit{code smell};
-    \item submeter o trecho ao ChatGPT por meio de um prompt padronizado, obtendo a
-    respectiva classificação;
-    \item submeter o trecho ao Gemini com o mesmo prompt padronizado, obtendo a
-    respectiva classificação;
-    \item comparar as três saídas com o rótulo humano e registrar as variáveis
-    dependentes (acerto, falso positivo, falso negativo) para cada tratamento.
-\end{enumerate}
+%\begin{enumerate}
+    %\item reconstruir o trecho de código a partir dos metadados do MLCQ;
+    %\item submeter o trecho ao SonarQube e registrar se houve detecção de
+    %\textit{code smell};
+    %\item submeter o trecho ao ChatGPT por meio de um prompt padronizado, obtendo a
+    %respectiva classificação;
+    %\item submeter o trecho ao Gemini com o mesmo prompt padronizado, obtendo a
+    %respectiva classificação;
+    %\item comparar as três saídas com o rótulo humano e registrar as variáveis
+    %dependentes (acerto, falso positivo, falso negativo) para cada tratamento.
+%\end{enumerate}
 
-Como os tratamentos são aplicados sobre o mesmo conjunto de trechos de código, não há
-necessidade de aleatorização de sujeitos humanos. No entanto, a ordem de submissão
-dos trechos aos LLMs poderá ser randomizada para evitar efeitos sistemáticos ligados
-à posição ou ao contexto de chamadas à API.
+\subsection{Teste de Hipóteses}
+
+Para avaliar se há diferença estatisticamente significativa entre os tratamentos 
+na detecção de code smells, será utilizado o teste não paramétrico \textbf{Kruskal--Wallis}, 
+conforme recomendado por \citeonline{Wohlin:2012:ESE:2349018} para experimentos com um único fator e mais de dois 
+tratamentos.
+
+O teste Kruskal--Wallis constitui uma alternativa não paramétrica à análise de variância 
+(ANOVA) de um fator, sendo apropriado quando os dados são derivados de distribuições 
+assimétricas, possuem outliers ou representam medições ordinais ou baseadas em rankings, 
+como é o caso dos valores agregados por projeto (medianas) no presente experimento. 
 
 \subsection{Instrumentação}
 
