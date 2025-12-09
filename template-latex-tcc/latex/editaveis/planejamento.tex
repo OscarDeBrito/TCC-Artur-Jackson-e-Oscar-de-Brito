@@ -26,25 +26,24 @@ na detecção de anomalias em código-fonte pontecialmente problemático? }), a 
 foi utilizada para definição das perguntas específicas, derivadas da pergunta principal e suas respectivas métricas
 
 \begin{itemize}
-    \item \textbf{Questão Específica 1}: Como a detecção de \textit{code smells} feita por LLMs (ChatGPT e Gemini) se compara aos resultados gerados por uma ferramenta de análise estática tradicional, como o SonarQube?
+    \item \textbf{Questão Específica 1}: Como a detecção de \textit{code smells} feita por LLMs se compara aos resultados gerados por uma ferramenta de análise estática tradicional, como o SonarQube?
     
     \begin{itemize}
-        \item Métrica 1.1 - Média de acertos por tratamento: proporção média de classificações corretas 
-        (acerto por trecho de código) para cada abordagem.
-        \item Métrica 1.2 - Mediana e variância das distribuições de acertos: avaliação de estabilidade e dispersão 
-        entre as abordagens.
+        \item \textbf{Métrica:} Mediana da quantidade de code smells detectados por projeto, acompanhada da 
+        \textbf{variância} e \textbf{desvio padrão} (dispersão), a fim de permitir 
+        comparações estatísticas entre os tratamentos.
     \end{itemize}
 
-    \item \textbf{Questão Específica 2}: LLMs reduzem o número de falsos positivos e falsos negativos em comparação com ferramentas baseadas em regras fixas?
+    %\item \textbf{Questão Específica 2}: LLMs reduzem o número de falsos positivos e falsos negativos em comparação com ferramentas baseadas em regras fixas?
     
-    \begin{itemize}
-        \item Métrica 2.1 - Média de falsos positivos por tratamento: proporção média de casos em que a ferramenta 
-        indica code smell quando o rótulo humano indica ausência.
-        \item Métrica 2.2 - Média de falsos negativos por tratamento: proporção média de casos em que a ferramenta 
-        não identifica corretamente o code smell comparado ao rotulado no MLCQ.
-        \item Métrica 2.3 - Razão FP/FN por abordagem: medida complementar que evidencia tendências específicas 
-        de erro de cada técnica.
-    \end{itemize}
+    %\begin{itemize}
+    %    \item Métrica 2.1 - Média de falsos positivos por tratamento: proporção média de casos em que a ferramenta 
+    %    indica code smell quando o rótulo humano indica ausência.
+    %    \item Métrica 2.2 - Média de falsos negativos por tratamento: proporção média de casos em que a ferramenta 
+    %    não identifica corretamente o code smell comparado ao rotulado no MLCQ.
+    %    \item Métrica 2.3 - Razão FP/FN por abordagem: medida complementar que evidencia tendências específicas 
+    %    de erro de cada técnica.
+    %\end{itemize}
 \end{itemize}
 
 
@@ -115,15 +114,65 @@ extraídos de sistemas Java reais e anotados manualmente por desenvolvedores qua
 tipo e severidade de \textit{code smells}, funcionando como referência (rótulo humano) para a
 avaliação dos tratamentos experimentais.
 
-Cada trecho de código será reconstruído a partir dos metadados fornecidos pelo dataset
+A escolha do MLCQ como fonte de dados experimentais fundamenta-se em evidências 
+identificadas na revisão estruturada da literatura. Diversos estudos recentes têm utilizado o 
+MLCQ em experimentos envolvendo detecção automática de \textit{code smells} 
+\cite{Kovacevic2022AutomaticDetection,Ho2025EnseSmells,Sandouka2025CrossLanguage}. 
+Essa adoção decorre do fato de que o dataset foi construído com a participação de desenvolvedores profissionais, 
+cujas anotações foram validadas por múltiplos revisores, assegurando confiabilidade e reduzindo vieses individuais, 
+além de abranger uma grande diversidade de sistemas reais.
+
+\textbf{Sujeito do experimento:} o sujeito não é um participante humano, mas sim o próprio
+dataset MLCQ, entendido como a fonte empírica sobre a qual os tratamentos serão aplicados.
+
+\textbf{População:} a população é composta pelos 792 projetos Java provenientes do
+dataset MLCQ.
+
+\textbf{Amostra:} a amostra é formada pelos aproximadamente 15.000 trechos de código-fonte individualmente anotados
+no MLCQ. Cada trecho corresponde a uma instância candidata de code smell, definida pelos
+metadados do dataset, incluindo: \textit{repository}, \textit{commit hash}, \textit{path}, \textit{start line},
+\textit{end line}, \textit{smell type}, \textit{severity} e \textit{type}.
+
+Para a execução do experimento, cada trecho de código será reconstruído a partir dos metadados fornecidos pelo dataset
 (\textit{repository}, \textit{commit hash}, \textit{path}, \textit{start line} e \textit{end line}),
-garantindo a fidelidade ao código original existente no momento da anotação. As abordagens de detecção serão então aplicadas sobre o mesmo conjunto de trechos,
+garantindo a fidelidade ao código original existente no momento da anotação. As abordagens de detecção serão então aplicadas sobre o mesmo conjunto de trechos de código-fonte,
 permitindo comparações pareadas entre abordagens distintas de detecção de \textit{code smells}.
 
-Como dois dos tratamentos envolvem modelos fechados (LLMs), preserva-se a versão do modelo,
+Como os tratamentos envolvem modelos fechados (LLMs), preserva-se a versão do modelo,
 as configurações utilizadas e os prompts empregados, de forma a garantir reprodutibilidade.
 Além disso, o experimento não envolve sujeitos humanos, ocorrendo exclusivamente no
 ambiente técnico composto pelo dataset, repositórios GitHub e ferramentas automatizadas.
+
+\subsection{Variáveis do Experimento}
+
+As variáveis são definidas conforme terminologia de \citeonline{Wohlin:2012:ESE:2349018}.
+
+\subsubsection*{Fator Experimental}
+O experimento possui um único fator: \textbf{Analisabilidade aplicada à detecção de code smells}.
+O fator possui cinco níveis (tratamentos), correspondentes às ferramentas avaliadas:
+
+\begin{enumerate}
+    \item \textbf{SonarQube} (versão Community Build Release 25.11.0.114957), abordagem baseada em regras estáticas;
+    \item \textbf{ChatGPT} (GPT-5.1), LLM da OpenAI;
+    \item \textbf{Gemini} (Gemini 3 pro), LLM do Google;
+    \item \textbf{Copilot} (GPT-5), LLM da Microsoft;
+    \item \textbf{DeepSeek} (DeepSeek-V3.2).
+\end{enumerate}
+
+\subsubsection*{Variável Independente}
+A variável independente é composta pelos \textbf{trechos de código} que constituem os objetos experimentais.
+Onde os tratamentos serão então aplicados sobre o mesmo conjunto de trechos de código-fonte.
+
+\subsubsection*{Variáveis Dependentes}
+A variável dependente é quantitativa e corresponde à \textbf{quantidade de code smells identificados por projeto para cada tratamento}.
+
+
+Com base nessa variável primária, serão calculadas as seguintes métricas estatísticas:
+
+\begin{itemize}
+    \item \textbf{Mediana} do número de code smells detectados;
+    \item \textbf{Variância} e \textbf{desvio padrão} das distribuições;
+\end{itemize}
 
 \subsection{Formulação das hipóteses}
 
@@ -135,43 +184,6 @@ pressupõe que ao menos um tratamento apresenta desempenho superior ou inferior 
     \item \textbf{Hipótese Nula ($H_{0}$):} Não há diferença estatisticamente significativa na eficácia de detecção de \textit{code smells} entre a Ferramenta de Análise Estática e LLMs.
     \item \textbf{Hipótese Alternativa ($H_{1}$):} Há uma diferença estatisticamente significativa na eficácia de detecção de \textit{code smells} entre a Ferramenta de Análise Estática e LLMs.
 \end{itemize}
-
-\subsection{Variáveis do Experimento}
-
-As variáveis são definidas conforme terminologia de \citeonline{Wohlin:2012:ESE:2349018}.
-
-\subsubsection*{Fator Experimental}
-O experimento possui um único fator: \textbf{Identificação de code smell}. Este fator possui três níveis (tratamentos):
-\begin{enumerate}
-    \item SonarQube (abordagem baseada em regras);
-    \item ChatGPT (LLM);
-    \item Gemini (LLM).
-\end{enumerate}
-
-\subsubsection*{Variável Independente}
-A variável independente é categórica e corresponde ao \textbf{tratamento aplicado ao trecho de código}. Ou seja, o tipo de abordagem de detecção atribuída ao trecho de código.
-
-\subsubsection*{Variáveis Dependentes}
-As variáveis dependentes são numéricas e derivadas da comparação entre a predição do tratamento e o rótulo humano. Para cada trecho de código 
-e cada tratamento, obtém-se:
-
-\begin{itemize}
-    \item VD1: Acerto (0 = incorreto, 1 = correto);
-    \item VD2: Falso positivo (0/1);
-    \item VD3: Falso negativo (0/1).
-\end{itemize}
-
-A partir das três variáveis primárias, serão calculadas métricas agregadas por tratamento, como:
-
-\begin{itemize}
-    \item Média de acertos por trecho de código;
-    \item Média de falsos positivos;
-    \item Média de falsos negativos;
-    \item Mediana, variância e intervalo de confiança das distribuições.
-\end{itemize}
-
-Essas distribuições permitem a comparação estatística entre os tratamentos.
-
 
 \subsection{Desenho do Experimento}
 

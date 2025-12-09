@@ -1,20 +1,20 @@
 # Fdb version 4
-["bibtex tcc"] 1765246737.69111 "tcc.aux" "tcc.bbl" "tcc" 1765246739.56528 0
-  "./bibliografia.bib" 1764879507.44837 32088 2c4ccfe1f902ac9debb0d5d950463f92 ""
+["bibtex tcc"] 1765299164.66644 "tcc.aux" "tcc.bbl" "tcc" 1765299353.33749 0
+  "./bibliografia.bib" 1765293149.39101 32569 b4f2ed6559ecfa6999af0ec0ff21bfd8 ""
   "/usr/share/texlive/texmf-dist/bibtex/bib/abntex2/abntex2-options.bib" 1357081713 5396 4eb260dac60f150ae608d45252853090 ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/abntex2/abntex2-alf.bst" 1543183680 60064 0819ac8568f9a482510a46e3a8a6f605 ""
-  "tcc.aux" 1765246739.07866 66878 0c798f6cadcc51ec0b1e20af2e004991 "pdflatex"
+  "tcc.aux" 1765299352.85997 67663 3af2fafd0e2e7db25205a544246df072 "pdflatex"
   (generated)
   "tcc.bbl"
   "tcc.blg"
   (rewritten before read)
-["makeindex tcc.idx"] 1765246674.05156 "tcc.idx" "tcc.ind" "tcc" 1765246739.56516 0
-  "tcc.idx" 1765246738.50626 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex tcc.idx"] 1765298774.28442 "tcc.idx" "tcc.ind" "tcc" 1765299353.33738 0
+  "tcc.idx" 1765299352.28397 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "tcc.ilg"
   "tcc.ind"
   (rewritten before read)
-["pdflatex"] 1765246737.87479 "/home/artuj/UnB/TCC-Artur-Jackson-e-Oscar-de-Brito/template-latex-tcc/latex/tcc.tex" "tcc.pdf" "tcc" 1765246739.56548 0
+["pdflatex"] 1765299351.61195 "/home/artuj/UnB/TCC-Artur-Jackson-e-Oscar-de-Brito/template-latex-tcc/latex/tcc.tex" "tcc.pdf" "tcc" 1765299353.33769 0
   "/etc/texmf/web2c/texmf.cnf" 1762375063.86761 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/artuj/UnB/TCC-Artur-Jackson-e-Oscar-de-Brito/template-latex-tcc/latex/tcc.tex" 1762373762.76442 1016 6e9ce4a7f46eaf987c4fcc7fea83e4fa ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -270,7 +270,7 @@
   "editaveis/errata.tex" 1765078528.48974 29 fff54b478b45a4d67e25ec45a3b62310 ""
   "editaveis/informacoes.tex" 1765078971.78867 576 24740149c867b82ce77de5b0f63b72a7 ""
   "editaveis/introducao.tex" 1765246448.24522 13761 27a4a42aa5718d4ac85058dd4e11b2ad ""
-  "editaveis/planejamento.tex" 1765246439.97883 19200 b5132980967bd43b12ed556a3a06aec5 ""
+  "editaveis/planejamento.tex" 1765299351.28317 20458 ba85a77355f6d6d2bbbfb167c6f88d61 ""
   "editaveis/referencialteorico.tex" 1765074634.64711 18553 368a64d95d8e48b0145d746cf87d7926 ""
   "editaveis/resumo.tex" 1762373762.7351 834 509a9ee5198999277833c736a7df29cf ""
   "editaveis/revisaoEstruturada.tex" 1765246439.97883 36514 8f2256fe1a53ccd9244e2142d85f7ffb ""
@@ -290,14 +290,14 @@
   "fixos/listasAutomaticas.tex" 1762373762.76442 140 3d9123a8ba3eeb3da4258aa67285a406 ""
   "fixos/pacotes.tex" 1765074634.65071 535 b9b49cddd0ff4b8f27386921855c3d2f ""
   "fixos/setup.tex" 1762373762.76442 641 ad68ffb8f767383eb90edeeb2a1db271 ""
-  "tcc.aux" 1765246739.07866 66878 0c798f6cadcc51ec0b1e20af2e004991 "pdflatex"
-  "tcc.bbl" 1765246737.86546 21869 0e363804ef0ead45f3b08045a159b48a "bibtex tcc"
-  "tcc.brf" 1765246739.08946 8067 18f3c53b9cf1cfda74b4cf598c71e921 "pdflatex"
-  "tcc.ind" 1765246674.18511 0 d41d8cd98f00b204e9800998ecf8427e "makeindex tcc.idx"
-  "tcc.lof" 1765246739.08946 529 92be7c1a063a3856fbc573186c5955d4 "pdflatex"
-  "tcc.lot" 1765246739.08946 703 b3ec5b7d0a97b45a3550ad97c2b7b76c "pdflatex"
+  "tcc.aux" 1765299352.85997 67663 3af2fafd0e2e7db25205a544246df072 "pdflatex"
+  "tcc.bbl" 1765299164.78129 22209 37cd481f57769c3d896735bbdf56bbb1 "bibtex tcc"
+  "tcc.brf" 1765299352.87077 8421 71577cf3e5a00544e15dfdc0286f2fec "pdflatex"
+  "tcc.ind" 1765298774.39394 0 d41d8cd98f00b204e9800998ecf8427e "makeindex tcc.idx"
+  "tcc.lof" 1765299352.87077 529 92be7c1a063a3856fbc573186c5955d4 "pdflatex"
+  "tcc.lot" 1765299352.87077 703 b3ec5b7d0a97b45a3550ad97c2b7b76c "pdflatex"
   "tcc.tex" 1762373762.76442 1016 6e9ce4a7f46eaf987c4fcc7fea83e4fa ""
-  "tcc.toc" 1765246739.08946 8083 ec9cca7c13efe4faccdd01526c2abe06 "pdflatex"
+  "tcc.toc" 1765299352.87077 8083 30fd37c06f8f00585ec8892c1d812e25 "pdflatex"
   (generated)
   "tcc.aux"
   "tcc.brf"
