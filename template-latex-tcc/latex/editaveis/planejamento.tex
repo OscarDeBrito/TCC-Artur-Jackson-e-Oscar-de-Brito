@@ -339,29 +339,91 @@ execução do experimento. Serão utilizados os seguintes instrumentos para apoi
 
 \subsection{Validade do Experimento}
 
-São consideradas as seguintes ameaças à validade:
+A avaliação da validade do experimento segue a classificação discutida e adaptada 
+para Engenharia de Software por \citeonline{Wohlin:2012:ESE:2349018}, contemplando quatro categorias principais de validade: conclusão, interna, 
+de construto e externa. Nesta subseção, são discutidas as principais ameaças identificadas em cada categoria, bem como as estratégias adotadas para 
+mitigá-las no contexto do experimento orientado à tecnologia aqui planejado.
 
 \subsubsection*{Validade de Constructo}
 
-Esta ameaça diz respeito ao grau em que as medições representam o fenômeno teórico.
-O constructo “detecção de code smell” pode ser interpretado de maneira distinta por cada abordagem: 
-humanos utilizam julgamento semântico; SonarQube utiliza regras sintáticas; LLMs utilizam inferência estatística. 
-Essa diferença pode introduzir divergências inerentes entre os tratamentos.
+A validade de construto refere-se ao grau em que o experimento reflete adequadamente os conceitos teóricos que pretende investigar, neste caso, o papel da 
+analisabilidade na detecção de code smells e, de forma mais ampla, a contribuição de sistemas baseados em IA para a garantia da qualidade de software. 
+Uma primeira ameaça é a \textit{inadequate preoperational explication of constructs}: o construto “capacidade de detecção de code smells” é 
+operacionalizado, neste estudo, pela quantidade de code smells identificados por projeto para cada tratamento, medida derivada das comparações entre 
+as saídas das ferramentas e os rótulos humanos do MLCQ. Essa escolha enfatiza o volume de detecções corretas mas não captura outros aspectos relevantes, como 
+o esforço necessário para interpretar as saídas, a severidade dos problemas encontrados. Tais dimensões são reconhecidas como parte do construto mais amplo de 
+analisabilidade, mas não são diretamente abordadas na operacionalização.
+
+Outra ameaça importante é a \textit{mono-operation bias}. O experimento considera um único dataset (MLCQ), um conjunto específico de 
+code smells e uma família particular de ferramentas com um analisador estático e quatro LLMs. Embora o MLCQ seja amplamente utilizado na literatura e 
+construído com anotações de desenvolvedores profissionais, ele representa apenas um recorte possível do universo de sistemas Java e tipos de anomalias 
+estruturais. Da mesma forma, a escolha de um único analisador estático (SonarQube) e de um subconjunto específico de modelos de linguagem (ChatGPT, Gemini, 
+Copilot e DeepSeek) pode sub-representar o construto “tratamentos baseados em análise automática” como um todo. Esse viés é parcialmente atenuado pelo fato 
+de o MLCQ ser composto por múltiplos projetos open-source de domínios diversos, e pela inclusão de mais de um LLM, o que reduz a dependência de um 
+único modelo.
+
+Também é relevante a ameaça de \textit{mono-method bias}, uma vez que a avaliação da eficácia dos tratamentos baseia-se em medidas extraídas de uma única fonte 
+de rótulo (o MLCQ) e em um único tipo de métrica quantitativa: quantidade de code smells identificados por projeto. Não são incorporadas, 
+por exemplo, avaliações qualitativas sobre a utilidade prática dos alertas gerados ou sobre a adequação das explicações fornecidas pelos LLMs. Esses 
+aspectos são reconhecidos como limitações do estudo e indicados como oportunidades para trabalhos futuros que possam combinar métricas quantitativas e 
+qualitativas na avaliação de abordagens de detecção de code smells.
 
 \subsubsection*{Validade Interna}
 
-Refere-se ao controle das causas que podem afetar os resultados.
-A execução dos LLMs depende de versões específicas dos modelos e dos prompts utilizados. Alterações nessas versões podem afetar resultados. 
-A extração incorreta de trechos do MLCQ pode introduzir erro no experimento.
+A validade interna está relacionada à existência de relações causais entre tratamentos e resultados, isto é, situações em que uma diferença observada entre 
+ferramentas não é devida ao tratamento em si, mas a fatores não controlados. No presente estudo, por se tratar de um experimento orientado à tecnologia, 
+sem a participação de sujeitos humanos, diversas ameaças clássicas, como maturação, mortalidade de sujeitos, efeitos sociais entre grupos ou seleção de 
+participantes são naturalmente mitigadas.
+
+Ainda assim, algumas ameaças de natureza instrumental permanecem relevantes. Em particular, a ameaça de \textit{instrumentation} diz respeito à possibilidade 
+de que os artefatos usados na execução do experimento, como scripts em Python, configuração do SonarQube e prompts dos LLMs, introduzam vieses nas medições. 
+Para mitigar esse risco, o procedimento experimental foi especificado, com padronização dos prompts enviados aos modelos de linguagem, fixação das 
+versões das ferramentas (incluindo versões específicas de SonarQube, ChatGPT, Gemini, Copilot e DeepSeek) e preservação das configurações utilizadas. Além 
+disso, o mesmo arquivo de código será fornecido a todos os tratamentos, reduzindo diferenças de contexto que poderiam favorecer ou prejudicar seletivamente 
+alguma ferramenta.
+
+Outra ameaça relevante é a \textit{history}, associada à possibilidade de que mudanças externas ao experimento afetem diferencialmente os tratamentos ao longo 
+do tempo, especialmente no caso de LLMs, que podem ser atualizados pelos provedores. Esse risco é mitigado pela execução dos tratamentos em uma janela de tempo 
+restrita, com registro explícito da versão dos modelos e das configurações utilizadas, de modo a permitir a rastreabilidade dos resultados. Por fim, a 
+aleatorização da ordem de aplicação dos tratamentos a cada instância usando o metodo \textit{Completely Randomized Design} contribui para reduzir o impacto de eventuais 
+variações transitórias de desempenho ou disponibilidade das ferramentas durante a coleta de dados.
 
 \subsubsection*{Validade Externa}
 
-Esta ameaça refere-se à generalização dos resultados.
-O dataset MLCQ inclui apenas código Java open-source, o que limita a extrapolação para outras linguagens ou código fechado. 
-Além disso, o estudo considera um conjunto delimitado de code smells.
+A validade externa diz respeito à possibilidade de generalizar os resultados do experimento para além do contexto específico estudado. Uma ameaça central é a 
+\textit{interaction of selection and treatment}: a população de interesse do experimento é composta por mais de 700 projetos Java que integram o MLCQ, 
+open-source e, em parte, classificados como relevantes para a indústria. Embora esse recorte aumente a relevância prática dos resultados em relação 
+a estudos baseados apenas em exemplos de pequeno porte, ele não abrange sistemas desenvolvidos em outras linguagens, ambientes proprietários ou contextos 
+organizacionais específicos. Assim, a generalização dos resultados para sistemas não Java, para domínios altamente especializados ou para bases de código 
+legadas deve ser feita com cautela.
+
+Outra ameaça é a \textit{interaction of setting and treatment}, relacionada ao fato de que o experimento é conduzido em um ambiente controlado, no qual os 
+tratamentos são aplicados sobre arquivos de código extraídos diretamente dos repositórios, sem levar em conta fatores processuais, por exemplo, práticas de 
+revisão de código, políticas de branching ou integração contínua que podem influenciar a detecção e a correção de code smells em contextos 
+industriais reais. Além disso, os modelos de linguagem são utilizados por meio de prompts padronizados, o que não necessariamente reflete a variedade 
+de usos e interações que desenvolvedores fariam em um ambiente de trabalho.
+
+Por fim, há a ameaça de \textit{interaction of history and treatment}, uma vez que o desempenho de LLMs e ferramentas baseadas em IA pode evoluir rapidamente 
+com atualizações de modelos e mudanças em infraestrutura. O experimento captura um recorte temporal específico, de modo que a replicação do estudo em outro 
+momento pode produzir resultados quantitativamente diferentes. Para mitigar essa ameaça, são registrados explicitamente as versões, configurações e 
+\textit{prompts} utilizados, permitindo comparações futuras e a análise de possíveis variações de desempenho ao longo do tempo.
 
 \subsubsection*{Validade de Conclusão}
 
-A comparação dos tratamentos depende da análise estatística das distribuições das variáveis dependentes. 
-Testes serão adotados conforme a natureza dos dados pareados. Garantir tamanho de amostra 
-suficiente por smell é fundamental para evitar conclusões inválidas.
+A validade de conclusão diz respeito à correção das inferências estatísticas sobre a relação entre os tratamentos e os resultados observados. 
+Uma ameaça relevante é o \textit{low statistical power}, isto é, a possibilidade de o experimento não detectar diferenças existentes entre os tratamentos. 
+Essa ameaça é mitigada, em parte, pelo tamanho da amostra: os resultados são agregados a partir de aproximadamente 15.000 instâncias anotadas no MLCQ, 
+distribuídas em mais de 700 projetos Java, o que tende a aumentar o poder estatístico das análises.
+
+Outra ameaça diz respeito à escolha e aos pressupostos dos testes estatísticos. Para reduzir o risco de violações de pressupostos, como normalidade, 
+optou-se pelo uso do teste não paramétrico de Kruskal--Wallis, recomendado por \citeonline{Wohlin:2012:ESE:2349018} para experimentos com um único fator e 
+múltiplos tratamentos quando a distribuição dos dados pode ser assimétrica ou conter outliers. Além disso, as métricas utilizadas: mediana, variância 
+e desvio padrão da quantidade de code smells identificados por projeto, foram definidas previamente, evitando exploração excessiva dos dados em busca 
+de resultados estatisticamente significativos não previstos no planejamento.
+
+A confiabilidade das medidas (\textit{reliability of measures}) constitui outra fonte potencial de ameaça. Com permanência do risco de defeitos nos scripts ou 
+na configuração das ferramentas, o que será mitigado por meio da inspeção manual de amostras de resultados antes da análise estatística final.
+
+Em resumo, embora o experimento esteja sujeito a ameaças em todas as categorias de validade, o planejamento adotado busca torná-las explícitas e, quando 
+possível, mitigá-las por meio de escolhas metodológicas fundamentadas. As ameaças remanescentes são reconhecidas como limitações do estudo e serão consideradas 
+na interpretação dos resultados e na definição do trabalho futuro.
