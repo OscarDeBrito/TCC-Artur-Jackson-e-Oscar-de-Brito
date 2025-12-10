@@ -216,19 +216,6 @@ Nesse tipo de design, todos os objetos pertencem a um único grupo, e a aleatori
 garante que cada tratamento seja aplicado em condições equivalentes, reduzindo vieses 
 decorrentes de ordem ou de efeitos sistemáticos de execução.
 
-%O procedimento geral para cada trecho de código é:
-
-%\begin{enumerate}
-    %\item reconstruir o trecho de código a partir dos metadados do MLCQ;
-    %\item submeter o trecho ao SonarQube e registrar se houve detecção de
-    %\textit{code smell};
-    %\item submeter o trecho ao ChatGPT por meio de um prompt padronizado, obtendo a
-    %respectiva classificação;
-    %\item submeter o trecho ao Gemini com o mesmo prompt padronizado, obtendo a
-    %respectiva classificação;
-    %\item comparar as três saídas com o rótulo humano e registrar as variáveis
-    %dependentes (acerto, falso positivo, falso negativo) para cada tratamento.
-%\end{enumerate}
 
 \subsection{Teste de Hipóteses}
 
@@ -248,13 +235,21 @@ A instrumentação se refere às ferramentas e artefatos que serão utilizados p
 execução do experimento. Serão utilizados os seguintes instrumentos para apoiar a execução do experimento:
 
 \begin{itemize}
-    \item \textbf{Dataset MLCQ}\footnote{Disponível em: \href{https://doi.org/10.5281/zenodo.3590101}{https://doi.org/10.5281/zenodo.3590101}. Acesso em: 6 dez. 2025.}: o MLCQ é um
-    conjunto de dados de código Java anotado manualmente por desenvolvedores quanto
-    à presença, tipo e severidade de code smells. 
-    No experimento, o MLCQ será utilizado como fonte dos metadados de cada instância de 
-    \textit{code smell}, incluindo \textit{repository}, \textit{commit hash}, 
-    \textit{path}, \textit{start line} e \textit{end line}, que servirão de base 
-    para reconstrução dos trechos de código e como referência.
+    \item \textbf{Dataset MLCQ}\footnote{Disponível em: \href{https://doi.org/10.5281/zenodo.3590101}{https://doi.org/10.5281/zenodo.3590101}. Acesso em: 6 dez. 2025.}: o MLCQ é um conjunto 
+    de dados de código Java anotado manualmente por desenvolvedores quanto à presença, tipo e severidade de \textit{code smells}. 
+    No experimento, o MLCQ será utilizado como fonte dos metadados de cada instância de \textit{code smell}. Cada linha do dataset 
+    corresponde a uma anotação individual, identificada pelo campo \textit{id}, associada a um revisor específico (\textit{reviewer\_id}) e 
+    a uma amostra de código (\textit{sample\_id}). Os campos \textit{smell} e \textit{severity} registram, respectivamente, o tipo de \textit{code smell} 
+    identificado e a severidade atribuída, enquanto \textit{review\_timestamp} armazena a data e hora da anotação. 
+    
+    O tipo de elemento de código avaliado, por exemplo, função, método ou classe é descrito em \textit{type}, e o nome qualificado desse elemento é registrado em \textit{code\_name}. 
+    A origem do artefato é caracterizada pelos campos \textit{repository} (repositório Git de origem), \textit{commit\_hash} (identificador do 
+    \textit{commit} em que o trecho foi anotado) e \textit{path} (caminho do arquivo dentro do repositório), enquanto a região de interesse é delimitada 
+    por \textit{start\_line} e \textit{end\_line}. O campo \textit{link} fornece a URL para visualização do arquivo e das linhas correspondentes na 
+    interface web do GitHub, e \textit{is\_from\_industry\_relevant\_project} indica se o projeto é considerado relevante para a indústria. Em conjunto, 
+    esses metadados serão utilizados para localizar o arquivo completo, reconstruir o contexto do trecho anotado e empregar o rótulo humano como 
+    referência na avaliação dos tratamentos experimentais.
+
 
     \item \textbf{Git}\footnote{Disponível em: \href{https://git-scm.com/}{https://git-scm.com/}. Acesso em: 6 dez. 2025.}: o Git é um sistema de controle de versão distribuído amplamente
     utilizado para gerenciamento de código-fonte. No experimento, o Git será empregado
@@ -297,6 +292,50 @@ execução do experimento. Serão utilizados os seguintes instrumentos para apoi
     \textit{numpy}\footnote{Disponível em: \href{https://numpy.org/}{https://numpy.org/}. Acesso em: 6 dez. 2025.}
     para cálculo das métricas, construção das distribuições e execução dos testes estatísticos necessários.
 \end{itemize}
+
+\subsection{Procedimento de aplicação desses instrumentos}
+
+\begin{enumerate}
+    \item \textbf{Leitura da instância no MLCQ.} 
+    O \textbf{Dataset MLCQ} é utilizado como fonte de consulta para cada instância anotada de \textit{code smell}, tomando seus metadados como ponto de partida para a análise. A partir dos campos presentes no dataset (como \textit{link} do repositório, \textit{path}, \textit{start line} e \textit{end line}), identificam-se o arquivo em que o trecho está localizado e a região específica do código de interesse.
+
+    \item \textbf{Recuperação do código via Git/GitHub.}
+    A partir do campo \textit{link}, acessa-se a URL do repositório no \textbf{GitHub} e utiliza-se o \textbf{Git} para 
+    realizar o \textit{clone} (ou atualizar um clone existente) e extrair o arquivo indicado em \textit{path}. Em seguida, o arquivo completo é carregado, e as linhas compreendidas entre \textit{start line} e \textit{end line} são apenas marcadas como referência de localização do \textit{code smell}. Ou seja, o insumo para as ferramentas de detecção é o \textbf{arquivo inteiro} em que o trecho se encontra, e não somente o fragmento delimitado pelas linhas.
+
+    \item \textbf{Validação, registro e randomização dos tratamentos.}
+    O arquivo recuperado, bem como a região correspondente ao trecho anotado, são validados. Arquivos ou anotações inconsistentes são descartados. Para os casos válidos, scripts em \textbf{Python} registram o arquivo, seus metadados e a faixa de linhas associada à instância de \textit{code smell} em uma estrutura tabular (\textit{DataFrame} do \textit{pandas}) e randomizam a ordem dos cinco tratamentos (\textbf{SonarQube}, \textbf{ChatGPT}, 
+    \textbf{Gemini}, \textbf{Copilot} e \textbf{DeepSeek}) a serem aplicados, em conformidade com o \textit{Completely Randomized Design} adotado.
+
+    \item \textbf{Aplicação do tratamento baseado em análise estática (SonarQube).}
+    O arquivo de código é então submetido ao \textbf{SonarQube} e avaliado com o \textit{rule set} padrão para Java. As \textit{issues} 
+    classificadas como \textit{code smells} são inspecionadas e, para aquela instância do MLCQ, registra-se uma decisão binária indicando se houve ou não detecção de \textit{code smell} na região do arquivo correspondente às linhas \textit{start line}–\textit{end line}.
+
+    \item \textbf{Aplicação dos tratamentos baseados em LLMs.}
+    Em seguida, é construído um \textit{prompt} padronizado contendo instruções em linguagem natural, o conteúdo completo do arquivo Java recuperado e a indicação da região de interesse associada à instância do MLCQ. Esse \textit{prompt} é enviado, na ordem aleatória definida, aos modelos de linguagem avaliados:
+    \begin{itemize}
+        \item \textbf{ChatGPT} (GPT-5.1);
+        \item \textbf{Gemini} (Gemini 3 Pro);
+        \item \textbf{Copilot} (GPT-5);
+        \item \textbf{DeepSeek} (DeepSeek-V3.2).
+    \end{itemize}
+    Para cada modelo, a resposta textual é armazenada integralmente e, em etapa posterior, é processada para gerar uma classificação binária padronizada (presença ou ausência de \textit{code smell} para aquela instância), conforme o formato exigido no \textit{prompt}.
+
+    \item \textbf{Consolidação das saídas por trecho.}
+    Para cada instância anotada de \textit{code smell}, os scripts em Python consolidam, em uma única linha de um \textit{DataFrame} (\textit{pandas}), os metadados do 
+    \textbf{Dataset MLCQ} (inclusive o rótulo humano) e as decisões binárias produzidas por cada tratamento (\textbf{SonarQube}, \textbf{ChatGPT}, 
+    \textbf{Gemini}, \textbf{Copilot} e \textbf{DeepSeek}). A partir dessa consolidação, são derivadas variáveis auxiliares por instância, como acerto, 
+    falso positivo, falso negativo e verdadeiro negativo para cada ferramenta.
+
+    \item \textbf{Agregação por projeto e cálculo das variáveis dependentes.}
+    Por fim, utilizando as \textbf{ferramentas de análise estatística} (scripts Python com \textit{pandas} e \textit{numpy}, eventualmente apoiados 
+    por planilhas eletrônicas), os resultados por instância são agregados por projeto, obtendo-se, para cada tratamento, a 
+    \textbf{quantidade de \textit{code smells} identificados por projeto}, variável dependente definida na Seção de Variáveis do Experimento. 
+    A partir dessas distribuições, são calculadas as estatísticas descritivas (medianas, variâncias, desvios padrão) e preparados os conjuntos 
+    de dados de entrada para o teste de hipóteses (Kruskal--Wallis) descrito anteriormente.
+\end{enumerate}
+
+
 
 \subsection{Validade do Experimento}
 
