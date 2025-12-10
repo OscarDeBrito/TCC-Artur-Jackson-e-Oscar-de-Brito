@@ -30,7 +30,7 @@ foi utilizada para definição das perguntas específicas, derivadas da pergunta
     
     \begin{itemize}
         \item \textbf{Métrica:} Mediana da quantidade de code smells detectados por projeto, acompanhada da 
-        \textbf{variância} e \textbf{desvio padrão} (dispersão), a fim de permitir 
+        variância e desvio padrão, a fim de permitir 
         comparações estatísticas entre os tratamentos.
     \end{itemize}
 
@@ -136,7 +136,7 @@ metadados do dataset, incluindo: \textit{repository}, \textit{commit hash}, \tex
 Para a execução do experimento, cada trecho de código será reconstruído a partir dos metadados fornecidos pelo dataset
 (\textit{repository}, \textit{commit hash}, \textit{path}, \textit{start line} e \textit{end line}),
 garantindo a fidelidade ao código original existente no momento da anotação. As abordagens de detecção serão então aplicadas sobre o mesmo conjunto de trechos de código-fonte,
-permitindo comparações pareadas entre abordagens distintas de detecção de \textit{code smells}.
+permitindo comparações entre abordagens distintas de detecção de \textit{code smells}.
 
 Como os tratamentos envolvem modelos fechados (LLMs), preserva-se a versão do modelo,
 as configurações utilizadas e os prompts empregados, de forma a garantir reprodutibilidade.
@@ -206,7 +206,7 @@ dos demais.
 
 O experimento caracteriza-se como um \textbf{experimento orientado à tecnologia}
 (\textit{technology-oriented experiment}), conforme classificação apresentada por
-\citeonline{Wohlin:2012:ESE:2349018}. Nesse tipo de estudo, não há participação de sujeitos humanos;
+\citeonline{Wohlin:2012:ESE:2349018}. Nesse tipo de estudo, não há participação de sujeitos humanos,
 o foco está na avaliação comparativa de técnicas, ferramentas ou algoritmos aplicados
 a artefatos de software.
 
@@ -271,7 +271,7 @@ execução do experimento. Serão utilizados os seguintes instrumentos para apoi
     \item \textbf{SonarQube}\footnote{Disponível em: \href{https://www.sonarqube.org/}{https://www.sonarqube.org/}. Acesso em: 6 dez. 2025.}: ferramenta de Análise Estática configurada com o \textit{rule set} padrão para Java, utilizada como um dos tratamentos de 
     detecção de \textit{code smells}.
     
-     \item \textbf{ChatGPT}\footnote{Documentação em: \href{https://platform.openai.com/docs}{https://platform.openai.com/docs}. Acesso em: 6 dez. 2025.}:
+    \item \textbf{ChatGPT}\footnote{Documentação em: \href{https://platform.openai.com/docs}{https://platform.openai.com/docs}. Acesso em: 6 dez. 2025.}:
     o ChatGPT é um modelo de linguagem de grande porte desenvolvido pela OpenAI,
     baseado na arquitetura \textit{transformer}. Ele é capaz de interpretar instruções
     em linguagem natural e analisar trechos de código, gerando respostas descritivas
@@ -286,6 +286,28 @@ execução do experimento. Serão utilizados os seguintes instrumentos para apoi
     No experimento, o Gemini será igualmente acessado via prompts padronizados,
     produzindo uma classificação binária sobre a presença ou ausência de 
     \textit{code smell} em cada trecho avaliado.
+
+    \item \textbf{Copilot}\footnote{Documentação em: 
+    \href{https://learn.microsoft.com/azure/ai-services/openai/}{https://learn.microsoft.com/azure/ai-services/openai/}. 
+    Acesso em: 6 dez. 2025.}:
+    refere-se ao modelo de linguagem utilizado 
+    pelo Microsoft Copilot e disponibilizado de forma programática por meio da Azure OpenAI API, 
+    permitindo sua execução automatizada e reprodutível. Esses modelos, derivados da família GPT, 
+    são otimizados para tarefas de programação e análise estrutural de código. 
+    No experimento, o modelo será acessado mediante prompts padronizados, fornecendo uma 
+    classificação quanto à presença ou ausência de \textit{code smells} para cada trecho de código 
+    reconstruído a partir do MLCQ, possibilitando comparação direta com as demais abordagens.
+
+
+    \item \textbf{DeepSeek}\footnote{Documentação em: \href{https://www.deepseek.com/}{https://www.deepseek.com/}. Acesso em: 6 dez. 2025.}:
+    o DeepSeek é um modelo de linguagem de grande porte otimizado para tarefas de
+    programação, análise de código e raciocínio técnico. Baseado em uma arquitetura
+    avançada de \textit{transformers} customizados, o modelo oferece alta capacidade de
+    inspeção estrutural de código e interpretação semântica. No experimento, o DeepSeek 
+    será empregado por meio de prompts padronizados para realizar a detecção de 
+    \textit{code smells}, fornecendo uma classificação comparável à dos demais LLMs 
+    e permitindo avaliar seu desempenho relativo nas tarefas de analisabilidade.
+
     
     \item \textbf{Ferramentas de análise estatística}: serão utilizadas planilhas eletrônicas e scripts Python com bibliotecas como 
     \textit{pandas}\footnote{Disponível em: \href{https://pandas.pydata.org/}{https://pandas.pydata.org/}. Acesso em: 6 dez. 2025.} e
@@ -293,7 +315,7 @@ execução do experimento. Serão utilizados os seguintes instrumentos para apoi
     para cálculo das métricas, construção das distribuições e execução dos testes estatísticos necessários.
 \end{itemize}
 
-\subsection{Procedimento de aplicação desses instrumentos}
+\subsection{Procedimento de aplicação dos instrumentos}
 
 \begin{enumerate}
     \item \textbf{Leitura da instância no MLCQ.} 
