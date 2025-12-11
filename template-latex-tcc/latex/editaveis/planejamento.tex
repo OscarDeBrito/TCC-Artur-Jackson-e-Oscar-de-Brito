@@ -202,6 +202,9 @@ dos demais.
     estatisticamente diferente dos demais.
 \end{itemize}
 
+Para a avaliação estatística dessas hipóteses, será adotado um nível de significância 
+\boldmath{$\alpha = 0{,}05$}.
+
 \subsection{Desenho do Experimento}
 
 O experimento caracteriza-se como um \textbf{experimento orientado à tecnologia}
@@ -487,10 +490,40 @@ como variável dependente principal, o procedimento de coleta descrito nesta se�
 cada tratamento, informações suficientes para derivar medidas baseadas em matriz de confusão, tais como verdadeiros positivos, falsos positivos, 
 falsos negativos e verdadeiros negativos.
 
-Esses dados permitiriam, em uma etapa posterior, calcular métricas clássicas de avaliação de classificadores, como \textit{precision}, 
-\textit{recall} e \textit{F1-score} por tratamento, bem como comparar o comportamento relativo das ferramentas em termos de propensão a 
-falsos positivos ou falsos negativos em diferentes tipos de \textit{code smells} e níveis de severidade.
+Esses dados permitem responder a uma questão adicional de pesquisa, originalmente
+considerada no início do planejamento, mas posteriormente retirada do escopo experimental:
 
-No entanto, tal análise complementar \textbf{não faz parte do escopo do experimento definido neste Trabalho de Conclusão de Curso}. 
-Ela é aqui registrada apenas como uma possibilidade de extensão futura do estudo, que poderá aprofundar a compreensão sobre os 
-padrões de erro das ferramentas e sua adequação prática em cenários de uso industrial.
+\begin{itemize}
+    \item \textbf{Questão Específica 2 (Análise Complementar)}: 
+    LLMs reduzem o número de falsos positivos e falsos negativos em comparação com 
+    ferramentas baseadas em regras fixas?
+\end{itemize}
+
+Com base nessa questão, seria possível definir as seguintes métricas complementares:
+
+\begin{itemize}
+    \item \textbf{Métrica C.1 - Falsos Positivos por tratamento}: proporção de instâncias em que 
+    a ferramenta indica a presença de \textit{code smell} quando o rótulo humano indica ausência.
+
+    \item \textbf{Métrica C.2 - Falsos Negativos por tratamento}: proporção de instâncias em que 
+    a ferramenta não identifica o code smell anotado no MLCQ.
+
+    \item \textbf{Métrica C.3 - F1-score por tratamento}: medida harmônica que sintetiza 
+    precision e recall.
+\end{itemize}
+
+Embora tecnicamente viável e metodologicamente fundamentada, essa análise complementar 
+\textbf{não integra o escopo do experimento principal} definido neste trabalho, 
+que se concentra exclusivamente na comparação das \textbf{medianas da quantidade de \textit{code smells} 
+detectados por projeto}.
+
+Entretanto, destaca-se que \textbf{a análise complementar será realizada como parte do estudo}, 
+apresentada de forma separada, com caráter exploratório e não experimental, utilizando os 
+dados já coletados. Seu objetivo será aprofundar a compreensão dos padrões de erro de cada 
+abordagem especialmente tendências a falsos positivos e falsos negativos oferecendo 
+uma visão adicional sobre o comportamento dos tratamentos, mas sem impacto na validação ou 
+refutação da hipótese experimental principal.
+
+Assim, esta análise complementar constitui uma contribuição adicional do trabalho, ampliando a 
+interpretação dos resultados e enriquecendo a discussão, ainda que não componha os elementos 
+estruturais do experimento em si.
