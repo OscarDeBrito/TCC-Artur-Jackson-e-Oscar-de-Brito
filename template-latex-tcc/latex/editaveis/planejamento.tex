@@ -122,8 +122,7 @@ Essa adoção decorre do fato de que o dataset foi construído com a participaç
 cujas anotações foram validadas por múltiplos revisores, assegurando confiabilidade e reduzindo vieses individuais, 
 além de abranger uma grande diversidade de sistemas reais.
 
-\textbf{Sujeito do experimento:} o sujeito não é um participante humano, mas sim o próprio
-dataset MLCQ, entendido como a fonte empírica sobre a qual os tratamentos serão aplicados.
+\textbf{Sujeito do experimento:} Os sujeitos do experimento são os arquivos de código-fonte presentes nos projetos que compõem o dataset MLCQ.
 
 \textbf{População:} a população é composta pelos 792 projetos Java provenientes do
 dataset MLCQ.
@@ -161,7 +160,8 @@ O fator possui cinco níveis (tratamentos), correspondentes às ferramentas aval
 
 \subsubsection*{Variável Independente}
 A variável independente é composta pelos \textbf{trechos de código} que constituem os objetos experimentais.
-Onde os tratamentos serão então aplicados sobre o mesmo conjunto de trechos de código-fonte.
+Onde os tratamentos serão então aplicados sobre o mesmo conjunto de trechos de código-fonte. Cada trecho é identificado 
+por meio de metadados estruturados especificamente, o arquivo de origem, a linha inicial e a linha final do trecho dentro desse arquivo.
 
 \subsubsection*{Variáveis Dependentes}
 A variável dependente é quantitativa e corresponde à \textbf{quantidade de code smells identificados por projeto para cada tratamento}.
@@ -178,7 +178,7 @@ Com base nessa variável primária, serão calculadas as seguintes métricas est
 
 As hipóteses foram definidas de forma a permitir a comparação estatística entre os
 tratamentos, considerando a distribuição da quantidade de \textit{code smells} identificados
-por projeto. Seja $W_i$ a mediana da distribuição de \textit{code smells} identificados pelo
+por projeto. Seja $Med_i$ a mediana da distribuição de \textit{code smells} identificados pelo
 tratamento $i$, onde $i \in \{1,2,3,4,5\}$ representa, respectivamente:
 SonarQube, ChatGPT, Gemini, Copilot e DeepSeek.
 
@@ -189,14 +189,14 @@ dos demais.
 \begin{itemize}
     \item \textbf{Hipótese Nula ($H_{0}$):} 
     \[
-        W_{1} = W_{2} = W_{3} = W_{4} = W_{5}
+        Med_{1} = Med_{2} = Med_{3} = Med_{4} = Med_{5}
     \]
     Isto é, não há diferença estatisticamente significativa entre as medianas das quantidades
     de \textit{code smells} identificados pelos diferentes tratamentos.
 
     \item \textbf{Hipótese Alternativa ($H_{1}$):}
     \[
-        \exists\, i,j \mid W_{i} \neq W_{j}
+        \exists\, i,j \mid Med_{i} \neq Med_{j}
     \]
     Ou seja, ao menos um tratamento identifica uma quantidade de \textit{code smells}
     estatisticamente diferente dos demais.
@@ -334,14 +334,24 @@ execução do experimento. Serão utilizados os seguintes instrumentos para apoi
     classificadas como \textit{code smells} são inspecionadas e, para aquela instância do MLCQ, registra-se uma decisão binária indicando se houve ou não detecção de \textit{code smell} na região do arquivo correspondente às linhas \textit{start line}–\textit{end line}.
 
     \item \textbf{Aplicação dos tratamentos baseados em LLMs.}
-    Em seguida, é construído um \textit{prompt} padronizado contendo instruções em linguagem natural, o conteúdo completo do arquivo Java recuperado e a indicação da região de interesse associada à instância do MLCQ. Esse \textit{prompt} é enviado, na ordem aleatória definida, aos modelos de linguagem avaliados:
+    Em seguida, é construído um \textit{prompt} padronizado contendo instruções em linguagem natural, 
+    o conteúdo completo do arquivo Java recuperado e a indicação da região de interesse associada à 
+    instância do MLCQ. Esse \textit{prompt} é enviado, na ordem aleatória definida, aos modelos de 
+    linguagem avaliados por meio de suas \textit{APIs} oficiais, integradas aos scripts em Python:
+
     \begin{itemize}
         \item \textbf{ChatGPT} (GPT-5.1);
         \item \textbf{Gemini} (Gemini 3 Pro);
         \item \textbf{Copilot} (GPT-5);
         \item \textbf{DeepSeek} (DeepSeek-V3.2).
     \end{itemize}
-    Para cada modelo, a resposta textual é armazenada integralmente e, em etapa posterior, é processada para gerar uma classificação binária padronizada (presença ou ausência de \textit{code smell} para aquela instância), conforme o formato exigido no \textit{prompt}.
+
+    Em todos os casos, serão adotadas configurações controladas de inferência (por exemplo,
+    limite de tokens e modo de resposta) de forma a reduzir a variabilidade das saídas e favorecer a
+    reprodutibilidade. Para cada modelo, a resposta textual é armazenada integralmente e, em etapa
+    posterior, processada para gerar uma classificação binária padronizada (presença ou ausência de 
+    code smell para aquela instância), conforme o formato exigido no prompt.
+
 
     \item \textbf{Consolidação das saídas por trecho.}
     Para cada instância anotada de \textit{code smell}, os scripts em Python consolidam, em uma única linha de um \textit{DataFrame} (\textit{pandas}), os metadados do 
@@ -449,3 +459,18 @@ na configuração das ferramentas, o que será mitigado por meio da inspeção m
 Em resumo, embora o experimento esteja sujeito a ameaças em todas as categorias de validade, o planejamento adotado busca torná-las explícitas e, quando 
 possível, mitigá-las por meio de escolhas metodológicas fundamentadas. As ameaças remanescentes são reconhecidas como limitações do estudo e serão consideradas 
 na interpretação dos resultados e na definição do trabalho futuro.
+
+\subsection{Análise complementar}
+
+Embora o experimento planejado esteja focado na comparação da \textbf{quantidade de \textit{code smells} identificados por projeto} 
+como variável dependente principal, o procedimento de coleta descrito nesta seção produz, para cada instância anotada no MLCQ e para 
+cada tratamento, informações suficientes para derivar medidas baseadas em matriz de confusão, tais como verdadeiros positivos, falsos positivos, 
+falsos negativos e verdadeiros negativos.
+
+Esses dados permitiriam, em uma etapa posterior, calcular métricas clássicas de avaliação de classificadores, como \textit{precision}, 
+\textit{recall} e \textit{F1-score} por tratamento, bem como comparar o comportamento relativo das ferramentas em termos de propensão a 
+falsos positivos ou falsos negativos em diferentes tipos de \textit{code smells} e níveis de severidade.
+
+No entanto, tal análise complementar \textbf{não faz parte do escopo do experimento definido neste Trabalho de Conclusão de Curso}. 
+Ela é aqui registrada apenas como uma possibilidade de extensão futura do estudo, que poderá aprofundar a compreensão sobre os 
+padrões de erro das ferramentas e sua adequação prática em cenários de uso industrial.
