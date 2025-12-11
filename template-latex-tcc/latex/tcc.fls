@@ -495,13 +495,13 @@ INPUT ./editaveis/abreviaturas.tex
 INPUT ./editaveis/abreviaturas.tex
 INPUT ./editaveis/abreviaturas.tex
 INPUT editaveis/abreviaturas.tex
-INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc
 INPUT ./editaveis/simbolos.tex
 INPUT ./editaveis/simbolos.tex
 INPUT ./editaveis/simbolos.tex
 INPUT ./editaveis/simbolos.tex
 INPUT editaveis/simbolos.tex
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc
+INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc
 INPUT ./fixos/indiceAutomatico.tex
 INPUT ./fixos/indiceAutomatico.tex
