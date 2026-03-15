@@ -25,7 +25,7 @@ Assim, mapear e tratar \textit{smells} torna-se um caminho prático para apoiar 
 
 Ferramentas de análise estática, como SonarQube, PMD, Checkstyle e SpotBugs, difundiram-se como meios de detectar \textit{smells} e 
 antipadrões por meio de regras, métricas e limiares \cite{sonarq,pmdbox,checkstyle,spotbugs}. Elas oferecem velocidade, 
-fácil integração a \textit{pipelines} de CI/CD e ampla cobertura de regras. Contudo, métodos baseados em regras dependem fortemente dos limiares das métricas,
+fácil integração a \textit{pipelines} de \textit{CI/CD} e ampla cobertura de regras. Contudo, métodos baseados em regras dependem fortemente dos limiares das métricas,
 tornando essas ferramentas propensas a gerar taxas relevantes de falsos positivos \cite{SharmaSpinellis2018}. Esses limites motivam a 
 busca por abordagens mais adaptativas.
 
@@ -40,33 +40,33 @@ indicando oportunidades concretas de pesquisa e de adoção em ambientes de dese
 
 \section{Problema}
 
-Medir e detectar code smells é uma tarefa crítica no desenvolvimento de software para 
-garantir a boa qualidade do código \cite{Haroon2025}. Code smells são estruturas de código que indicam 
+Medir e detectar \textit{code smells} é uma tarefa crítica no desenvolvimento de software para 
+garantir a boa qualidade do código \cite{Haroon2025}. \textit{Code smells} são estruturas de código que indicam 
 violações dos princípios fundamentais de design \cite{Fowler2018} e afetam negativamente a testabilidade, a 
 manutenibilidade e a evolução dos produtos de software \cite{SharmaSpinellis2018}. Embora já exista
 muito conhecimento acumulado na área, ainda carecemos de métodos que superem a subjetividade inerente a 
-certos code smells, como o God Class \cite{Haroon2025}
+certos \textit{code smells}, como o \textit{God Class} \cite{Haroon2025}
 
 Frequentemente, os métodos tradicionais de inspeção manual são baseados em critérios subjetivos, como a 
 interpretação de desenvolvedores, e não possuem escalabilidade, o que afeta a confiabilidade dos resultados. 
-A natureza subjetiva dos code smells e a complexidade das relações no código-fonte tornam sua detecção um 
+A natureza subjetiva dos \textit{code smells} e a complexidade das relações no código-fonte tornam sua detecção um 
 desafio contínuo \cite{AlKhatib2023}, onde os profissionais frequentemente discordam em suas avaliações.
 \cite{ArcelliFontana2016}.
 
 No contexto do desenvolvimento e entrega contínua, esse desafio se torna ainda mais difícil. Métodos manuais 
 de análise são, por muitas vezes, trabalhosos, o que impulsiona a necessidade de técnicas automatizadas para 
-detecção de code smells. A detecção deve ser oportuna, pois o custo de correção desses problemas tende a 
+detecção de \textit{code smells}. A detecção deve ser oportuna, pois o custo de correção desses problemas tende a 
 aumentar quanto mais tarde eles forem detectados \cite{Moha2009}. A medição da qualidade do código se torna 
 ainda mais desafiadora ao lidar com ciclos contínuos de lançamentos.
 
-O code smell é uma propriedade multifacetada, contribuindo para o acúmulo de 'dívida técnica' 
+O \textit{code smell} é uma propriedade multifacetada, contribuindo para o acúmulo de 'dívida técnica' 
 \cite{Hasantha2021}, o que aumenta a dificuldade na manutenção do código e reduz a qualidade ao longo do tempo. 
-A presença de code smell sinaliza um design deficiente e demonstra ser mais propensa a alterações e defeitos.
+A presença de \textit{code smell} sinaliza um design deficiente e demonstra ser mais propensa a alterações e defeitos.
 Em essência, a falta de ferramentas inteligentes que forneçam feedback contínuo e 
-just-in-time para detecção de code smells pode comprometer ou mesmo inviabilizar a estratégia de negócio ao 
+\textit{just-in-time} para detecção de \textit{code smells} pode comprometer ou mesmo inviabilizar a estratégia de negócio ao 
 degradar a qualidade e a manutenibilidade do software \cite{Haroon2025}.
 
-Nesse cenário, técnicas de Machine Learning (ML) têm se mostrado promissoras para detecção de code smells, 
+Nesse cenário, técnicas de \textit{Machine Learning} (ML) têm se mostrado promissoras para detecção de \textit{code smells}, 
 com o objetivo de melhorar a precisão e reduzir o viés associado a outras técnicas. Contudo, o principal 
 desafio na aplicação de algoritmos de ML reside na criação de uma representação vetorial adequada do trecho 
 de código analisado, jutamente com um bom treinamneto aplicado a ML. \cite{Haroon2025}.
@@ -96,7 +96,7 @@ conforme ilustrado na Figura~\ref{fig:gqm}. Essa estrutura foi ajustada ao escop
         \hline
         \textbf{Com o propósito de} & Caracterizar \\
         \hline
-        \textbf{Com respeito ao} & avaliação da manutenibilidade de softwares sob o aspecto da analisabilidade, tomando os code smells como indicadores de possíveis deficiências no código \\
+        \textbf{Com respeito ao} & avaliação da manutenibilidade de softwares sob o aspecto da analisabilidade, tomando os \textit{code smells} como indicadores de possíveis deficiências no código \\
         \hline
         \textbf{Do ponto de vista de} & Pesquisadores da área de Engenharia de Software. \\
         \hline
@@ -126,12 +126,12 @@ Considerando essa perspectiva definimos a seguinte questão principal de pesquis
 \section{Objetivos}
 
 O objetivo geral deste trabalho é analisar a contribuição de abordagens baseadas em Inteligência Artificial
-(IA), em comparação com ferramentas de análise estática, na detecção de code smells, considerando a característica de manutenibilidade, especialmente subcaracterística analisabilidade,  em projetos de software livre, voltados a aplicações web.
+(IA), em comparação com ferramentas de análise estática, na detecção de \textit{code smells}, considerando a característica de manutenibilidade, especialmente subcaracterística analisabilidade,  em projetos de software livre, voltados a aplicações web.
 
     Para alcançar o objetivo proposto, foram definidos os seguintes objetivos específicos:
 
 \begin{itemize}
-	\item Mapear as principais abordagens de Inteligência Artificial (IA) aplicadas à detecção de code smells em produtos de software.;
+	\item Mapear as principais abordagens de Inteligência Artificial (IA) aplicadas à detecção de \textit{code smells} em produtos de software.;
 	\item Comparar ferramentas baseadas em IA com ferramentas de análise estática quanto ao desempenho 
     relacionado às subcaracterísticas de manutenibilidade, especialmente analisabilidade.;
     \item Identificar limitações e desafios na aplicação de técnicas de IA à garantia da qualidade de 
@@ -152,7 +152,7 @@ A seguir, são apresentados os capítulos que compõem a estrutura deste trabalh
  estrutura e o cronograma das atividades realizadas;
 	\item Referencial Teórico: são apresentados os fundamentos conceituais e metodológicos que 
     sustentam o desenvolvimento deste trabalho, abordando os princípios da Engenharia de Software 
-    Experimental, os modelos de qualidade aplicáveis à manutenibilidade, os conceitos de code smells e 
+    Experimental, os modelos de qualidade aplicáveis à manutenibilidade, os conceitos de \textit{code smells} e 
     de Inteligência Artificial (IA), que servem como base para o experimento conduzido;
 	\item Revisão Estruturada da Literatura: formaliza e documenta o processo empregado para a seleção dos estudos
  que fundamentam este trabalho, incluindo o protocolo de busca, adaptado da revisão sistemática de literatura \cite{kitchenham2007guidelines}; 
@@ -191,7 +191,7 @@ Figura \ref{fig:cronograma}.
     \item \textbf{Definição do GQM:} Uso da abordagem Goal Question Metric (GQM) \cite{Basili1994} para a construção da questão principal de pesquisa, suas subquestões e as medidas a serem analisadas.
     \item \textbf{Elaboração do Protocolo de Revisão da Literatura:} Estruturação e adaptação do protocolo de revisão sistemática da literatura proposto por \citeonline{kitchenham2007guidelines}. Este processo inclui a definição da string de busca baseada no protocolo PICO, adapatado da área da medicina \cite{pai_clinical_2004}. Por meio desse protocolo definimos sinônimos de termos, critérios de inclusão e exclusão de estudos, além do método de análise  e  extração de dados.
     \item \textbf{Seleção dos Artigos:} A etapa envolveu a filtragem inicial dos estudos por meio da análise de títulos, resumos e palavras-chave, aplicando os critérios de inclusão e exclusão definidos no protocolo de revisão.
-    \item \textbf{Leitura do Material Selecionado:} Leitura dos estudos selecionados para aprofundar o conhecimento sobre métodos de avaliação de manutenibilidade e abordagens de detecção de code smells.
+    \item \textbf{Leitura do Material Selecionado:} Leitura dos estudos selecionados para aprofundar o conhecimento sobre métodos de avaliação de manutenibilidade e abordagens de detecção de \textit{code smells}.
     \item \textbf{Definição da Proposta de Solução:} Planejamento do experimento controlado a ser executado nas atividades do TCC2.
     \item \textbf{Redação da Monografia:} Escrita do texto da monografia, conforme a estrutura presente na Seção \ref{sec:estrutura-monografia}.
     \item \textbf{Revisão:} Realização das correções e dos ajustes solicitados pelo orientador.

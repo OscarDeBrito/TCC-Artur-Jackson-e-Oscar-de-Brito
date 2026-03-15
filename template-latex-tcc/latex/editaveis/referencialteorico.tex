@@ -22,20 +22,20 @@ tecnológicos e organizacionais. \cite{Wohlin:2012:ESE:2349018}.
 
 O Experimento é uma das principais estratégias de pesquisa empírica. Ele envolve a manipulação controlada de fatores ou variáveis.
 Diferentes tratamentos são aplicados a diferentes sujeitos, medindo os efeitos nas variáveis de resultado. É especialmente
-utilizado em estudos onde se deseja comparar o desempenho de diferentes técnicas, ferramentas ou metodologias de desenvolvimento de software \cite{Wohlin:2012:ESE:2349018}.
+utilizado em estudos onde se deseja comparar o desempenho de diferentes técnicas, ferramentas ou metodologias de desenvolvimento de \textit{software} \cite{Wohlin:2012:ESE:2349018}.
 
 Neste trabalho, o experimento adotado segue a caracterização de experimentos orientados à tecnologia proposta por 
-\citeonline{Wohlin:2012:ESE:2349018}, em que diferentes ferramentas são aplicadas sobre os mesmos artefatos de software, 
+\citeonline{Wohlin:2012:ESE:2349018}, em que diferentes ferramentas são aplicadas sobre os mesmos artefatos de \textit{software}, 
 sob condições controladas, para comparar seus resultados. Ao manipular sistematicamente os tratamentos e manter constantes os demais fatores de contexto, busca-se investigar 
 em que medida cada abordagem é capaz de identificar anomalias no código e como isso se relaciona com a garantia da qualidade 
-de software.
+de \textit{software}.
 
 De forma complementar ao experimento, este trabalho emprega uma revisão estruturada da literatura, entendida como a 
 adaptação, ao contexto da Engenharia de Software, das diretrizes de revisões sistemáticas originalmente propostas em áreas 
 como a medicina. Tal revisão, inspirada nas recomendações de \citeonline{KITCHENHAM20132049} sintetizadas por 
 \citeonline{Wohlin:2012:ESE:2349018}, define explicitamente questões de pesquisa, estratégias de busca, critérios de inclusão 
 e exclusão e procedimentos de extração e síntese de dados, com o objetivo de mapear e analisar criticamente a evidência 
-existente sobre o uso de ferramentas baseadas em IA na detecção de code smells. Essa base teórica e empírica sustenta 
+existente sobre o uso de ferramentas baseadas em IA na detecção de \textit{code smells}. Essa base teórica e empírica sustenta 
 a formulação das hipóteses e o desenho do experimento conduzido neste estudo.
 
 
@@ -107,7 +107,7 @@ por outros pesquisadores.
 
 
 
-A padronização internacional da qualidade de produto de software consolidou-se com a família ISO/IEC 9126, cuja edição mais difundida é 
+A padronização internacional da qualidade de produto de \textit{software} consolidou-se com a família ISO/IEC 9126, cuja edição mais difundida é 
 a \citeonline{ISO9126}. Esse modelo organizou a qualidade do produto em seis características (funcionalidade, confiabilidade, usabilidade, 
 eficiência, manutenibilidade e portabilidade), desdobradas em subcaracterísticas, e articulou a relação entre qualidade interna, externa e 
 em uso, tratada em partes complementares da série. Essa consolidação foi possível e diretamente influenciada, pelos modelos seminais propostos Barry Boehm \cite{boehm1978characteristics}, John McCall \cite{McCall1977} e Geoff Dromey \cite{Dromey1995}.
@@ -126,7 +126,7 @@ dividindo o tema em cinco domínios:
 \end{description}
 
 Esse reagrupamento respondeu a duas demandas históricas: 
-Primeiramente separar claramente o que medir, como medir e como avaliar alinhado às boas práticas de engenharia de medição em software e 
+Primeiramente separar claramente o que medir, como medir e como avaliar alinhado às boas práticas de engenharia de medição em \textit{software} e 
 em seguida aproximar o modelo de qualidade das atividades de engenharia de requisitos e da avaliação contínua em ciclos iterativos, em linha com 
 abordagens orientadas a metas como GQM 
 
@@ -146,7 +146,7 @@ ao mesmo tempo em que se oferece maior aderência às práticas contemporâneas 
 \section{Metodologias Ágeis}
 As metodologias ágeis emergem como resposta prática aos limites dos modelos tradicionais de desenvolvimento com ciclos longos, 
 documentação prescritiva e baixa adaptabilidade ganham contorno conceitual com o \textit{Manifesto for Agile Software Development}, 
-que privilegia indivíduos e interações, software em funcionamento, colaboração com o cliente e resposta a mudanças \cite{Beck2001Manifesto}.
+que privilegia indivíduos e interações, \textit{software} em funcionamento, colaboração com o cliente e resposta a mudanças \cite{Beck2001Manifesto}.
 
 A partir desses valores, consolidou-se uma família de métodos e práticas que, mais do que um processo único, operam como um ecossistema de 
 princípios orientados à entrega contínua de valor e ao aprendizado incremental. O foco em ciclos curtos, \textit{feedback} frequente e alinhamento
@@ -172,7 +172,7 @@ pares, requisitos de segurança), ajustados ao contexto organizacional.
 
 Por fim, a experiência mostra que “adotar ágil” nominalmente, sem práticas, sem técnicas e sem investimento deliberado em qualidade apenas acelera a 
 geração de dívida técnica. O risco de \textit{cargo cult} é real: cerimônias sem propósito, indicadores usados de forma disfuncional e pressão por 
-entrega sacrificam atributos essenciais de qualidade do produto de software, como confiabilidade, manutenibilidade e usabilidade, conforme o modelo 
+entrega sacrificam atributos essenciais de qualidade do produto de \textit{software}, como confiabilidade, manutenibilidade e usabilidade, conforme o modelo 
 de qualidade definido na ISO/IEC 25010.
 
 A eficácia depende de disciplina técnica, 
@@ -180,7 +180,7 @@ gestão do conhecimento e alinhamento contínuo a objetivos de produto e do neg�
 
 \section{Code Smells}
 
-O termo code smell foi introduzido por \citeonline{Fowler1999}, como uma metáfora para indicar “cheiros” ou sinais 
+O termo \textit{code smell} foi introduzido por \citeonline{Fowler1999}, como uma metáfora para indicar “cheiros” ou sinais 
 de que algo pode estar errado na estrutura interna do código, que, embora não configurem 
 defeitos funcionais, sinalizam risco de degradação de qualidades como manutenibilidade e a necessidade 
 de refatoração preventiva. Seu catálogo original reúne 22 tipos de smells, classificados segundo a natureza do problema 
@@ -191,7 +191,7 @@ A proposta de Fowler consolidou uma linguagem comum para discutir más práticas
 para catálogos posteriores que buscaram ampliar, formalizar e automatizar a identificação desses indícios. 
 Ao longo dos anos, diferentes pesquisadores refinaram o conceito e propuseram novas taxonomias, expandindo o 
 número e o escopo dos smells reconhecidos. Por exemplo, \citeonline{Lanza2006} introduziram critérios 
-quantitativos baseados em métricas de software permitindo a detecção de problemas de design em sistemas orientados a objetos.
+quantitativos baseados em métricas de \textit{software} permitindo a detecção de problemas de design em sistemas orientados a objetos.
 
 A relevância do tema decorre de sua associação empírica com esforço de manutenção e propensão a defeitos ao longo do 
 ciclo de vida \cite{Palomba2018}. Ainda que o efeito de um smell isolado possa ser limitado e dependente de contexto da tecnologia, 
@@ -209,26 +209,26 @@ aprendizado supervisionado aplicadas ao processamento de linguagem natural,
 e posteriormente, impulsionada pelo avanço das redes neurais profundas e dos modelos distribuídos de representação 
 semântica \cite{Goodfellow2016}. Um desses marcos ocorreu em 2017, com o surgimento da arquitetura transformer, que 
 introduziu novos mecanismos e permitiu treinar modelos em larga escala com maior eficiência
-\cite{Vaswani2017}, estabelecendo as bases para os Modelos de Linguagem de Grande Escala (LLMs) que hoje dominam o 
+\cite{Vaswani2017}, estabelecendo as bases para os Modelos de Linguagem de Grande Escala (\textit{LLMs}) que hoje dominam o 
 campo da IA generativa.
 
 A Inteligência Artificial (IA) passou, então, por uma transição significativa: dos sistemas baseados em regras para 
 abordagens estatísticas e para modelos de conexão linguistica, ampliando a capacidade das máquinas de lidar com incertezas e 
 padrões complexos, especialmente no processamento de linguagem natural \cite{RussellNorvig2021}. Nesse cenário, 
-surgem os Modelos de Linguagem de Grande Escala (Large Language Models – LLMs), que representam uma transformação no 
+surgem os Modelos de Linguagem de Grande Escala (\textit{Large Language Models – LLMs}), que representam uma transformação no 
 modo como sistemas computacionais compreendem e geram linguagem humana.
 
 A partir do desenvolvimento das redes neurais profundas ampliou-se a capacidade dos modelos de captar relações 
 semânticas e padrões complexos \cite{Goodfellow2016}, e com o surgimento da arquitetura transformer, que introduziu mecanismos 
 de \textit{self-attention}, permitindo capturar dependências de longo alcance \cite{Vaswani2017}. 
-Essa inovação estabeleceu as bases técnicas para o treinamento de modelos em escala massiva, preparando o terreno para os LLMs contemporâneos.
+Essa inovação estabeleceu as bases técnicas para o treinamento de modelos em escala massiva, preparando o terreno para os \textit{LLMs} contemporâneos.
 
-Os LLMs são fundamentados majoritariamente nessa arquitetura, utilizando a estrutura de \textit{self-attention} que possibilita ao modelo atribuir 
+Os \textit{LLMs} são fundamentados majoritariamente nessa arquitetura, utilizando a estrutura de \textit{self-attention} que possibilita ao modelo atribuir 
 diferentes pesos às palavras de uma mesma sentença, identificando aquelas mais relevantes para compreender o significado 
 do enunciado \cite{Vaswani2017}, permitindo aplicações como síntese textual, tradução, sumarização e resposta automática 
 a perguntas, sem necessidade de instruções específicas para cada tarefa.
 
-Apesar do desempenho expressivo, os LLMs também levantam preocupações relevantes. A literatura enfatiza riscos como a 
+Apesar do desempenho expressivo, os \textit{LLMs} também levantam preocupações relevantes. A literatura enfatiza riscos como a 
 reprodução de vieses presentes nos dados de treinamento, a opacidade dos processos internos e a geração de informações 
 incorretas, conhecidas como \textit{hallucinations} \cite{Bender2021}. Além disso, o elevado custo computacional 
 necessário para treinar e manter modelos dessa magnitude gera impactos ambientais e reforça desigualdades no acesso à 
@@ -236,7 +236,7 @@ tecnologia \cite{Strubell2020}.
 
 Diante desse panorama conceitual sobre Inteligência Artificial, modelos de linguagem e seus potenciais e limitações, 
 torna-se necessário compreender como esses desenvolvimentos têm sido discutidos e aplicados no campo da Engenharia de 
-Software, especialmente no que se refere à garantia de qualidade e à detecção de anomalias em código-fonte. Assim, o 
+\textit{Software}, especialmente no que se refere à garantia de qualidade e à detecção de anomalias em código-fonte. Assim, o 
 capítulo seguinte apresenta a revisão estruturada da literatura, cujo propósito é identificar o estado da arte, mapear 
 abordagens existentes e situar este trabalho dentro do conhecimento científico já consolidado.
 

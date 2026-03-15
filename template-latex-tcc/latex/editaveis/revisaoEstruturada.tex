@@ -2,7 +2,7 @@
 
 Neste capítulo são descritos, os procedimentos adotados 
 para identificar, selecionar, avaliar e sintetizar a literatura relevante ao tema deste trabalho. 
-A estratégia de busca concentrou-se na base Scopus, escolhida por sua ampla cobertura de 
+A estratégia de busca concentrou-se na base \textit{Scopus}, escolhida por sua ampla cobertura de 
 periódicos e conferências de referência nas áreas de Computação e Engenharia de Software, 
 bem como por seus recursos de filtragem e exportação de metadados que facilitam a rastreabilidade 
 do processo \cite{Scopus2025}. 
@@ -13,7 +13,7 @@ O protocolo da revisão estruturada da literatura utilizado foi adaptado a parti
 
 \subsection{String de busca}
 
-Para estruturar a string de busca, adotamos o protocolo PICO (Patient, Intervention, Comparison, Outcome), 
+Para estruturar a string de busca, adotamos o protocolo PICO (\textit{Patient}, \textit{Intervention}, \textit{Comparison}, \textit{Outcome}), 
 originalmente proposto para área da saúde. O protocolo precisou ser adaptado para o contexto da Engenharia de Software \cite{pai_clinical_2004}.
 Como apresentado na Figura \ref{fig:pico}, o protocolo pode ser representado em forma de diagrama de Venn para facilitar a 
 visualização das relações entre os elementos.
@@ -28,11 +28,11 @@ visualização das relações entre os elementos.
 \end{figure}
 
 Considerando o PICO no contexto da Engenharia de Software, cada elemento assume um significado 
-próprio. O termo \textit{Paciente} (Population), originalmente associado ao perfil clínico, 
-passa a denotar a área específica da engenharia de software. A \textit{Intervenção} (Intervention), antes entendida como tratamento, corresponde 
+próprio. O termo \textit{Paciente (Population)}, originalmente associado ao perfil clínico, 
+passa a denotar a área específica da engenharia de software. A \textit{Intervenção (Intervention)}, antes entendida como tratamento, corresponde 
 aqui às abordagens avaliadas, tais como metodologias, métodos, técnicas, ferramentas ou procedimentos de 
-desenvolvimento e análise. Os \textit{Resultados} (Outcomes) preservam sua essência, representando os efeitos 
-observados e as métricas de interesse. Já a \textit{Comparação} (Comparison), por se alinhar mais diretamente 
+desenvolvimento e análise. Os \textit{Resultados (Outcomes)} preservam sua essência, representando os efeitos 
+observados e as métricas de interesse. Já a \textit{Comparação (Comparison)}, por se alinhar mais diretamente 
 à área médica, pode não ser aplicável a todos os estudos em Engenharia de Software. As definições 
 utilizadas neste trabalho encontram-se na Tabela \ref{tab:picoadaptado}.
 
@@ -43,11 +43,11 @@ utilizadas neste trabalho encontram-se na Tabela \ref{tab:picoadaptado}.
         \hline
         \textbf{Elementos} & \textbf{Palavra chave} & \textbf{Sinônimos e Termos Relacionados} \\
         \hline
-        \textbf{População} & Software engineering & software development, software system, software application, application development \\
+        \textbf{População} & \textit{Software engineering} & \textit{software development}, \textit{software system}, \textit{software application}, \textit{application development} \\
         \hline
-        \textbf{Intervenção} & Artificial Intelligence & AI, Machine Learning, ML, Predictive model, Large Language Model, LLM, Deep Learning, Neural network, Inteligência Artificial, IA, Solução baseada em IA, Sistemas de IA, Aprendizado de Máquina, Aprendizagem de Máquina, AM, Modelo preditivo, Aprendizado profundo, Aprendizagem profunda, Rede neural, Sistemas de ML\\
+        \textbf{Intervenção} & \textit{Artificial Intelligence} & \textit{AI}, \textit{Machine Learning}, \textit{ML}, \textit{Predictive model}, \textit{Large Language Model}, \textit{LLM}, \textit{Deep Learning}, \textit{Neural network}, Inteligência Artificial, IA, Solução baseada em IA, Sistemas de IA, Aprendizado de Máquina, Aprendizagem de Máquina, AM, Modelo preditivo, Aprendizado profundo, Aprendizagem profunda, Rede neural, Sistemas de ML\\
         \hline
-        \textbf{Resultados} & Code Smell & code anomaly, Design Pattern, Clean code, Clean Code principle, Anti-pattern, Mysterious Name, Duplicated Code, Long Function, Long Parameter List, Global Data, Mutable Data, Divergent Change, Shotgun Surgery, Feature Envy, Data Clump, Primitive Obsession, Repeated Switch, Loop, Lazy Element, Speculative Generality, Temporary Field, Message Chain, Middle Man, Insider Trading, Large Class, Alternative Classes with Different Interfaces, Data Class, Refused Bequest \\
+        \textbf{Resultados} & \textit{Code Smell} & \textit{code anomaly}, \textit{Design Pattern}, \textit{Clean code}, \textit{Clean Code principle}, \textit{Anti-pattern}, \textit{Mysterious Name}, \textit{Duplicated Code}, \textit{Long Function}, \textit{Long Parameter List}, \textit{Global Data}, \textit{Mutable Data}, \textit{Divergent Change}, \textit{Shotgun Surgery}, \textit{Feature Envy}, \textit{Data Clump}, \textit{Primitive Obsession}, \textit{Repeated Switch}, \textit{Loop}, \textit{Lazy Element}, \textit{Speculative Generality}, \textit{Temporary Field}, \textit{Message Chain}, \textit{Middle Man}, \textit{Insider Trading}, \textit{Large Class}, \textit{Alternative Classes with Different Interfaces}, \textit{Data Class}, \textit{Refused Bequest} \\
         \hline
     \end{tabular} \\[0.5em]
    	Fonte: Autor
@@ -480,7 +480,7 @@ trechos de código limpo são indevidamente marcados como problemáticos, exigin
 inspeções manuais desnecessárias.
 
 Os trabalhos também apontam que a natureza subjetiva dos \textit{code smells}, a 
-inconsistência na rotulagem e a baixa qualidade de alguns datasets contribuem para 
+inconsistência na rotulagem e a baixa qualidade de alguns \textit{datasets} contribuem para 
 a ocorrência de falsos positivos \cite{Ho2025EnseSmells}. Em particular, smells complexos como 
 \textit{Feature Envy} e \textit{Large Class} são especialmente suscetíveis a erros, 
 pois dependem de relações semânticas profundas e contexto entre múltiplos arquivos, 
@@ -497,16 +497,16 @@ recorrente na literatura.
 
 Por fim, parte da literatura propõe estratégias para mitigar o problema, como 
 melhorias de precisão por meio de meta-heurísticas, detecção em múltiplas etapas, 
-balanceamento de classes com técnicas como SMOTE, calibração probabilística e uso de conjuntos de 
+balanceamento de classes com técnicas como \textit{SMOTE}, calibração probabilística e uso de conjuntos de 
 dados revisados manualmente. 
 
 
-Cabe destacar que a pesquisa em detecção de code smells já se desenvolve há anos e que, ao longo desse período, 
-diferentes ferramentas têm sido efetivamente utilizadas em ambientes reais, inclusive antes da popularização dos LLMs. As taxas 
+Cabe destacar que a pesquisa em detecção de \textit{code smells} já se desenvolve há anos e que, ao longo desse período, 
+diferentes ferramentas têm sido efetivamente utilizadas em ambientes reais, inclusive antes da popularização dos \textit{LLMs}. As taxas 
 elevadas de falsos positivos, recorrentes na literatura, não significam que essas abordagens sejam inviáveis na prática, mas 
 indicam a necessidade de calibração cuidadosa. Em conjunto, os artigos sugerem que controlar os falsos positivos é fundamental 
 para que as técnicas de IA para detecção de code smells sejam efetivamente úteis e confiáveis em contextos reais de desenvolvimento,
-tanto nas abordagens anteriores quanto nas posteriores aos LLMs.
+tanto nas abordagens anteriores quanto nas posteriores aos \textit{LLMs}.
 
-
+    
 

@@ -8,14 +8,14 @@ realizado na segunda etapa do trabalho.
 \subsection{Objetivo}
 
 A literatura tem destacado que a detecção automática de
-code smells ainda enfrenta limitações importantes, especialmente quando baseada
+\textit{code smells} ainda enfrenta limitações importantes, especialmente quando baseada
 exclusivamente em regras sintáticas fixas, como ocorre em ferramentas tradicionais de
-análise estática. Paralelamente, modelos de linguagem de grande porte (LLMs) têm sido
+análise estática. Paralelamente, modelos de linguagem de grande porte (\textit{LLMs}) têm sido
 crescentemente empregados em tarefas de compreensão e geração de código, indicando
-um potencial para apoiar atividades relacionadas à garantia da qualidade de software.
+um potencial para apoiar atividades relacionadas à garantia da qualidade de \textit{software}.
 
-Nesse contexto, o objetivo deste experimento é investigar empiricamente o papel de sistemas baseados em IA na garantia da qualidade de software, 
-por meio da avaliação da capacidade de modelos de linguagem (LLMs) em detectar code smells um tipo de anomalia 
+Nesse contexto, o objetivo deste experimento é investigar empiricamente o papel de sistemas baseados em IA na garantia da qualidade de \textit{software}, 
+por meio da avaliação da capacidade de modelos de linguagem (\textit{LLMs}) em detectar \textit{code smells}, um tipo de anomalia 
 frequentemente associada à degradação da qualidade do código.
 
 \subsection{Questão de Pesquisa}
@@ -26,7 +26,7 @@ na detecção de anomalias em código-fonte pontecialmente problemático? }), a 
 foi utilizada para definição das perguntas específicas, derivadas da pergunta principal e suas respectivas métricas
 
 \begin{itemize}
-    \item \textbf{Questão Específica 1}: Como a detecção de \textit{code smells} feita por LLMs se compara aos resultados gerados por uma ferramenta de análise estática tradicional, como o SonarQube?
+    \item \textbf{Questão Específica 1}: Como a detecção de \textit{code smells} feita por \textit{LLMs} se compara aos resultados gerados por uma ferramenta de análise estática tradicional, como o SonarQube?
     
     \begin{itemize}
         \item \textbf{Métrica:} Mediana da quantidade de code smells detectados por projeto, acompanhada da 
@@ -68,7 +68,7 @@ metodológico que orientou a condução do experimento no trabalho.
 
 No que se refere a base de qualidade adotada, foram considerados os modelos clássicos de \citeonline{McCall1977} e 
 \citeonline{boehm1978characteristics}, que organizaram fatores e subfatores de qualidade e propuseram uma estrutura hierárquica para análise 
-de produtos de software. Esses referenciais fornecem uma base conceitual para relacionar propriedades de projeto e 
+de produtos de \textit{software}. Esses referenciais fornecem uma base conceitual para relacionar propriedades de projeto e 
 implementação a atributos de qualidade interna e de manutenibilidade, servindo como fundamento para a discussão sobre 
 como code smells podem impactar a qualidade do produto ao longo de seu ciclo de vida.
 
@@ -77,12 +77,12 @@ características de qualidade, destacando, entre outras, a analisabilidade. Nest
 foram utilizados como pano de fundo conceitual para enquadrar os code smells como indícios de degradação da qualidade interna 
 e para justificar o foco na detecção e análise desses problemas de projeto.
 
-Para o estudo de code smells, o trabalho de \citeonline{Fowler1999} foi crucial para a aplicação desenvolvida neste estudo, 
-pois forneceu o referencial conceitual e o catálogo original de code smells que orientaram a seleção dos 
+Para o estudo de \textit{code smells}, o trabalho de \citeonline{Fowler1999} foi crucial para a aplicação desenvolvida neste estudo, 
+pois forneceu o referencial conceitual e o catálogo original de \textit{code smells} que orientaram a seleção dos 
 tipos de problemas de projeto analisados. A partir dessa base, foi possível alinhar a detecção e a interpretação 
 dos \textit{smells} aos modelos de qualidade adotados.
 
-Partindo para a vertente de detecção automática de code smells, o estudo de \citeonline{MadeyskiLewowski2020MLCQ} foi 
+Partindo para a vertente de detecção automática de \textit{code smells}, o estudo de \citeonline{MadeyskiLewowski2020MLCQ} foi 
 fundamental, pois apresentou o \textit{dataset} MLCQ, que reúne trechos de código Java anotados manualmente quanto à presença 
 de diferentes \textit{code smells}. Esse \textit{dataset} serve como base para a avaliação comparativa das abordagens de detecção 
 adotadas no experimento, fornecendo rótulos humanos que funcionam como referência  para medir a eficácia 
@@ -90,15 +90,15 @@ das técnicas avaliadas. Em complemento, o estudo de \citeonline{Fontana2016} de
 semelhantes ao MLCQ, que também foi considerada como referência para a seleção dos code smells analisados e para a 
 definição das avaliações utilizadas neste trabalho.
 
-Para o uso de LLMs na análise de código, o trabalho de \cite{Abtahi2025LLMStaticAnalysis, Tkachuk2025RefactoringGAI} foi 
+Para o uso de \textit{LLMs} na análise de código, o trabalho de \cite{Abtahi2025LLMStaticAnalysis, Tkachuk2025RefactoringGAI} foi 
 relevante, pois explorou o potencial de modelos de linguagem para tarefas de análise estática e refatoração de código. 
-Esses estudos demonstraram a viabilidade de empregar LLMs para compreender e avaliar trechos de código, fornecendo 
+Esses estudos demonstraram a viabilidade de empregar \textit{LLMs} para compreender e avaliar trechos de código, fornecendo 
 ideias sobre como esses modelos podem ser aplicados na detecção de \textit{code smells}. As abordagens metodológicas 
 e os resultados apresentados nesses trabalhos serviram como base para a formulação das hipóteses e o desenho experimental 
 adotado neste estudo.
 
 Em síntese, os trabalhos aqui discutidos forneceram a base conceitual e empírica para a definição do problema, a escolha dos
-\textit{code smells} de interesse, a seleção dos \textit{datasets} e a adoção de LLMs como tratamento experimental. A partir desse
+\textit{code smells} de interesse, a seleção dos \textit{datasets} e a adoção de \textit{LLMs} como tratamento experimental. A partir desse
 referencial, a próxima seção apresenta o planejamento do experimento, detalhando o contexto, as variáveis, os tratamentos
 e os procedimentos de coleta e análise de dados adotados neste estudo.
 
@@ -122,13 +122,13 @@ Essa adoção decorre do fato de que o dataset foi construído com a participaç
 cujas anotações foram validadas por múltiplos revisores, assegurando confiabilidade e reduzindo vieses individuais, 
 além de abranger uma grande diversidade de sistemas reais.
 
-\textbf{Sujeito do experimento:} Os sujeitos do experimento são os arquivos de código-fonte presentes nos projetos que compõem o dataset MLCQ.
+\textbf{Sujeito do experimento:} Os sujeitos do experimento são os arquivos de código-fonte presentes nos projetos que compõem o \textit{dataset MLCQ}.
 
 \textbf{População:} a população é composta pelos 792 projetos Java provenientes do
 dataset MLCQ.
 
 \textbf{Amostra:} a amostra é formada pelos aproximadamente 15.000 trechos de código-fonte individualmente anotados
-no MLCQ. Cada trecho corresponde a uma instância candidata de code smell, definida pelos
+no MLCQ. Cada trecho corresponde a uma instância candidata de \textit{code smell}, definida pelos
 metadados do dataset, incluindo: \textit{repository}, \textit{commit hash}, \textit{path}, \textit{start line},
 \textit{end line}, \textit{smell type}, \textit{severity} e \textit{type}.
 
@@ -137,7 +137,7 @@ Para a execução do experimento, cada trecho de código será reconstruído a p
 garantindo a fidelidade ao código original existente no momento da anotação. As abordagens de detecção serão então aplicadas sobre o mesmo conjunto de trechos de código-fonte,
 permitindo comparações entre abordagens distintas de detecção de \textit{code smells}.
 
-Como os tratamentos envolvem modelos fechados (LLMs), preserva-se a versão do modelo,
+Como os tratamentos envolvem modelos fechados (\textit{LLMs}), preserva-se a versão do modelo,
 as configurações utilizadas e os prompts empregados, de forma a garantir reprodutibilidade.
 Além disso, o experimento não envolve sujeitos humanos, ocorrendo exclusivamente no
 ambiente técnico composto pelo dataset, repositórios GitHub e ferramentas automatizadas.
@@ -211,7 +211,7 @@ O experimento caracteriza-se como um \textbf{experimento orientado à tecnologia
 (\textit{technology-oriented experiment}), conforme classificação apresentada por
 \citeonline{Wohlin:2012:ESE:2349018}. Nesse tipo de estudo, não há participação de sujeitos humanos,
 o foco está na avaliação comparativa de técnicas, ferramentas ou algoritmos aplicados
-a artefatos de software.
+a artefatos de \textit{software}.
 
 O desenho experimental adotado é o \textbf{Completely Randomized Design}, 
 no qual os tratamentos são aplicados em ordem aleatória sobre cada objeto experimental.
@@ -243,14 +243,13 @@ decorrentes de ordem ou de efeitos sistemáticos de execução.
 \subsection{Teste de Hipóteses}
 
 Para avaliar se há diferença estatisticamente significativa entre os tratamentos 
-na detecção de code smells, será utilizado o teste não paramétrico \textbf{Kruskal--Wallis}, 
+na detecção de \textit{code smells}, será utilizado o teste não paramétrico \textbf{Kruskal--Wallis}, 
 conforme recomendado por \citeonline{Wohlin:2012:ESE:2349018} para experimentos com um único fator e mais de dois 
 tratamentos.
 
 O teste Kruskal--Wallis constitui uma alternativa não paramétrica à análise de variância 
 (ANOVA) de um fator, sendo apropriado quando os dados são derivados de distribuições 
-assimétricas, possuem outliers ou representam medições ordinais ou baseadas em rankings, 
-como é o caso dos valores agregados por projeto (medianas) no presente experimento. 
+assimétricas. 
 
 \subsection{Instrumentação}
 
@@ -289,7 +288,7 @@ execução do experimento. Serão utilizados os seguintes instrumentos para apoi
     
     \item \textbf{Scripts em Python}: A linguagem Python\footnote{Documentação oficial do Python disponível em: \href{https://www.python.org/}{https://www.python.org/}. Acesso em: 6 dez. 2025.}
     será responsável por automatizar a reconstrução dos trechos a partir do MLCQ e do GitHub, pela execução dos tratamentos 
-    (SonarQube e LLMs) e pela comparação das respostas com a rotulação humana, gerando as variáveis dependentes (acerto, falso positivo, falso negativo).
+    (SonarQube e LLMs) e pela comparação das respostas com a rotulação humana.
     
     \item \textbf{SonarQube}\footnote{Disponível em: \href{https://www.sonarqube.org/}{https://www.sonarqube.org/}. Acesso em: 6 dez. 2025.}: ferramenta de Análise Estática configurada com o \textit{rule set} padrão para Java, utilizada como um dos tratamentos de 
     detecção de \textit{code smells}.
@@ -327,8 +326,8 @@ execução do experimento. Serão utilizados os seguintes instrumentos para apoi
     programação, análise de código e raciocínio técnico. Baseado em uma arquitetura
     avançada de \textit{transformers} customizados, o modelo oferece alta capacidade de
     inspeção estrutural de código e interpretação semântica. No experimento, o DeepSeek 
-    será empregado por meio de prompts padronizados para realizar a detecção de 
-    \textit{code smells}, fornecendo uma classificação comparável à dos demais LLMs 
+    será empregado por meio de \textit{prompts} padronizados para realizar a detecção de 
+    \textit{code smells}, fornecendo uma classificação comparável à dos demais \textit{LLMs} 
     e permitindo avaliar seu desempenho relativo nas tarefas de analisabilidade.
 
     
@@ -370,10 +369,10 @@ execução do experimento. Serão utilizados os seguintes instrumentos para apoi
     \end{itemize}
 
     Em todos os casos, serão adotadas configurações controladas de inferência (por exemplo,
-    limite de tokens e modo de resposta) de forma a reduzir a variabilidade das saídas e favorecer a
+    limite de \textit{tokens} e modo de resposta) de forma a reduzir a variabilidade das saídas e favorecer a
     reprodutibilidade. Para cada modelo, a resposta textual é armazenada integralmente e, em etapa
     posterior, processada para gerar uma classificação binária padronizada (presença ou ausência de 
-    code smell para aquela instância), conforme o formato exigido no prompt.
+    \textit{code smell} para aquela instância), conforme o formato exigido no \textit{prompt}.
 
 
     \item \textbf{Consolidação das saídas por trecho.}
@@ -495,7 +494,7 @@ considerada no início do planejamento, mas posteriormente retirada do escopo ex
 
 \begin{itemize}
     \item \textbf{Questão Específica 2 (Análise Complementar)}: 
-    LLMs reduzem o número de falsos positivos e falsos negativos em comparação com 
+    \textit{LLMs} reduzem o número de falsos positivos e falsos negativos em comparação com 
     ferramentas baseadas em regras fixas?
 \end{itemize}
 
@@ -509,7 +508,7 @@ Com base nessa questão, seria possível definir as seguintes métricas compleme
     a ferramenta não identifica o code smell anotado no MLCQ.
 
     \item \textbf{Métrica C.3 - F1-score por tratamento}: medida harmônica que sintetiza 
-    precision e recall.
+    \textit{precision} e \textit{recall}.
 \end{itemize}
 
 Embora tecnicamente viável e metodologicamente fundamentada, essa análise complementar 
