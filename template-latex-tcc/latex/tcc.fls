@@ -574,6 +574,12 @@ INPUT /usr/share/texmf/fonts/tfm/public/lm/lmbsy10.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/lmbsy7.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/lmbsy5.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbxi10.tfm
+INPUT ./editaveis/execucao.tex
+INPUT ./editaveis/execucao.tex
+INPUT editaveis/execucao.tex
+INPUT ./editaveis/resultado.tex
+INPUT ./editaveis/resultado.tex
+INPUT editaveis/resultado.tex
 INPUT ./editaveis/conclusao.tex
 INPUT ./editaveis/conclusao.tex
 INPUT editaveis/conclusao.tex
