@@ -3,238 +3,145 @@
 \section{Visão geral da execução}
 
 Este capítulo descreve a execução do experimento conduzido neste trabalho, detalhando as etapas realizadas para operacionalizar 
-o planejamento apresentado no capítulo anterior. A execução envolveu a preparação da base experimental, 
-a organização dos instrumentos de coleta, a configuração do ambiente utilizado, a aplicação dos trechos e prompts ao SonarQube e modelos de linguagem 
-avaliados respectivamente.
+o planejamento apresentado no capítulo anterior. Enquanto o capítulo anterior apresentou o planejamento experimental, 
+incluindo objetivo, questão de pesquisa, variáveis, hipóteses, desenho experimental, instrumentação e ameaças à validade, 
+este capítulo detalha como o experimento foi operacionalizado na prática.
 
-A partir das amostras selecionadas do dataset MLCQ e dos vereditos de referência definidos no ground truth, foram 
-construídas as entradas submetidas às LLMs. Cada entrada foi associada a um identificador de prompt, ao tipo de elemento 
-analisado, ao code smell avaliado e à respectiva versão de prompt. Em seguida, as respostas geradas pelos modelos foram coletadas, 
-padronizadas e integradas à base de referência, permitindo a posterior comparação entre os vereditos produzidos pelas LLMs e os vereditos esperados.
+A execução envolveu a preparação da base experimental, a recuperação dos trechos de código a partir do dataset MLCQ, 
+a construção dos prompts utilizados nos modelos de linguagem, a configuração do ambiente do SonarQube, a 
+aplicação dos tratamentos experimentais e a organização dos resultados para posterior análise estatística.
 
-Também são descritos neste capítulo os procedimentos adotados para validação dos dados coletados, incluindo a verificação de respostas ausentes, 
-registros duplicados, inconsistências de identificação e padronização dos rótulos extraídos. Dessa forma, a execução do experimento resultou 
-em uma base analítica estruturada, utilizada nas etapas posteriores de análise descritiva, cálculo das métricas de desempenho e realização dos testes estatísticos.
+O experimento avaliou sete tratamentos: SonarQube, ChatGPT com prompt zero-shot, Claude com prompt zero-shot, DeepSeek com prompt zero-shot, 
+ChatGPT com prompt few-shot, Claude com prompt few-shot e DeepSeek com prompt few-shot. Cada modelo de linguagem associado a uma versão 
+específica de prompt foi considerado um tratamento distinto.
 
 
 \section{Preparação da base experimental}
 
-\subsection{Contexto}
+A preparação da base experimental teve início com a análise do dataset MLCQ, apresentado por \citeonline{MadeyskiLewowski2020MLCQ}, que reúne amostras de código Java previamente 
+classificadas quanto à presença ou ausência de diferentes tipos de code smells, utilizado como fonte dos exemplos de código e dos respectivos vereditos de referência. 
+Essa análise inicial teve como objetivo compreender a estrutura dos dados disponíveis, identificar os campos necessários para 
+a execução do experimento e verificar a quantidade de registros aptos para uso. 
 
-A preparação da base experimental consistiu na organização dos dados necessários para a aplicação dos modelos de linguagem ao problema de detecção de code smells. 
-Para isso, foi utilizado o dataset MLCQ, apresentado por \citeonline{MadeyskiLewowski2020MLCQ}, que reúne amostras de código Java previamente 
-classificadas quanto à presença ou ausência de diferentes tipos de code smells. Neste trabalho, foram considerados os smells Blob/God Class, 
-Data Class, Feature Envy e Long Method, contemplando tanto elementos de classe quanto elementos de método.
+A partir dessa inspeção inicial, foram identificados 8.711 registros válidos no MLCQ, correspondentes a 4.364 trechos únicos de código, 
+distribuídos em 522 repositórios. Esses números foram utilizados para caracterizar a base experimental e orientar as etapas seguintes 
+de recuperação dos trechos e construção dos instrumentos de avaliação.
 
-A escolha do MLCQ como fonte de dados experimentais fundamenta-se em evidências 
-identificadas na revisão estruturada da literatura. Diversos estudos recentes têm utilizado o 
-MLCQ em experimentos envolvendo detecção automática de \textit{code smells} 
-\cite{Kovacevic2022AutomaticDetection,Ho2025EnseSmells,Sandouka2025CrossLanguage}. 
-Essa adoção decorre do fato de que o dataset foi construído com a participação de desenvolvedores profissionais, 
-cujas anotações foram validadas por múltiplos revisores, assegurando confiabilidade e reduzindo vieses individuais, 
-além de abranger uma grande diversidade de sistemas reais.
+O MLCQ fornece metadados associados a cada amostra, como o identificador do trecho, o repositório de origem, o tipo do elemento analisado, 
+as linhas de código correspondentes e o veredito final atribuído à presença ou ausência de determinado code smell. Com base nesses metadados, 
+os trechos de código foram recuperados e organizados para que pudessem ser submetidos tanto aos modelos de linguagem quanto ao SonarQube.
 
-\textbf{Sujeito do experimento:} Os sujeitos do experimento são os arquivos de código-fonte presentes nos projetos que compõem o \textit{dataset MLCQ}.
-
-\textbf{População:} a população é composta pelos 792 projetos Java provenientes do
-dataset MLCQ.
-
-\textbf{Amostra:} a amostra é formada pelos aproximadamente 15.000 trechos de código-fonte individualmente anotados
-no MLCQ. Cada trecho corresponde a uma instância candidata de \textit{code smell}, definida pelos
-metadados do dataset, incluindo: \textit{repository}, \textit{commit hash}, \textit{path}, \textit{start line},
-\textit{end line}, \textit{smell type}, \textit{severity} e \textit{type}.
-
-Para a execução do experimento, cada trecho de código será reconstruído a partir dos metadados fornecidos pelo dataset
-(\textit{repository}, \textit{commit hash}, \textit{path}, \textit{start line} e \textit{end line}),
-garantindo a fidelidade ao código original existente no momento da anotação. As abordagens de detecção serão então aplicadas sobre o mesmo conjunto de trechos de código-fonte,
-permitindo comparações entre abordagens distintas de detecção de \textit{code smells}.
-
-Como os tratamentos envolvem modelos fechados (\textit{LLMs}), preserva-se a versão do modelo,
-as configurações utilizadas e os prompts empregados, de forma a garantir reprodutibilidade.
-Além disso, o experimento não envolve sujeitos humanos, ocorrendo exclusivamente no
-ambiente técnico composto pelo dataset, repositórios GitHub e ferramentas automatizadas.
+Foram considerados quatro tipos de code smells: Blob/God Class, Data Class, Feature Envy e Long Method. Os dois primeiros estão associados 
+à análise de classes, enquanto Feature Envy e Long Method estão associados à análise de métodos ou funções. Essa distinção foi utilizada para 
+definir quais perguntas seriam feitas aos modelos de linguagem e quais regras seriam aplicadas no SonarQube.
 
 
-\section{Preparação dos Instrumentos}
+\section{Recuperação dos trechos de código}
 
-A instrumentação se refere às ferramentas e artefatos que serão utilizados para a
-execução do experimento. Serão utilizados os seguintes instrumentos para apoiar a execução do experimento:
+Após a análise inicial da base, foi realizada a recuperação dos trechos de código correspondentes a cada sample. 
+Essa etapa foi necessária porque o experimento não utilizou os arquivos completos em que o trecho se encontra, mas apenas os trechos
+indicados pelos metadados do MLCQ.
 
-\begin{itemize}
-    \item \textbf{Dataset MLCQ}\footnote{Disponível em: \href{https://doi.org/10.5281/zenodo.3590101}{https://doi.org/10.5281/zenodo.3590101}. Acesso em: 6 dez. 2025.}: o MLCQ é um conjunto 
-    de dados de código Java anotado manualmente por desenvolvedores quanto à presença, tipo e severidade de \textit{code smells}. 
-    No experimento, o MLCQ será utilizado como fonte dos metadados de cada instância de \textit{code smell}. Cada linha do dataset 
-    corresponde a uma anotação individual, identificada pelo campo \textit{id}, associada a um revisor específico (\textit{reviewer\_id}) e 
-    a uma amostra de código (\textit{sample\_id}). Os campos \textit{smell} e \textit{severity} registram, respectivamente, o tipo de \textit{code smell} 
-    identificado e a severidade atribuída, enquanto \textit{review\_timestamp} armazena a data e hora da anotação. 
-    
-    O tipo de elemento de código avaliado, por exemplo, função, método ou classe é descrito em \textit{type}, e o nome qualificado desse elemento é registrado em \textit{code\_name}. 
-    A origem do artefato é caracterizada pelos campos \textit{repository} (repositório Git de origem), \textit{commit\_hash} (identificador do 
-    \textit{commit} em que o trecho foi anotado) e \textit{path} (caminho do arquivo dentro do repositório), enquanto a região de interesse é delimitada 
-    por \textit{start\_line} e \textit{end\_line}. O campo \textit{link} fornece a URL para visualização do arquivo e das linhas correspondentes na 
-    interface web do GitHub, e \textit{is\_from\_industry\_relevant\_project} indica se o projeto é considerado relevante para a indústria. Em conjunto, 
-    esses metadados serão utilizados para localizar o arquivo completo, reconstruir o contexto do trecho anotado e empregar o rótulo humano como 
-    referência na avaliação dos tratamentos experimentais.
+Para cada amostra, foram utilizados os metadados disponíveis no dataset para localizar o arquivo de origem e selecionar 
+as linhas correspondentes ao trecho avaliado. Dessa forma, cada sample passou a ser representado pelo fragmento de código 
+efetivamente associado ao veredito de referência do MLCQ.
 
+Essa decisão foi importante para manter a equivalência entre os tratamentos experimentais. Como as LLMs receberiam 
+apenas o trecho de código no prompt, o SonarQube também deveria analisar uma entrada equivalente. Por isso, os arquivos 
+submetidos ao SonarQube foram preparados contendo apenas os trechos identificados na análise de cada sample, evitando que a ferramenta 
+tivesse acesso a um contexto maior do que aquele fornecido aos modelos de linguagem.
 
-    \item \textbf{Git}\footnote{Disponível em: \href{https://git-scm.com/}{https://git-scm.com/}. Acesso em: 6 dez. 2025.}: o Git é um sistema de controle de versão distribuído amplamente
-    utilizado para gerenciamento de código-fonte. No experimento, o Git será empregado
-    para clonar os repositórios necessários, realizar \textit{checkout} em commits
-    específicos indicados no MLCQ e assegurar a integridade e consistência dos trechos
-    de código reconstruídos.
-    
-    \item \textbf{GitHub}\footnote{Disponível em: \href{https://github.com/}{https://github.com/}. Acesso em: 6 dez. 2025.}: o GitHub é uma plataforma de hospedagem e versionamento de
-    código baseada em Git, amplamente utilizada para projetos open-source. A partir
-    das informações fornecidas pelo MLCQ, os repositórios originais serão acessados 
-    (via \textit{clone} local ou API do GitHub) para obtenção dos arquivos 
-    correspondentes a cada \textit{commit}. Os trechos de código analisados no 
-    experimento serão extraídos com base nas linhas inicial e final indicadas no dataset.
-    
-    \item \textbf{Scripts em Python}: A linguagem Python\footnote{Documentação oficial do Python disponível em: \href{https://www.python.org/}{https://www.python.org/}. Acesso em: 6 dez. 2025.}
-    será responsável por automatizar a reconstrução dos trechos a partir do MLCQ e do GitHub, pela execução dos tratamentos 
-    (SonarQube e LLMs) e pela comparação das respostas com a rotulação humana.
-    
-    \item \textbf{SonarQube}\footnote{Disponível em: \href{https://www.sonarqube.org/}{https://www.sonarqube.org/}. Acesso em: 6 dez. 2025.}: ferramenta de Análise Estática configurada com o \textit{rule set} padrão para Java, utilizada como um dos tratamentos de 
-    detecção de \textit{code smells}.
-    
-    \item \textbf{ChatGPT}\footnote{Documentação em: \href{https://platform.openai.com/docs}{https://platform.openai.com/docs}. Acesso em: 6 dez. 2025.}:
-    o ChatGPT é um modelo de linguagem de grande porte desenvolvido pela OpenAI,
-    baseado na arquitetura \textit{transformer}. Ele é capaz de interpretar instruções
-    em linguagem natural e analisar trechos de código, gerando respostas descritivas
-    ou classificações. No experimento, o ChatGPT será utilizado com prompts
-    padronizados para fornecer uma classificação binária (presença ou ausência de
-    \textit{code smell}) para cada trecho de código reconstruído a partir do MLCQ.
+Com isso, buscou-se garantir que todos os tratamentos analisassem, na medida do possível, a mesma entrada experimental. 
+Essa padronização foi adotada para reduzir diferenças decorrentes do volume de contexto disponível e permitir uma comparação mais controlada 
+entre os resultados produzidos pelas LLMs e pela ferramenta de análise estática.
 
-    \item \textbf{Gemini}\footnote{Documentação em: \href{https://ai.google.dev/}{https://ai.google.dev/}. Acesso em: 6 dez. 2025.}:
-    o Gemini é um modelo de linguagem de grande porte desenvolvido pelo Google,
-    também fundamentado na arquitetura \textit{transformer}. Ele é projetado para lidar
-    com tarefas complexas envolvendo compreensão, geração e análise de linguagem.
-    No experimento, o Gemini será igualmente acessado via prompts padronizados,
-    produzindo uma classificação binária sobre a presença ou ausência de 
-    \textit{code smell} em cada trecho avaliado.
+\section{Construção dos prompts}
 
-    \item \textbf{Copilot}\footnote{Documentação em: 
-    \href{https://learn.microsoft.com/azure/ai-services/openai/}{https://learn.microsoft.com/azure/ai-services/openai/}. 
-    Acesso em: 6 dez. 2025.}:
-    refere-se ao modelo de linguagem utilizado 
-    pelo Microsoft Copilot e disponibilizado de forma programática por meio da Azure OpenAI API, 
-    permitindo sua execução automatizada e reprodutível. Esses modelos, derivados da família GPT, 
-    são otimizados para tarefas de programação e análise estrutural de código. 
-    No experimento, o modelo será acessado mediante prompts padronizados, fornecendo uma 
-    classificação quanto à presença ou ausência de \textit{code smells} para cada trecho de código 
-    reconstruído a partir do MLCQ, possibilitando comparação direta com as demais abordagens.
+Para tipo de trecho recuperado, foram criadas duas versões de prompt: uma versão zero-shot e uma versão few-shot. 
+A versão zero-shot foi construída sem explicações conceituais ou exemplos prévios sobre os code smells. 
+Nesse caso, o modelo recebia apenas o trecho de código e a pergunta sobre a presença ou ausência dos smells correspondentes ao tipo de elemento analisado.
 
+Quando o trecho analisado correspondia a uma classe, o prompt questionava se o código apresentava Blob/God Class e/ou Data Class. 
+Quando o trecho correspondia a um método ou função, o prompt questionava se o código apresentava Long Method e/ou Feature Envy.
 
-    \item \textbf{DeepSeek}\footnote{Documentação em: \href{https://www.deepseek.com/}{https://www.deepseek.com/}. Acesso em: 6 dez. 2025.}:
-    o DeepSeek é um modelo de linguagem de grande porte otimizado para tarefas de
-    programação, análise de código e raciocínio técnico. Baseado em uma arquitetura
-    avançada de \textit{transformers} customizados, o modelo oferece alta capacidade de
-    inspeção estrutural de código e interpretação semântica. No experimento, o DeepSeek 
-    será empregado por meio de \textit{prompts} padronizados para realizar a detecção de 
-    \textit{code smells}, fornecendo uma classificação comparável à dos demais \textit{LLMs} 
-    e permitindo avaliar seu desempenho relativo nas tarefas de analisabilidade.
+A versão few-shot, por sua vez, incluiu informações adicionais sobre os smells avaliados. 
+Nessa versão, o prompt apresentava uma definição conceitual dos code smells pertinentes ao tipo de elemento analisado e incluía 
+um exemplo conceitual de como esses smells poderiam se manifestar. Assim, para trechos de classe, o prompt continha definições e 
+exemplos relacionados a Blob/God Class e Data Class. Para trechos de método ou função, o prompt continha definições e exemplos relacionados a Long Method e Feature Envy.
 
-    
-    \item \textbf{Ferramentas de análise estatística}: serão utilizadas planilhas eletrônicas e scripts Python com bibliotecas como 
-    \textit{pandas}\footnote{Disponível em: \href{https://pandas.pydata.org/}{https://pandas.pydata.org/}. Acesso em: 6 dez. 2025.} e
-    \textit{numpy}\footnote{Disponível em: \href{https://numpy.org/}{https://numpy.org/}. Acesso em: 6 dez. 2025.}
-    para cálculo das métricas, construção das distribuições e execução dos testes estatísticos necessários.
-\end{itemize}
+Os prompts foram organizados de forma estruturada, associando cada entrada ao identificador da amostra, ao tipo do elemento analisado, 
+ao smell avaliado e à versão do prompt. Essa organização permitiu rastrear cada resposta gerada pelos modelos até o respectivo trecho de código e veredito de referência.
 
-\subsection{Procedimento de aplicação dos instrumentos}
+\section{Preparação do ambiente com SonarQube}
 
-\begin{enumerate}
-    \item \textbf{Leitura da instância no MLCQ.} 
-    O \textbf{Dataset MLCQ} é utilizado como fonte de consulta para cada instância anotada de \textit{code smell}, tomando seus metadados como ponto de partida para a análise. A partir dos campos presentes no dataset (como \textit{link} do repositório, \textit{path}, \textit{start line} e \textit{end line}), identificam-se o arquivo em que o trecho está localizado e a região específica do código de interesse.
+Além da avaliação com modelos de linguagem, o experimento incluiu um tratamento baseado no SonarQube. 
+Para isso, foi criada uma máquina virtual com 4 GB de memória RAM, utilizada para configurar o ambiente de análise estática.
 
-    \item \textbf{Recuperação do código via Git/GitHub.}
-    A partir do campo \textit{link}, acessa-se a URL do repositório no \textbf{GitHub} e utiliza-se o \textbf{Git} para 
-    realizar o \textit{clone} (ou atualizar um clone existente) e extrair o arquivo indicado em \textit{path}. Em seguida, o arquivo completo é carregado, e as linhas compreendidas entre \textit{start line} e \textit{end line} são apenas marcadas como referência de localização do \textit{code smell}. Ou seja, o insumo para as ferramentas de detecção é o \textbf{arquivo inteiro} em que o trecho se encontra, e não somente o fragmento delimitado pelas linhas.
+Como o SonarQube, por padrão, não identifica code smells seguindo diretamente a nomenclatura do catálogo de \citeonline{Fowler1999}, 
+foi desenvolvido um plugin específico para detectar os quatro smells considerados neste trabalho: Blob/God Class, Data Class, Feature Envy e Long Method.
 
-    \item \textbf{Validação, registro e randomização dos tratamentos.}
-    O arquivo recuperado, bem como a região correspondente ao trecho anotado, são validados. Arquivos ou anotações inconsistentes são descartados. Para os casos válidos, scripts em \textbf{Python} registram o arquivo, seus metadados e a faixa de linhas associada à instância de \textit{code smell} em uma estrutura tabular (\textit{DataFrame} do \textit{pandas}) e randomizam a ordem dos cinco tratamentos (\textbf{SonarQube}, \textbf{ChatGPT}, 
-    \textbf{Gemini}, \textbf{Copilot} e \textbf{DeepSeek}) a serem aplicados, em conformidade com o \textit{Completely Randomized Design} adotado.
+Para Blob/God Class, Data Class e Feature Envy, foram utilizadas estratégias de detecção baseadas nas métricas descritas 
+por \citeonline{Lanza2006}. Essas estratégias também são utilizadas 
+como referência em outras ferramentas e estudos de detecção de code smells.
 
-    \item \textbf{Aplicação do tratamento baseado em análise estática (SonarQube).}
-    O arquivo de código é então submetido ao \textbf{SonarQube} e avaliado com o \textit{rule set} padrão para Java. As \textit{issues} 
-    classificadas como \textit{code smells} são inspecionadas e, para aquela instância do MLCQ, registra-se uma decisão binária indicando se houve ou não detecção de \textit{code smell} na região do arquivo correspondente às linhas \textit{start line}–\textit{end line}.
+No caso do Long Method, embora ferramentas como SonarQube e PMD possuam regras relacionadas ao tamanho de métodos, 
+essas regras geralmente se baseiam apenas na métrica LOC, isto é, na quantidade de linhas de código. 
+Como não há consenso único sobre o limiar mais adequado para caracterizar esse smell, optou-se por utilizar a regra 
+descrita por \citeonline{ArcelliFontana2016}. 
+Nesse estudo, os autores utilizaram técnicas de aprendizado de máquina para derivar regras de detecção de smells. 
+Para Long Method, foi adotada a regra que combina LOC e complexidade ciclomática: LOC(method) > 79 e CYCLO > 9.
 
-    \item \textbf{Aplicação dos tratamentos baseados em LLMs.}
-    Em seguida, é construído um \textit{prompt} padronizado contendo instruções em linguagem natural, 
-    o conteúdo completo do arquivo Java recuperado e a indicação da região de interesse associada à 
-    instância do MLCQ. Esse \textit{prompt} é enviado, na ordem aleatória definida, aos modelos de 
-    linguagem avaliados por meio de suas \textit{APIs} oficiais, integradas aos scripts em Python:
+Após a criação do plugin, os trechos de código recuperados do MLCQ foram preparados em arquivos analisáveis pelo SonarQube. 
+Para manter a equivalência com as entradas fornecidas às LLMs, os arquivos submetidos à ferramenta continham apenas os 
+trechos correspondentes aos samples, e não os arquivos completos dos projetos originais. Essa decisão foi tomada para evitar que o 
+SonarQube tivesse acesso a informações contextuais adicionais em relação aos modelos de linguagem.
 
-    \begin{itemize}
-        \item \textbf{ChatGPT} (GPT-5.1);
-        \item \textbf{Gemini} (Gemini 3 Pro);
-        \item \textbf{Copilot} (GPT-5);
-        \item \textbf{DeepSeek} (DeepSeek-V3.2).
-    \end{itemize}
+\section{Desenho de execução e aleatorização dos tratamentos}
 
-    Em todos os casos, serão adotadas configurações controladas de inferência (por exemplo,
-    limite de \textit{tokens} e modo de resposta) de forma a reduzir a variabilidade das saídas e favorecer a
-    reprodutibilidade. Para cada modelo, a resposta textual é armazenada integralmente e, em etapa
-    posterior, processada para gerar uma classificação binária padronizada (presença ou ausência de 
-    \textit{code smell} para aquela instância), conforme o formato exigido no \textit{prompt}.
+Após a preparação da base, dos prompts e do ambiente de análise estática, a execução do experimento seguiu o desenho Randomized Complete Block Design, 
+conforme descrito por \citeonline{Wohlin:2012:ESE:2349018}. Nesse desenho, todos os tratamentos são aplicados a cada objeto experimental, mas a ordem de aplicação é aleatorizada.
 
+Neste trabalho, cada sample ou trecho de código foi considerado um objeto experimental. Para cada objeto, os sete tratamentos foram aplicados: 
+SonarQube, ChatGPT zero-shot, Claude zero-shot, DeepSeek zero-shot, ChatGPT few-shot, Claude few-shot e DeepSeek few-shot.
 
-    \item \textbf{Consolidação das saídas por trecho.}
-    Para cada instância anotada de \textit{code smell}, os scripts em Python consolidam, em uma única linha de um \textit{DataFrame} (\textit{pandas}), os metadados do 
-    \textbf{Dataset MLCQ} (inclusive o rótulo humano) e as decisões binárias produzidas por cada tratamento (\textbf{SonarQube}, \textbf{ChatGPT}, 
-    \textbf{Gemini}, \textbf{Copilot} e \textbf{DeepSeek}). A partir dessa consolidação, são derivadas variáveis auxiliares por instância, como acerto, 
-    falso positivo, falso negativo e verdadeiro negativo para cada ferramenta.
+A ordem de aplicação dos tratamentos foi definida aleatoriamente para cada sample. Assim, antes da análise de um determinado trecho, 
+era sorteada a sequência em que os tratamentos seriam executados. Após todos os tratamentos serem aplicados ao mesmo sample, 
+o experimento avançava para o próximo trecho, no qual uma nova ordem aleatória era definida.
 
-    \item \textbf{Agregação por projeto e cálculo das variáveis dependentes.}
-    Por fim, utilizando as \textbf{ferramentas de análise estatística} (scripts Python com \textit{pandas} e \textit{numpy}, eventualmente apoiados 
-    por planilhas eletrônicas), os resultados por instância são agregados por projeto, obtendo-se, para cada tratamento, a 
-    \textbf{quantidade de \textit{code smells} identificados por projeto}, variável dependente definida na Seção de Variáveis do Experimento. 
-    A partir dessas distribuições, são calculadas as estatísticas descritivas (medianas, variâncias, desvios padrão) e preparados os conjuntos 
-    de dados de entrada para o teste de hipóteses (Kruskal--Wallis) descrito anteriormente.
-\end{enumerate}
-
-
-
-\section{Preparação do ambiente experimental}
-
-A avaliação da validade do experimento segue a classificação discutida e adaptada 
-para Engenharia de Software por \citeonline{Wohlin:2012:ESE:2349018}, contemplando quatro categorias principais de validade: conclusão, interna, 
-de construto e externa. Nesta subseção, são discutidas as principais ameaças identificadas em cada categoria, bem como as estratégias adotadas para 
-mitigá-las no contexto do experimento orientado à tecnologia aqui planejado.
-
-\subsubsection{LLMs}
-
-A validade de construto refere-se ao grau em que o experimento reflete adequadamente os conceitos teóricos que pretende investigar, neste caso, o papel da 
-analisabilidade na detecção de code smells e, de forma mais ampla, a contribuição de sistemas baseados em IA para a garantia da qualidade de software. 
-Uma primeira ameaça é a \textit{inadequate preoperational explication of constructs}: o construto “capacidade de detecção de code smells” é 
-operacionalizado, neste estudo, pela quantidade de code smells identificados por projeto para cada tratamento, medida derivada das comparações entre 
-as saídas das ferramentas e os rótulos humanos do MLCQ. Essa escolha enfatiza o volume de detecções corretas mas não captura outros aspectos relevantes, como 
-o esforço necessário para interpretar as saídas, a severidade dos problemas encontrados. Tais dimensões são reconhecidas como parte do construto mais amplo de 
-analisabilidade, mas não são diretamente abordadas na operacionalização.
-
-\subsubsection{SonarQube}
-
-A validade de construto refere-se ao grau em que o experimento reflete adequadamente os conceitos teóricos que pretende investigar, neste caso, o papel da 
-analisabilidade na detecção de code smells e, de forma mais ampla, a contribuição de sistemas baseados em IA para a garantia da qualidade de software. 
-Uma primeira ameaça é a \textit{inadequate preoperational explication of constructs}: o construto “capacidade de detecção de code smells” é 
-operacionalizado, neste estudo, pela quantidade de code smells identificados por projeto para cada tratamento, medida derivada das comparações entre 
-as saídas das ferramentas e os rótulos humanos do MLCQ. Essa escolha enfatiza o volume de detecções corretas mas não captura outros aspectos relevantes, como 
-o esforço necessário para interpretar as saídas, a severidade dos problemas encontrados. Tais dimensões são reconhecidas como parte do construto mais amplo de 
-analisabilidade, mas não são diretamente abordadas na operacionalização.
+Esse procedimento foi adotado para reduzir possíveis efeitos relacionados à ordem de execução dos tratamentos ou resquicios de dados mantidos em memória. 
+Embora os tratamentos automatizados não apresentem os mesmos efeitos de fadiga ou aprendizagem observados em 
+experimentos com participantes humanos, a aleatorização contribui para manter o rigor experimental e evitar que algum 
+tratamento seja sistematicamente favorecido ou prejudicado por sua posição na sequência de execução.
 
 \section{Execução do Experimento}
 
-A validade interna está relacionada à existência de relações causais entre tratamentos e resultados, isto é, situações em que uma diferença observada entre 
-ferramentas não é devida ao tratamento em si, mas a fatores não controlados. No presente estudo, por se tratar de um experimento orientado à tecnologia, 
-sem a participação de sujeitos humanos, diversas ameaças clássicas, como maturação, mortalidade de sujeitos, efeitos sociais entre grupos ou seleção de 
-participantes são naturalmente mitigadas.
+A execução dos tratamentos experimentais foi realizada de forma integrada, contemplando tanto os modelos de linguagem quanto o SonarQube. 
+Para cada sample, todos os tratamentos definidos no experimento foram aplicados conforme a ordem estabelecida pelo processo de aleatorização descrito anteriormente.
 
-\section{Coleta e armazenamento das respostas}
+Os resultados gerados por cada tratamento foram armazenados em arquivos no formato JSON. Cada registro incluiu as informações necessárias 
+para rastreabilidade e posterior análise, como identificador do sample, tratamento aplicado, modelo utilizado (quando aplicável), 
+versão do prompt, tipo do elemento analisado, smell avaliado e predição produzida.
 
-A validade de conclusão diz respeito à correção das inferências estatísticas sobre a relação entre os tratamentos e os resultados observados. 
-Uma ameaça relevante é o \textit{low statistical power}, isto é, a possibilidade de o experimento não detectar diferenças existentes entre os tratamentos. 
-Essa ameaça é mitigada, em parte, pelo tamanho da amostra: os resultados são agregados a partir de aproximadamente 15.000 instâncias anotadas no MLCQ, 
-distribuídas em mais de 700 projetos Java, o que tende a aumentar o poder estatístico das análises.
+Além disso, foi realizado o registro do tempo de execução do experimento, considerando o início e o término da aplicação dos tratamentos.
+
+- Tempo de início da execução: [a ser preenchido]
+
+- Tempo de término da execução: [a ser preenchido]
+
+- Duração total da execução: [a ser calculada]
+
+\section{Organização dos resultados}
+
+Após a execução dos tratamentos, os resultados foram organizados em uma base única de análise. Essa base integrou as respostas dos modelos de linguagem, 
+os resultados do SonarQube, os metadados dos prompts e os vereditos de referência do MLCQ.
+
+Cada registro da base final correspondeu à avaliação de um tratamento sobre um determinado sample e smell. 
+Para cada linha, foram armazenadas informações como identificador da amostra, tipo do elemento analisado, smell avaliado, 
+tratamento aplicado, versão do prompt quando aplicável, predição produzida e veredito de referência.
+
+No caso das LLMs, as respostas textuais foram convertidas em rótulos padronizados, indicando presença ou ausência do smell. 
+Esse processo de padronização foi necessário para permitir a comparação direta entre as predições dos modelos e o ground truth. 
+No caso do SonarQube, os resultados da análise estática também foram convertidos para o mesmo formato de rótulo.
 
 
 
