@@ -1,2 +1,188 @@
 \chapter[Resultado do Experimento]{Resultado do Experimento}
 
+\section{Consolidação dos resultados}
+
+A consolidação dos resultados foi realizada a partir da integração entre o arquivo de referência do MLCQ, as saídas do SonarQube 
+e as respostas produzidas pelos modelos de linguagem. A unidade de análise adotada foi o par formado por \texttt{sample\_id} e \texttt{smell}, 
+uma vez que um mesmo trecho de código pode ser avaliado em relação a mais de um code smell. Assim, cada linha da base consolidada 
+representa uma decisão binária de um tratamento para um smell específico em um determinado trecho de código.
+
+O arquivo do MLCQ foi utilizado como valor de referência para a avaliação dos tratamentos. Nos casos em que houve empate entre 
+avaliadores humanos, o veredito foi considerado positivo para a presença do smell, pois ao menos parte dos avaliadores indicou 
+sua ocorrência. As saídas das LLMs foram processadas para extrair os vereditos textuais em formato binário, em que 1 representa 
+a indicação de presença do smell e 0 representa sua ausência. Para o SonarQube, as issues identificadas foram agrupadas por 
+\texttt{sample\_id} e \texttt{smell}, sendo atribuída predição positiva quando havia ao menos uma issue correspondente ao smell avaliado.
+
+Durante a consolidação, foram identificadas predições sem correspondência no ground truth, decorrentes de casos em que os prompts 
+solicitavam a avaliação de dois smells, mas o MLCQ continha veredito explícito apenas para um deles. Esses casos foram excluídos 
+das métricas principais, pois não havia valor de referência para comparação. Também foi removida uma resposta incompleta de uma LLM, 
+interrompida por limite de tokens, que não permitiu extrair o veredito de um dos smells avaliados.
+
+\section{Análise Estatística}
+
+\subsection{Teste de Normalidade}
+
+Antes da comparação estatística entre os tratamentos, foi avaliado o pressuposto de normalidade por meio do teste omnibus de D’Agostino’s K-squared. 
+O teste foi aplicado sobre a variável de acerto dos tratamentos e também sobre as diferenças pareadas de acerto entre tratamentos.  
+Em ambos os casos, os resultados apresentaram p-valor inferior a 0,05, indicando rejeição da hipótese nula de normalidade.
+
+Esse resultado é compatível com a natureza dos dados analisados, uma vez que a variável de acerto é binária, assumindo valor 1 quando o 
+tratamento concorda com o MLCQ e valor 0 quando discorda. Além disso, as diferenças pareadas entre tratamentos assumem valores discretos. 
+Dessa forma, optou-se pela utilização de testes não paramétricos apropriados para dados binários e pareados.
+
+\subsection{Teste de Cochran's Q}
+
+A análise estatística principal teve como objetivo verificar se as proporções de acerto dos sete tratamentos avaliados eram estatisticamente equivalentes. 
+Como a variável analisada é binária, indicando acerto ou erro em relação ao MLCQ, e como os mesmos pares \texttt{sample\_id} e \texttt{smell} 
+foram avaliados por todos os tratamentos, foi utilizado o teste de Cochran's Q. Esse teste é adequado para comparar mais de dois tratamentos em dados 
+binários pareados \cite{conover1999practical}.
+
+A hipótese nula do teste estabelece que todos os tratamentos possuem a mesma proporção de acerto. A hipótese alternativa estabelece que ao menos 
+um dos tratamentos apresenta proporção de acerto diferente dos demais. Assim, foram consideradas as seguintes hipóteses:
+
+\begin{itemize}
+    \item $H_0$: todos os tratamentos possuem a mesma proporção de acerto;
+    \item $H_1$: ao menos um tratamento possui proporção de acerto diferente dos demais.
+\end{itemize}
+
+Para a aplicação do teste, foi construída uma matriz em que cada linha representa um bloco experimental, definido pelo par \texttt{sample\_id} e \texttt{smell}, 
+e cada coluna representa um dos sete tratamentos. O valor de cada célula indica se o tratamento acertou ou errou em relação ao veredito do MLCQ. 
+Após a remoção dos casos sem ground truth correspondente e de uma predição não extraída, o teste foi aplicado sobre 8710 blocos completos.
+
+O resultado do teste de Cochran's Q apresentou estatística $Q = 886{,}96$ e $p$-valor igual a $2{,}47 \times 10^{-188}$. Como esse valor é inferior 
+ao nível de significância adotado de 0,05, rejeita-se a hipótese nula. Portanto, há evidência estatística de que os sete tratamentos não possuem a mesma proporção de acerto.
+
+Também foi calculado o coeficiente $W$ de Kendall, obtido por $W = Q / n(k-1)$, em que $n$ representa o número de blocos e $k$ o número de tratamentos. 
+O valor obtido foi $W = 0{,}01697$, indicando que, embora a diferença entre os tratamentos seja estatisticamente significativa, o tamanho do efeito global é baixo. 
+Esse resultado sugere que a significância estatística deve ser interpretada em conjunto com as métricas descritivas e complementares, especialmente 
+devido ao tamanho da amostra analisada.
+
+\subsection{Teste de McNemar com correção de Holm-Bonferroni}
+
+Como o teste de Cochran's Q indicou diferença estatisticamente significativa entre os tratamentos, foi realizada uma análise posterior para identificar 
+quais pares de tratamentos apresentavam diferenças significativas. Para isso, utilizou-se o teste de McNemar pareado, adequado para comparar dois 
+classificadores avaliados sobre os mesmos itens com resposta binária de acerto ou erro \cite{conover1999practical}.
+Para cada par de tratamentos, o teste de McNemar considera apenas os casos discordantes, isto é, os casos em que um tratamento acertou e o outro errou. 
+
+Como foram avaliados sete tratamentos, foram realizadas 21 comparações par a par. A realização de múltiplos testes aumenta a probabilidade de 
+ocorrência de erro Tipo I acumulado, isto é, a chance de rejeitar indevidamente ao menos uma hipótese nula. Para controlar esse risco, 
+os $p$-valores obtidos nos testes de McNemar foram ajustados pelo procedimento de Holm-Bonferroni \cite{holm1979simple}. Dessa forma, a decisão estatística foi 
+baseada nos $p$-valores ajustados, e não apenas nos $p$-valores brutos.
+
+Após a correção de Holm-Bonferroni, 19 das 21 comparações apresentaram diferença estatisticamente significativa ao nível de significância de 0,05. 
+Apenas dois pares não apresentaram diferença significativa após o ajuste: ChatGPT few-shot versus Claude zero-shot e ChatGPT zero-shot versus DeepSeek zero-shot. 
+Esses resultados indicam que, para a maioria dos pares de tratamentos, as proporções de acerto diferem significativamente quando avaliadas sobre os 
+mesmos pares \texttt{sample\_id} e \texttt{smell}.
+
+As maiores diferenças observadas envolveram o Claude few-shot em comparação com DeepSeek few-shot, SonarQube e ChatGPT zero-shot. 
+Nessas comparações, o Claude few-shot apresentou menor taxa de acerto. Por outro lado, o SonarQube apresentou a maior taxa de acerto geral, 
+seguido pelo DeepSeek few-shot. Entretanto, essa interpretação deve considerar que a taxa de acerto é influenciada pelo desbalanceamento da base, 
+uma vez que há predominância de casos negativos para presença de smell. Por isso, as comparações estatísticas foram complementadas por 
+métricas de classificação, como precisão, recall, F1-score e especificidade.
+
+\section{Análises complementares}
+
+Após a análise estatística principal, foram conduzidas análises complementares com o objetivo de interpretar o comportamento dos tratamentos de forma mais detalhada. 
+Enquanto os testes de Cochran's Q e McNemar indicam se há diferença estatisticamente significativa entre os tratamentos, 
+as métricas complementares permitem observar como essas diferenças se manifestam em termos de acertos, erros, falsos positivos, 
+falsos negativos e desempenho por tipo de \textit{code smell}.
+
+Essas análises são particularmente importantes porque a base de referência apresenta desbalanceamento entre casos positivos e negativos. 
+Assim, a taxa de acerto geral, embora útil, não é suficiente para caracterizar completamente o desempenho dos tratamentos. 
+Por esse motivo, foram consideradas métricas adicionais, como precisão, \textit{recall}, F1-score, especificidade, MCC e Kappa de Cohen.
+
+\subsection{Taxa de acerto por tratamento}
+
+A taxa de acerto representa a proporção de casos em que o tratamento concordou com o veredito do MLCQ. Essa métrica considera como acerto 
+tanto os casos em que o tratamento indicou corretamente a presença de um \textit{smell} quanto os casos em que indicou corretamente sua ausência. 
+Formalmente, a taxa de acerto corresponde à razão entre a soma de verdadeiros positivos e verdadeiros negativos pelo total de casos avaliados.
+
+Na análise geral, o SonarQube apresentou a maior taxa de acerto, com valor aproximado de 0,897. Entre os modelos de linguagem, o melhor resultado 
+foi obtido pelo DeepSeek few-shot, com taxa de acerto aproximada de 0,888. Em seguida, aparecem ChatGPT zero-shot, com aproximadamente 0,880, 
+e DeepSeek zero-shot, com aproximadamente 0,879. Os menores valores foram observados em ChatGPT few-shot, Claude zero-shot e Claude few-shot.
+
+Apesar de o SonarQube apresentar a maior taxa de acerto geral, esse resultado deve ser interpretado com cautela. A base possui maior quantidade de casos negativos, 
+isto é, casos em que o MLCQ indica ausência de \textit{smell}. Assim, tratamentos que classificam muitos casos como negativos tendem a obter alta taxa de acerto 
+quando conseguem reconhecer corretamente essas ausências. Por esse motivo, a taxa de acerto foi analisada em conjunto com outras métricas de classificação.
+
+\subsection{Métricas de classificação}
+
+Além da taxa de acerto, foram calculadas métricas clássicas de classificação binária. A precisão indica, entre os casos classificados 
+como positivos por um tratamento, quantos realmente eram positivos segundo o MLCQ. O \textit{recall} indica, entre os casos positivos no MLCQ, 
+quantos foram identificados pelo tratamento. O F1-score corresponde à média harmônica entre precisão e \textit{recall}. A especificidade mede 
+a capacidade do tratamento de reconhecer corretamente os casos negativos. Também foram calculados o MCC e o Kappa de Cohen, que são métricas 
+úteis em cenários com desbalanceamento entre classes.
+
+Os resultados indicam que os tratamentos apresentam comportamentos distintos. O SonarQube obteve alta especificidade, indicando boa capacidade 
+de reconhecer casos negativos. Entretanto, seu \textit{recall} foi inferior ao das LLMs, o que indica maior dificuldade em identificar 
+todos os casos positivos de \textit{smell} presentes no MLCQ. Esse comportamento sugere uma abordagem mais conservadora, com menor tendência 
+a indicar a presença de \textit{smell}.
+
+As LLMs, por outro lado, apresentaram maior quantidade de predições positivas. Isso resultou, em alguns casos, em valores mais altos de \textit{recall}, 
+mas também em maior número de falsos positivos. Esse padrão mostra que os modelos de linguagem tendem a identificar mais casos como 
+potenciais \textit{smells}, ampliando a cobertura dos positivos, mas aumentando também a discordância em casos que o MLCQ classificou como negativos.
+
+Entre os modelos de linguagem, o DeepSeek few-shot apresentou o melhor equilíbrio geral entre taxa de acerto e métricas complementares. 
+O ChatGPT zero-shot e o DeepSeek zero-shot apresentaram taxas de acerto muito próximas, resultado que também foi observado na análise 
+estatística par a par, em que não houve diferença significativa entre esses dois tratamentos após a correção de Holm-Bonferroni.
+
+\subsection{Resultados por smell}
+
+A análise por tipo de \textit{code smell} permite observar se os tratamentos se comportam de forma distinta em cada categoria avaliada. 
+Essa separação é relevante porque os quatro \textit{smells} considerados possuem características diferentes. Blob/God Class e Data Class são 
+avaliados no nível de classe, enquanto Feature Envy e Long Method são avaliados no nível de método. Além disso, cada \textit{smell} envolve 
+indícios estruturais e semânticos diferentes.
+
+De modo geral, a análise por \textit{smell} permite identificar em quais categorias os tratamentos apresentaram maior concordância com o MLCQ 
+e em quais houve maior divergência. Resultados desse tipo são importantes porque uma taxa de acerto geral pode ocultar comportamentos específicos. 
+Um tratamento pode ter bom desempenho em determinado \textit{smell}, mas desempenho inferior em outro.
+
+No caso do SonarQube, espera-se um comportamento mais associado às regras métricas implementadas, uma vez que sua detecção depende diretamente dos 
+limiares e condições definidos para cada \textit{smell}. Já as LLMs realizam a avaliação com base na interpretação textual do código e das 
+instruções do prompt. Por isso, diferenças entre \textit{smells} podem indicar tanto limitações dos modelos em reconhecer determinados padrões 
+quanto diferenças na clareza conceitual de cada \textit{smell} nos prompts utilizados.
+
+Essa análise também permite verificar se a estratégia de prompt influencia o desempenho de maneira uniforme. Os resultados indicam que o uso 
+de few-shot não produziu melhoria consistente em todos os tratamentos. Em alguns casos, a versão zero-shot apresentou desempenho igual ou 
+superior à versão few-shot, o que sugere que os exemplos fornecidos no prompt podem influenciar os modelos de maneira diferente.
+
+\subsection{Falsos positivos e falsos negativos}
+
+A análise dos falsos positivos e falsos negativos foi realizada para compreender melhor os tipos de erro cometidos pelos tratamentos. 
+Um falso positivo ocorre quando o tratamento indica a presença de um \textit{smell}, mas o MLCQ indica sua ausência. Um falso negativo 
+ocorre quando o tratamento indica ausência de \textit{smell}, mas o MLCQ indica sua presença.
+
+Essa distinção é importante porque os dois tipos de erro têm implicações diferentes. Falsos positivos podem gerar alertas desnecessários, 
+aumentando o esforço de revisão por parte de desenvolvedores. Falsos negativos, por outro lado, indicam que o tratamento deixou de identificar 
+um \textit{smell} presente segundo o MLCQ, reduzindo sua capacidade de detecção.
+
+Os resultados mostram que o SonarQube apresentou menor número de predições positivas em comparação com as LLMs. Esse comportamento contribui 
+para sua alta especificidade, mas também está associado a um maior número de falsos negativos, especialmente quando comparado a tratamentos 
+com maior \textit{recall}. As LLMs, por sua vez, apresentaram maior tendência a indicar a presença de \textit{smell}, o que aumenta a identificação 
+de positivos, mas também eleva o número de falsos positivos.
+
+Dessa forma, a escolha do melhor tratamento depende do objetivo de uso. Em cenários nos quais se deseja reduzir alertas incorretos, 
+um tratamento mais conservador pode ser preferível. Em cenários nos quais se deseja maximizar a identificação de possíveis \textit{smells}, 
+mesmo com maior custo de revisão, tratamentos com maior \textit{recall} podem ser mais adequados.
+
+\subsection{Síntese dos resultados}
+
+Os resultados do experimento indicam que há diferença estatisticamente significativa entre os tratamentos avaliados. 
+O teste de Cochran's Q rejeitou a hipótese nula de igualdade entre as proporções de acerto dos sete tratamentos. 
+As comparações par a par com o teste de McNemar, ajustadas pela correção de Holm-Bonferroni, indicaram que 19 dos 21 pares 
+apresentaram diferença estatisticamente significativa.
+
+Na análise descritiva, o SonarQube apresentou a maior taxa de acerto geral, seguido pelo DeepSeek few-shot. 
+Entre as LLMs, o DeepSeek few-shot obteve o melhor resultado nessa métrica. ChatGPT zero-shot e DeepSeek zero-shot 
+apresentaram desempenho muito próximo, sem diferença estatisticamente significativa após a correção dos p-valores.
+
+Apesar disso, a taxa de acerto geral deve ser interpretada em conjunto com as demais métricas, devido ao desbalanceamento da base. 
+O SonarQube apresentou alta especificidade, mas menor \textit{recall}, indicando comportamento mais conservador. 
+As LLMs apresentaram maior tendência a detectar casos positivos, com aumento de \textit{recall} em alguns cenários, 
+mas também com maior ocorrência de falsos positivos.
+
+Assim, os resultados sugerem que ferramentas baseadas em regras e modelos de linguagem apresentam comportamentos 
+distintos na detecção de \textit{code smells}. O SonarQube mostrou maior concordância geral com o MLCQ, principalmente 
+em casos negativos, enquanto as LLMs demonstraram maior sensibilidade para indicar possíveis ocorrências de \textit{smells}. 
+Essa diferença reforça a importância de avaliar os tratamentos por múltiplas métricas, e não apenas pela taxa de acerto.
+```

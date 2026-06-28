@@ -580,6 +580,10 @@ INPUT editaveis/execucao.tex
 INPUT ./editaveis/resultado.tex
 INPUT ./editaveis/resultado.tex
 INPUT editaveis/resultado.tex
+INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
+INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
+INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmtt10.tfm
 INPUT ./editaveis/conclusao.tex
 INPUT ./editaveis/conclusao.tex
 INPUT editaveis/conclusao.tex
@@ -606,8 +610,10 @@ OUTPUT tcc.toc
 INPUT tcc.aux
 INPUT ./tcc.brf
 INPUT ./tcc.brf
+INPUT /usr/share/texmf/fonts/type1/public/lm/lmbsy10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb
+INPUT /usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmbxi10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb
@@ -624,3 +630,4 @@ INPUT /usr/share/texmf/fonts/type1/public/lm/lmss12.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmss17.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmssbx10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb
+INPUT /usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb
