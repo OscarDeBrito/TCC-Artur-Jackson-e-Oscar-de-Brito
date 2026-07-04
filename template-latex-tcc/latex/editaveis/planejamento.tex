@@ -29,9 +29,7 @@ foi utilizada para definição das perguntas específicas, derivadas da pergunta
     \item \textbf{Questão Específica 1}: Como a detecção de \textit{code smells} feita por \textit{LLMs} se compara aos resultados gerados por uma ferramenta de análise estática tradicional, como o SonarQube?
     
     \begin{itemize}
-        \item \textbf{Métrica:} Mediana da quantidade de code smells detectados por projeto, acompanhada da 
-        variância e desvio padrão, a fim de permitir 
-        comparações estatísticas entre os tratamentos.
+        \item \textbf{Métrica:} Proporção de acerto por tratamento: concordância entre a decisão da ferramenta e o rótulo do MLCQ quanto à presença ou ausência de \textit{code smell}.
     \end{itemize}
 
     %\item \textbf{Questão Específica 2}: LLMs reduzem o número de falsos positivos e falsos negativos em comparação com ferramentas baseadas em regras fixas?
@@ -122,13 +120,13 @@ Essa adoção decorre do fato de que o dataset foi construído com a participaç
 cujas anotações foram validadas por múltiplos revisores, assegurando confiabilidade e reduzindo vieses individuais, 
 além de abranger uma grande diversidade de sistemas reais.
 
-\textbf{Sujeito do experimento:} Os sujeitos do experimento são os arquivos de código-fonte presentes nos projetos que compõem o \textit{dataset MLCQ}.
+\textbf{Sujeito do experimento:} Os sujeitos do experimento são os trechos de código-fonte presentes nos projetos que compõem o \textit{dataset MLCQ}.
 
 \textbf{População:} a população é composta pelos 792 projetos Java provenientes do
 dataset MLCQ.
 
-\textbf{Amostra:} a amostra é formada pelos aproximadamente 15.000 trechos de código-fonte individualmente anotados
-no MLCQ. Cada trecho corresponde a uma instância candidata de \textit{code smell}, definida pelos
+\textbf{Amostra:} a amostra é formada pelos aproximadamente 15.000 registro de código-fonte individualmente anotados
+no MLCQ. Cada registro corresponde a uma instância candidata de \textit{code smell}, definida pelos
 metadados do dataset, incluindo: \textit{repository}, \textit{commit hash}, \textit{path}, \textit{start line},
 \textit{end line}, \textit{smell type}, \textit{severity} e \textit{type}.
 
@@ -148,14 +146,16 @@ As variáveis são definidas conforme terminologia de \citeonline{Wohlin:2012:ES
 
 \subsubsection*{Fator Experimental}
 O experimento possui um único fator: \textbf{Analisabilidade aplicada à detecção de code smells}.
-O fator possui cinco níveis (tratamentos), correspondentes às ferramentas avaliadas:
+O fator possui sete níveis (tratamentos), correspondentes às ferramentas avaliadas:
 
 \begin{enumerate}
-    \item \textbf{SonarQube} (versão Community Build Release 25.11.0.114957), abordagem baseada em regras estáticas;
-    \item \textbf{ChatGPT} (GPT-5.1), LLM da OpenAI;
-    \item \textbf{Gemini} (Gemini 3 pro), LLM do Google;
-    \item \textbf{Copilot} (GPT-5), LLM da Microsoft;
-    \item \textbf{DeepSeek} (DeepSeek-V3.2).
+    \item \textbf{SonarQube} (versão Community Build Release 25.11.0.114957)
+    \item \textbf{ChatGPT - zero shot} (GPT-5.4-mini);
+    \item \textbf{ChatGPT - few shot} (GPT-5.4-mini);
+    \item \textbf{Claude - zero shot} (Haiku-4-5);
+    \item \textbf{Claude - few shot} (Haiku-4-5);
+    \item \textbf{DeepSeek - zero shot} (DeepSeek-V4-flash);
+    \item \textbf{DeepSeek - few shot} (DeepSeek-V4-flash).
 \end{enumerate}
 
 \subsubsection*{Variável Independente}
@@ -178,9 +178,9 @@ Com base nessa variável primária, serão calculadas as seguintes métricas est
 
 As hipóteses foram definidas de forma a permitir a comparação estatística entre os
 tratamentos, considerando a distribuição da quantidade de \textit{code smells} identificados
-por projeto. Seja $Med_i$ a mediana da distribuição de \textit{code smells} identificados pelo
-tratamento $i$, onde $i \in \{1,2,3,4,5\}$ representa, respectivamente:
-SonarQube, ChatGPT, Gemini, Copilot e DeepSeek.
+por projeto. Seja $A_i$ a quantidade da distribuição de \textit{code smells} identificados pelo
+tratamento $i$, onde $i \in \{1,2,3,4,5,6,7\}$ representa, respectivamente:
+SonarQube, ChatGPT (Zero shot), ChatGPT (Few shot), DeepSeek (Zero shot), DeepSeek (Few shot), Claude (Zero shot) e Claude (Few shot).
 
 A hipótese nula estabelece que todos os tratamentos produzem distribuições equivalentes.
 A hipótese alternativa assume que ao menos um tratamento difere significativamente
@@ -189,14 +189,14 @@ dos demais.
 \begin{itemize}
     \item \textbf{Hipótese Nula ($H_{0}$):} 
     \[
-        Med_{1} = Med_{2} = Med_{3} = Med_{4} = Med_{5}
+        A_{1} = A_{2} = A_{3} = A_{4} = A_{5} = A_{6} = A_{7}
     \]
-    Isto é, não há diferença estatisticamente significativa entre as medianas das quantidades
+    Isto é, não há diferença estatisticamente significativa entre as quantidades
     de \textit{code smells} identificados pelos diferentes tratamentos.
 
     \item \textbf{Hipótese Alternativa ($H_{1}$):}
     \[
-        \exists\, i,j \mid Med_{i} \neq Med_{j}
+        \exists\, i,j \mid A_{i} \neq A_{j}
     \]
     Ou seja, ao menos um tratamento identifica uma quantidade de \textit{code smells}
     estatisticamente diferente dos demais.
@@ -223,33 +223,47 @@ decorrentes de ordem ou de efeitos sistemáticos de execução.
 \centering
 \caption{Exemplo ilustrativo de atribuição aleatória dos tratamentos aos objetos experimentais (Randomized Complete Block Design)}
 \label{tab:rcbd-exemplo}
-\begin{tabular}{c|c c c c c}
+\begin{tabular}{c|c c c c c c c}
 \hline
-\textbf{Objeto (Arquivo)} & \textbf{Trat. 1} & \textbf{Trat. 2} & \textbf{Trat. 3} & \textbf{Trat. 4} & \textbf{Trat. 5} \\
+\textbf{Objeto (Arquivo)} & \textbf{Trat. 1} & \textbf{Trat. 2} & \textbf{Trat. 3} & \textbf{Trat. 4} & \textbf{Trat. 5} & \textbf{Trat. 6} & \textbf{Trat. 7} \\
 \hline
-1 & 3 & 1 & 5 & 2 & 4 \\
-2 & 1 & 4 & 2 & 5 & 3 \\
-3 & 5 & 3 & 4 & 1 & 2 \\
-4 & 2 & 5 & 1 & 3 & 4 \\
-5 & 4 & 2 & 3 & 5 & 1 \\
+1 & 3 & 1 & 6 & 2 & 4 & 7 & 5\\
+2 & 1 & 4 & 2 & 5 & 3 & 6 & 7\\
+3 & 5 & 6 & 7 & 1 & 2 & 3 & 4\\
+4 & 7 & 5 & 6 & 3 & 4 & 1 & 2\\
+5 & 6 & 2 & 7 & 5 & 1 & 4 & 3\\
 \hline
 \end{tabular}
 
 \vspace{0.3em}
-\small{Tratamentos: 1 = SonarQube, 2 = ChatGPT, 3 = Gemini, 4 = Copilot, 5 = DeepSeek}
+\small{Tratamentos: 1 = SonarQube, 2 = ChatGPT (Zero shot), 3 = ChatGPT (Few shot), 4 = DeepSeek (Zero shot), 5 = DeepSeek (Few shot), 6 = Claude (Zero shot), 7 = Claude (Few shot)}
 \end{table}
 
 
+\subsection{Teste de Normalidade}
+
+Antes da comparação estatística entre os tratamentos, será avaliado o pressuposto de normalidade por meio do teste omnibus de D’Agostino’s K-squared.
+Esse teste será aplicado sobre a variável de acerto dos tratamentos e também sobre as diferenças pareadas de acerto entre tratamentos, para verificar
+se os dados se afastam da distribuição normal.
+
+Em Engenharia de Software, é comum que os dados experimentais não atendam aos pressupostos exigidos por testes paramétricos. Por isso, o estudo
+deverá seguir a abordagem de testes não paramétricos.
+
 \subsection{Teste de Hipóteses}
 
-Para avaliar se há diferença estatisticamente significativa entre os tratamentos 
-na detecção de \textit{code smells}, será utilizado o teste não paramétrico \textbf{Kruskal--Wallis}, 
-conforme recomendado por \citeonline{Wohlin:2012:ESE:2349018} para experimentos com um único fator e mais de dois 
-tratamentos.
+A análise estatística principal terá como objetivo verificar se as proporções de acerto dos sete tratamentos avaliados são estatisticamente equivalentes.
+Como a variável analisada será binária, indicando acerto ou erro em relação ao MLCQ, será utilizado o teste de Cochran's Q. Esse teste é adequado para comparar mais de dois tratamentos em dados
+binários pareados \cite{conover1999practical}.
 
-O teste Kruskal--Wallis constitui uma alternativa não paramétrica à análise de variância 
-(ANOVA) de um fator, sendo apropriado quando os dados são derivados de distribuições 
-assimétricas. 
+\subsection{Pós-teste}
+
+Caso o teste de Cochran's Q indique diferença estatisticamente significativa entre os tratamentos, será realizada uma análise posterior para identificar
+quais pares de tratamentos apresentam diferenças significativas. Para isso, será utilizado o teste de McNemar pareado, adequado para comparar dois
+classificadores avaliados sobre os mesmos itens com resposta binária de acerto ou erro \cite{conover1999practical}.
+
+Para cada par de tratamentos, o teste de McNemar considera apenas os casos discordantes, isto é, os casos em que um tratamento acerta e o outro erra.
+Os \textit{p-valores} obtidos nas comparações múltiplas serão ajustados pelo procedimento de Holm-Bonferroni, com o objetivo de controlar o erro do tipo I 
+associado às comparações pareadas entre os sete tratamentos.
 
 \subsection{Instrumentação}
 
@@ -290,35 +304,27 @@ execução do experimento. Serão utilizados os seguintes instrumentos para apoi
     será responsável por automatizar a reconstrução dos trechos a partir do MLCQ e do GitHub, pela execução dos tratamentos 
     (SonarQube e LLMs) e pela comparação das respostas com a rotulação humana.
     
-    \item \textbf{SonarQube}\footnote{Disponível em: \href{https://www.sonarqube.org/}{https://www.sonarqube.org/}. Acesso em: 6 dez. 2025.}: ferramenta de Análise Estática configurada com o \textit{rule set} padrão para Java, utilizada como um dos tratamentos de 
+    \item \textbf{SonarQube}\footnote{Disponível em: \href{https://www.sonarqube.org/}{https://www.sonarqube.org/}. Acesso em: 6 dez. 2025.}: ferramenta de Análise Estática configurada com o \textit{rule set} padrão para Java e com \textit{plugins} personalizados desenvolvidos para incorporar regras adicionais de \textit{code smells}, utilizada como um dos tratamentos de 
     detecção de \textit{code smells}.
     
     \item \textbf{ChatGPT}\footnote{Documentação em: \href{https://platform.openai.com/docs}{https://platform.openai.com/docs}. Acesso em: 6 dez. 2025.}:
     o ChatGPT é um modelo de linguagem de grande porte desenvolvido pela OpenAI,
     baseado na arquitetura \textit{transformer}. Ele é capaz de interpretar instruções
     em linguagem natural e analisar trechos de código, gerando respostas descritivas
-    ou classificações. No experimento, o ChatGPT será utilizado com prompts
-    padronizados para fornecer uma classificação binária (presença ou ausência de
-    \textit{code smell}) para cada trecho de código reconstruído a partir do MLCQ.
-
-    \item \textbf{Gemini}\footnote{Documentação em: \href{https://ai.google.dev/}{https://ai.google.dev/}. Acesso em: 6 dez. 2025.}:
-    o Gemini é um modelo de linguagem de grande porte desenvolvido pelo Google,
+    ou classificações. No experimento, o ChatGPT será utilizado com dois tipos de
+    prompt padronizado: um \textit{zero-shot}, sem exemplos de apoio, e um \textit{few-shot},
+    com exemplos representativos. Ambos fornecerão uma classificação binária
+    (presença ou ausência de \textit{code smell}) para cada trecho de código reconstruído
+    a partir do MLCQ.
+    
+    \item \textbf{Claude}\footnote{Documentação em: \href{https://www.anthropic.com/}{https://www.anthropic.com/}. Acesso em: 6 dez. 2025.}:
+    o Claude é um modelo de linguagem de grande porte desenvolvido pela Anthropic,
     também fundamentado na arquitetura \textit{transformer}. Ele é projetado para lidar
     com tarefas complexas envolvendo compreensão, geração e análise de linguagem.
-    No experimento, o Gemini será igualmente acessado via prompts padronizados,
-    produzindo uma classificação binária sobre a presença ou ausência de 
+    No experimento, o Claude será acessado por meio de dois tipos de prompt
+    padronizado: \textit{zero-shot} e \textit{few-shot}. Assim como nos demais modelos,
+    a saída será uma classificação binária sobre a presença ou ausência de
     \textit{code smell} em cada trecho avaliado.
-
-    \item \textbf{Copilot}\footnote{Documentação em: 
-    \href{https://learn.microsoft.com/azure/ai-services/openai/}{https://learn.microsoft.com/azure/ai-services/openai/}. 
-    Acesso em: 6 dez. 2025.}:
-    refere-se ao modelo de linguagem utilizado 
-    pelo Microsoft Copilot e disponibilizado de forma programática por meio da Azure OpenAI API, 
-    permitindo sua execução automatizada e reprodutível. Esses modelos, derivados da família GPT, 
-    são otimizados para tarefas de programação e análise estrutural de código. 
-    No experimento, o modelo será acessado mediante prompts padronizados, fornecendo uma 
-    classificação quanto à presença ou ausência de \textit{code smells} para cada trecho de código 
-    reconstruído a partir do MLCQ, possibilitando comparação direta com as demais abordagens.
 
 
     \item \textbf{DeepSeek}\footnote{Documentação em: \href{https://www.deepseek.com/}{https://www.deepseek.com/}. Acesso em: 6 dez. 2025.}:
@@ -326,9 +332,10 @@ execução do experimento. Serão utilizados os seguintes instrumentos para apoi
     programação, análise de código e raciocínio técnico. Baseado em uma arquitetura
     avançada de \textit{transformers} customizados, o modelo oferece alta capacidade de
     inspeção estrutural de código e interpretação semântica. No experimento, o DeepSeek 
-    será empregado por meio de \textit{prompts} padronizados para realizar a detecção de 
-    \textit{code smells}, fornecendo uma classificação comparável à dos demais \textit{LLMs} 
-    e permitindo avaliar seu desempenho relativo nas tarefas de analisabilidade.
+    será empregado por meio de dois tipos de \textit{prompts} padronizados, \textit{zero-shot} 
+    e \textit{few-shot}, para realizar a detecção de \textit{code smells}, fornecendo uma 
+    classificação comparável à dos demais \textit{LLMs} e permitindo avaliar seu desempenho 
+    relativo nas tarefas de analisabilidade.
 
     
     \item \textbf{Ferramentas de análise estatística}: serão utilizadas planilhas eletrônicas e scripts Python com bibliotecas como 
@@ -345,48 +352,40 @@ execução do experimento. Serão utilizados os seguintes instrumentos para apoi
 
     \item \textbf{Recuperação do código via Git/GitHub.}
     A partir do campo \textit{link}, acessa-se a URL do repositório no \textbf{GitHub} e utiliza-se o \textbf{Git} para 
-    realizar o \textit{clone} (ou atualizar um clone existente) e extrair o arquivo indicado em \textit{path}. Em seguida, o arquivo completo é carregado, e as linhas compreendidas entre \textit{start line} e \textit{end line} são apenas marcadas como referência de localização do \textit{code smell}. Ou seja, o insumo para as ferramentas de detecção é o \textbf{arquivo inteiro} em que o trecho se encontra, e não somente o fragmento delimitado pelas linhas.
+    realizar o \textit{clone} (ou atualizar um clone existente) e extrair o arquivo indicado em \textit{path}. Em seguida, o trecho correspondente é extraído, e as linhas compreendidas entre \textit{start line} e \textit{end line} são usadas apenas como referência de localização do \textit{code smell}. Ou seja, o insumo para as ferramentas de detecção são os \textbf{trechos de código}.
 
     \item \textbf{Validação, registro e randomização dos tratamentos.}
-    O arquivo recuperado, bem como a região correspondente ao trecho anotado, são validados. Arquivos ou anotações inconsistentes são descartados. Para os casos válidos, scripts em \textbf{Python} registram o arquivo, seus metadados e a faixa de linhas associada à instância de \textit{code smell} em uma estrutura tabular (\textit{DataFrame} do \textit{pandas}) e randomizam a ordem dos cinco tratamentos (\textbf{SonarQube}, \textbf{ChatGPT}, 
-    \textbf{Gemini}, \textbf{Copilot} e \textbf{DeepSeek}) a serem aplicados, em conformidade com o \textit{Completely Randomized Design} adotado.
+    O arquivo recuperado, bem como a região correspondente ao trecho anotado, são validados. Arquivos ou anotações inconsistentes são descartados. Para os casos válidos, scripts em \textbf{Python} registram o arquivo, seus metadados e a faixa de linhas associada à instância de \textit{code smell} e randomizam a ordem dos sete tratamentos a serem aplicados, em conformidade com o \textit{Completely Randomized Design} adotado: \textbf{SonarQube}, \textbf{ChatGPT zero-shot}, \textbf{ChatGPT few-shot}, \textbf{Claude zero-shot}, \textbf{Claude few-shot}, \textbf{DeepSeek zero-shot} e \textbf{DeepSeek few-shot}. Essa randomização define, para cada \textit{sample}, a ordem de envio dos sete tratamentos.
 
     \item \textbf{Aplicação do tratamento baseado em análise estática (SonarQube).}
-    O arquivo de código é então submetido ao \textbf{SonarQube} e avaliado com o \textit{rule set} padrão para Java. As \textit{issues} 
-    classificadas como \textit{code smells} são inspecionadas e, para aquela instância do MLCQ, registra-se uma decisão binária indicando se houve ou não detecção de \textit{code smell} na região do arquivo correspondente às linhas \textit{start line}–\textit{end line}.
+    Para o \textbf{SonarQube}, será mantido previamente um arquivo \textit{.java} contendo apenas o trecho de código de interesse, de modo que a análise seja feita sobre um artefato isolado e reproduzível. Quando o sorteio indicar esse tratamento para a respectiva instância, o arquivo será então enviado ao \textbf{SonarQube}. A avaliação será realizada com o \textit{rule set} contendo os \textit{plugins} personalizados desenvolvidos para aplicar as regras de \textit{code smells} definidas no escopo do estudo. As \textit{issues} 
+    classificadas são inspecionadas e, para aquela instância do MLCQ, registra-se uma decisão binária indicando se houve ou não detecção de \textit{code smell}.
 
     \item \textbf{Aplicação dos tratamentos baseados em LLMs.}
-    Em seguida, é construído um \textit{prompt} padronizado contendo instruções em linguagem natural, 
-    o conteúdo completo do arquivo Java recuperado e a indicação da região de interesse associada à 
-    instância do MLCQ. Esse \textit{prompt} é enviado, na ordem aleatória definida, aos modelos de 
-    linguagem avaliados por meio de suas \textit{APIs} oficiais, integradas aos scripts em Python:
+    Serão construídos dois tipos de \textit{prompt} padronizado: um \textit{zero-shot}, sem 
+    exemplos de apoio, e um \textit{few-shot}, com exemplos representativos. Ambos conterão instruções em 
+    linguagem natural e o conteúdo completo do trecho de código associado à instância do MLCQ. Esses \textit{prompts} e seus respectivos trechos de código já existirão previamente em arquivos \textit{JSON}, separados por tipo de prompt, de modo que cada arquivo fique vinculado ao \textit{sample} correspondente. Durante a execução, o código em Python sorteia a ordem dos sete tratamentos para cada \textit{sample} e, quando um tratamento de LLM é selecionado, envia ao modelo o \textit{JSON} da versão \textit{zero-shot} ou \textit{few-shot} correspondente.
 
     \begin{itemize}
-        \item \textbf{ChatGPT} (GPT-5.1);
-        \item \textbf{Gemini} (Gemini 3 Pro);
-        \item \textbf{Copilot} (GPT-5);
-        \item \textbf{DeepSeek} (DeepSeek-V3.2).
+        \item \textbf{ChatGPT} (GPT-5.4-mini);
+        \item \textbf{Claude} (Haiku-4-5);
+        \item \textbf{DeepSeek} (DeepSeek-v4-flash).
     \end{itemize}
 
     Em todos os casos, serão adotadas configurações controladas de inferência (por exemplo,
     limite de \textit{tokens} e modo de resposta) de forma a reduzir a variabilidade das saídas e favorecer a
-    reprodutibilidade. Para cada modelo, a resposta textual é armazenada integralmente e, em etapa
-    posterior, processada para gerar uma classificação binária padronizada (presença ou ausência de 
-    \textit{code smell} para aquela instância), conforme o formato exigido no \textit{prompt}.
+    reprodutibilidade. Para cada modelo e para cada tipo de prompt, a resposta textual será armazenada
+    integralmente e, em etapa posterior, processada para gerar uma classificação binária padronizada
+    (presença ou ausência de \textit{code smell} para aquela instância), conforme o formato exigido no
+    \textit{prompt}.
 
 
     \item \textbf{Consolidação das saídas por trecho.}
     Para cada instância anotada de \textit{code smell}, os scripts em Python consolidam, em uma única linha de um \textit{DataFrame} (\textit{pandas}), os metadados do 
     \textbf{Dataset MLCQ} (inclusive o rótulo humano) e as decisões binárias produzidas por cada tratamento (\textbf{SonarQube}, \textbf{ChatGPT}, 
-    \textbf{Gemini}, \textbf{Copilot} e \textbf{DeepSeek}). A partir dessa consolidação, são derivadas variáveis auxiliares por instância, como acerto, 
+    \textbf{Claude} e \textbf{DeepSeek}). A partir dessa consolidação, são derivadas variáveis auxiliares por instância, como acerto, 
     falso positivo, falso negativo e verdadeiro negativo para cada ferramenta.
 
-    \item \textbf{Agregação por projeto e cálculo das variáveis dependentes.}
-    Por fim, utilizando as \textbf{ferramentas de análise estatística} (scripts Python com \textit{pandas} e \textit{numpy}, eventualmente apoiados 
-    por planilhas eletrônicas), os resultados por instância são agregados por projeto, obtendo-se, para cada tratamento, a 
-    \textbf{quantidade de \textit{code smells} identificados por projeto}, variável dependente definida na Seção de Variáveis do Experimento. 
-    A partir dessas distribuições, são calculadas as estatísticas descritivas (medianas, variâncias, desvios padrão) e preparados os conjuntos 
-    de dados de entrada para o teste de hipóteses (Kruskal--Wallis) descrito anteriormente.
 \end{enumerate}
 
 
@@ -408,13 +407,13 @@ as saídas das ferramentas e os rótulos humanos do MLCQ. Essa escolha enfatiza 
 o esforço necessário para interpretar as saídas, a severidade dos problemas encontrados. Tais dimensões são reconhecidas como parte do construto mais amplo de 
 analisabilidade, mas não são diretamente abordadas na operacionalização.
 
-Outra ameaça importante é a \textit{mono-operation bias}. O experimento considera um único dataset (MLCQ), um conjunto específico de 
-code smells e uma família particular de ferramentas com um analisador estático e quatro LLMs. Embora o MLCQ seja amplamente utilizado na literatura e 
-construído com anotações de desenvolvedores profissionais, ele representa apenas um recorte possível do universo de sistemas Java e tipos de anomalias 
-estruturais. Da mesma forma, a escolha de um único analisador estático (SonarQube) e de um subconjunto específico de modelos de linguagem (ChatGPT, Gemini, 
-Copilot e DeepSeek) pode sub-representar o construto “tratamentos baseados em análise automática” como um todo. Esse viés é parcialmente atenuado pelo fato 
-de o MLCQ ser composto por múltiplos projetos open-source de domínios diversos, e pela inclusão de mais de um LLM, o que reduz a dependência de um 
-único modelo.
+    Outra ameaça importante é a \textit{mono-operation bias}. O experimento considera um único dataset (MLCQ), um conjunto específico de 
+    code smells e uma família particular de ferramentas com um analisador estático e três LLMs. Embora o MLCQ seja amplamente utilizado na literatura e 
+    construído com anotações de desenvolvedores profissionais, ele representa apenas um recorte possível do universo de sistemas Java e tipos de anomalias 
+    estruturais. Da mesma forma, a escolha de um único analisador estático (SonarQube) e de um subconjunto específico de modelos de linguagem (ChatGPT, 
+    Claude e DeepSeek) pode sub-representar o construto “tratamentos baseados em análise automática” como um todo. Esse viés é parcialmente atenuado pelo fato 
+    de o MLCQ ser composto por múltiplos projetos open-source de domínios diversos, e pela inclusão de mais de um LLM, o que reduz a dependência de um 
+    único modelo.
 
 Também é relevante a ameaça de \textit{mono-method bias}, uma vez que a avaliação da eficácia dos tratamentos baseia-se em medidas extraídas de uma única fonte 
 de rótulo (o MLCQ) e em um único tipo de métrica quantitativa: quantidade de code smells identificados por projeto. Não são incorporadas, 
@@ -429,12 +428,12 @@ ferramentas não é devida ao tratamento em si, mas a fatores não controlados. 
 sem a participação de sujeitos humanos, diversas ameaças clássicas, como maturação, mortalidade de sujeitos, efeitos sociais entre grupos ou seleção de 
 participantes são naturalmente mitigadas.
 
-Ainda assim, algumas ameaças de natureza instrumental permanecem relevantes. Em particular, a ameaça de \textit{instrumentation} diz respeito à possibilidade 
-de que os artefatos usados na execução do experimento, como scripts em Python, configuração do SonarQube e prompts dos LLMs, introduzam vieses nas medições. 
-Para mitigar esse risco, o procedimento experimental foi especificado, com padronização dos prompts enviados aos modelos de linguagem, fixação das 
-versões das ferramentas (incluindo versões específicas de SonarQube, ChatGPT, Gemini, Copilot e DeepSeek) e preservação das configurações utilizadas. Além 
-disso, o mesmo arquivo de código será fornecido a todos os tratamentos, reduzindo diferenças de contexto que poderiam favorecer ou prejudicar seletivamente 
-alguma ferramenta.
+    Ainda assim, algumas ameaças de natureza instrumental permanecem relevantes. Em particular, a ameaça de \textit{instrumentation} diz respeito à possibilidade 
+    de que os artefatos usados na execução do experimento, como scripts em Python, configuração do SonarQube, \textit{plugins} personalizados e prompts dos LLMs, introduzam vieses nas medições. 
+    Para mitigar esse risco, o procedimento experimental foi especificado, com padronização dos dois tipos de prompt enviados aos modelos de linguagem 
+    (\textit{zero-shot} e \textit{few-shot}), fixação das versões das ferramentas e dos \textit{plugins} empregados (incluindo SonarQube, ChatGPT, Claude e DeepSeek) e preservação das configurações utilizadas. Além 
+    disso, o mesmo arquivo de código será fornecido a todos os tratamentos, reduzindo diferenças de contexto que poderiam favorecer ou prejudicar seletivamente 
+    alguma ferramenta.
 
 Outra ameaça relevante é a \textit{history}, associada à possibilidade de que mudanças externas ao experimento afetem diferencialmente os tratamentos ao longo 
 do tempo, especialmente no caso de LLMs, que podem ser atualizados pelos provedores. Esse risco é mitigado pela execução dos tratamentos em uma janela de tempo 
@@ -470,10 +469,9 @@ Essa ameaça é mitigada, em parte, pelo tamanho da amostra: os resultados são 
 distribuídas em mais de 700 projetos Java, o que tende a aumentar o poder estatístico das análises.
 
 Outra ameaça diz respeito à escolha e aos pressupostos dos testes estatísticos. Para reduzir o risco de violações de pressupostos, como normalidade, 
-optou-se pelo uso do teste não paramétrico de Kruskal--Wallis, recomendado por \citeonline{Wohlin:2012:ESE:2349018} para experimentos com um único fator e 
-múltiplos tratamentos quando a distribuição dos dados pode ser assimétrica ou conter outliers. Além disso, as métricas utilizadas: mediana, variância 
-e desvio padrão da quantidade de code smells identificados por projeto, foram definidas previamente, evitando exploração excessiva dos dados em busca 
-de resultados estatisticamente significativos não previstos no planejamento.
+optou-se pelo uso de testes não paramétricos apropriados para dados binários e pareados, em especial o teste de Cochran's Q para comparar os sete 
+tratamentos e o teste de McNemar com correção de Holm-Bonferroni para as comparações par a par. Além disso, as métricas utilizadas foram definidas 
+previamente, evitando exploração excessiva dos dados em busca de resultados estatisticamente significativos não previstos no planejamento.
 
 A confiabilidade das medidas (\textit{reliability of measures}) constitui outra fonte potencial de ameaça. Com permanência do risco de defeitos nos scripts ou 
 na configuração das ferramentas, o que será mitigado por meio da inspeção manual de amostras de resultados antes da análise estatística final.
@@ -512,9 +510,7 @@ Com base nessa questão, seria possível definir as seguintes métricas compleme
 \end{itemize}
 
 Embora tecnicamente viável e metodologicamente fundamentada, essa análise complementar 
-\textbf{não integra o escopo do experimento principal} definido neste trabalho, 
-que se concentra exclusivamente na comparação das \textbf{medianas da quantidade de \textit{code smells} 
-detectados por projeto}.
+\textbf{não integra o escopo do experimento principal} definido neste trabalho.
 
 Entretanto, destaca-se que \textbf{a análise complementar será realizada como parte do estudo}, 
 apresentada de forma separada, com caráter exploratório e não experimental, utilizando os 
