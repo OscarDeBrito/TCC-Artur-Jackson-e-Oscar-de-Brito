@@ -155,6 +155,31 @@ Total & 30548 & 3582,63 & -- \\
 Fonte: Autores
 \end{table}
 
+Além do tempo de execução, também foram registrados os custos associados ao uso das APIs dos modelos de linguagem. 
+Esses custos correspondem exclusivamente às chamadas realizadas para as LLMs, não incluindo o SonarQube, que foi executado localmente. 
+Os valores foram registrados em dólar americano, conforme a cobrança dos respectivos provedores.
+
+A Tabela~\ref{tab:custos-llms} apresenta o custo total por provedor durante a execução do experimento.
+
+\begin{table}[H]
+\centering
+\caption{Custos das chamadas às LLMs}
+\label{tab:custos-llms}
+\begin{tabular}{lc}
+\hline
+Provedor & Custo total (US\$) \\
+\hline
+DeepSeek & 1,39 \\
+ChatGPT & 7,01 \\
+Claude & 12,94 \\
+\hline
+Total & 21,34 \\
+\hline
+\end{tabular}
+
+Fonte: Autores
+\end{table}
+
 \section{Organização dos resultados}
 
 Após a execução dos tratamentos, os resultados foram organizados em uma base única de análise. Essa base integrou as respostas dos modelos de linguagem, 
