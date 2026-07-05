@@ -75,7 +75,7 @@ ao smell avaliado e à versão do prompt. Essa organização permitiu rastrear c
 \section{Preparação do ambiente com SonarQube}
 
 Além da avaliação com modelos de linguagem, o experimento incluiu um tratamento baseado no SonarQube. 
-Para isso, foi criada uma máquina virtual com 4 GB de memória RAM, utilizada para configurar o ambiente de análise estática.
+Para isso, foi criada uma máquina virtual com 12 GB de memória RAM, utilizada para configurar o ambiente de análise estática.
 
 Como o SonarQube, por padrão, não identifica code smells seguindo diretamente a nomenclatura do catálogo de \citeonline{Fowler1999}, 
 foi desenvolvido um plugin específico para detectar os quatro smells considerados neste trabalho: Blob/God Class, Data Class, Feature Envy e Long Method.
@@ -116,19 +116,44 @@ tratamento seja sistematicamente favorecido ou prejudicado por sua posição na 
 \section{Execução do Experimento}
 
 A execução dos tratamentos experimentais foi realizada de forma integrada, contemplando tanto os modelos de linguagem quanto o SonarQube. 
-Para cada sample, todos os tratamentos definidos no experimento foram aplicados conforme a ordem estabelecida pelo processo de aleatorização descrito anteriormente.
+Para cada \textit{sample}, os tratamentos definidos no experimento foram aplicados conforme a ordem estabelecida pelo processo de aleatorização descrito anteriormente.
 
-Os resultados gerados por cada tratamento foram armazenados em arquivos no formato JSON. Cada registro incluiu as informações necessárias 
-para rastreabilidade e posterior análise, como identificador do sample, tratamento aplicado, modelo utilizado (quando aplicável), 
-versão do prompt, tipo do elemento analisado, smell avaliado e predição produzida.
+Os resultados gerados por cada tratamento foram armazenados em arquivos no formato JSONL. Além dos arquivos de saída das LLMs e do SonarQube, 
+foi mantido um arquivo de log de execução contendo os registros de início, término, duração, tratamento aplicado, tipo de tratamento, 
+código de retorno e status da execução. Esse log permitiu rastrear a execução de cada tratamento para cada \textit{sample}.
 
-Além disso, foi realizado o registro do tempo de execução do experimento, considerando o início e o término da aplicação dos tratamentos.
+O período total de execução do experimento foi identificado a partir dos logs registrados durante o experimento. Com base nesses registros, 
+o experimento teve início em 21/06/2026 às 01:08:47 e término em 23/06/2026 às 13:39:59, 
+totalizando uma duração cronológica de 2 dias, 12 horas, 31 minutos e 12 segundos.
 
-- Tempo de início da execução: [a ser preenchido]
+Além da duração cronológica, foi calculado o tempo acumulado de execução. 
+Essa medida representa o tempo total consumido pelas execuções registradas, enquanto a duração cronológica representa o intervalo real 
+entre a primeira e a última execução. O tempo acumulado total foi de 214.957,84 segundos, equivalente a aproximadamente 3.582,63 minutos ou 59,71 horas.
 
-- Tempo de término da execução: [a ser preenchido]
+A Tabela~\ref{tab:tempo-execucao-tratamento} apresenta o resumo do tempo de execução por tratamento.
 
-- Duração total da execução: [a ser calculada]
+\begin{table}[H]
+\centering
+\caption{Tempo de execução por tratamento}
+\label{tab:tempo-execucao-tratamento}
+\begin{tabular}{lccc}
+\hline
+Tratamento & Execuções & Tempo total (min) & Tempo médio (s) \\
+\hline
+SonarQube & 4364 & 1137,70 & 15,64 \\
+DeepSeek zero-shot & 4364 & 565,17 & 7,77 \\
+DeepSeek few-shot & 4364 & 527,44 & 7,25 \\
+Claude zero-shot & 4364 & 381,10 & 5,24 \\
+ChatGPT zero-shot & 4364 & 354,13 & 4,87 \\
+ChatGPT few-shot & 4364 & 339,88 & 4,67 \\
+Claude few-shot & 4364 & 277,20 & 3,81 \\
+\hline
+Total & 30548 & 3582,63 & -- \\
+\hline
+\end{tabular}
+
+Fonte: Autores
+\end{table}
 
 \section{Organização dos resultados}
 
