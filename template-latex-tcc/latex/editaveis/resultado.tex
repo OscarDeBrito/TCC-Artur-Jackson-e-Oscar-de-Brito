@@ -307,10 +307,33 @@ Essa distinção é importante porque os dois tipos de erro têm implicações d
 aumentando o esforço de revisão por parte de desenvolvedores. Falsos negativos, por outro lado, indicam que o tratamento deixou de identificar 
 um \textit{smell} presente segundo o MLCQ, reduzindo sua capacidade de detecção.
 
-Os resultados mostram que o SonarQube apresentou menor número de predições positivas em comparação com as LLMs. Esse comportamento contribui 
+Em resposta a questão específica 2, relatada na seção \ref{sec:analise-complementar}, os resultados mostram que o SonarQube apresentou menor número de predições positivas em comparação com as LLMs. Esse comportamento contribui 
 para sua alta especificidade, mas também está associado a um maior número de falsos negativos, especialmente quando comparado a tratamentos 
 com maior \textit{recall}. As LLMs, por sua vez, apresentaram maior tendência a indicar a presença de \textit{smell}, o que aumenta a identificação 
 de positivos, mas também eleva o número de falsos positivos.
+
+A Tabela~\ref{tab:vp-vn-fp-fn-tratamento} apresenta a distribuição dos verdadeiros positivos, verdadeiros negativos, falsos positivos e falsos negativos por tratamento. Essa tabela permite observar os tipos de erro predominantes em cada abordagem.
+
+\begin{table}[H]
+\centering
+\caption{Verdadeiros positivos, verdadeiros negativos, falsos positivos e falsos negativos por tratamento}
+\label{tab:vp-vn-fp-fn-tratamento}
+\begin{tabular}{lcccc}
+\hline
+Tratamento & VP & VN & FP & FN \\
+\hline
+SonarQube & 249 & 7568 & 199 & 695 \\
+DeepSeek few-shot & 558 & 7174 & 593 & 386 \\
+ChatGPT zero-shot & 568 & 7095 & 672 & 376 \\
+DeepSeek zero-shot & 534 & 7122 & 645 & 410 \\
+ChatGPT few-shot & 660 & 6598 & 1169 & 284 \\
+Claude zero-shot & 708 & 6547 & 1219 & 236 \\
+Claude few-shot & 691 & 6378 & 1389 & 253 \\
+\hline
+\end{tabular}
+
+Fonte: Autores
+\end{table}
 
 Dessa forma, a escolha do melhor tratamento depende do objetivo de uso. Em cenários nos quais se deseja reduzir alertas incorretos, 
 um tratamento mais conservador pode ser preferível. Em cenários nos quais se deseja maximizar a identificação de possíveis \textit{smells}, 
