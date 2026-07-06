@@ -96,6 +96,10 @@ ao processo de teste de hipóteses. Segundo \citeonline{Wohlin:2012:ESE:2349018}
 verdadeira, ocorre um \textbf{erro do tipo I}. De forma oposta, quando a hipótese nula é aceita mesmo sendo falsa, tem-se um \textbf{erro do tipo II}. 
 A consideração explícita desses erros é fundamental para a interpretação rigorosa dos resultados e para a definição do nível de confiança adotado no estudo.
 
+Um aspecto central da análise estatística em experimentos de Engenharia de Software é que ela pode ser conduzida por testes paramétricos ou não paramétricos, a depender dos pressupostos atendidos pelos dados. Os testes paramétricos assumem uma distribuição específica, geralmente a normal, e exigem que as variáveis sejam medidas, no mínimo, em escala intervalar; quando essas premissas são satisfeitas, tendem a apresentar maior poder estatístico. Já os testes não paramétricos são mais flexíveis, pois não dependem de suposições distribucionais tão restritivas, sendo mais apropriados quando os dados não seguem normalidade, quando a amostra é pequena ou quando a mensuração ocorre em escalas ordinais ou nominais. Em termos práticos, um teste não paramétrico pode substituir um paramétrico, mas o inverso não é verdadeiro, o que torna essa escolha metodológica decisiva para a validade da inferência \cite{Wohlin:2012:ESE:2349018,conover1999practical}.
+
+Uma vez escolhido e aplicado o teste global mais adequado ao comportamento dos dados, passa-se ao detalhamento das diferenças observadas entre os tratamentos. Quando a comparação envolve mais de dois grupos, a rejeição da hipótese nula indica apenas que existe pelo menos uma diferença significativa, mas não identifica onde ela ocorre. Nesse cenário, os procedimentos de pós-teste (\textit{post hoc}) são utilizados para realizar comparações múltiplas de forma controlada, reduzindo a inflação do erro do tipo I e permitindo localizar com maior precisão quais tratamentos diferem entre si. De modo complementar, antes da execução do experimento, o uso de um pré-teste pode auxiliar na mensuração de características relevantes dos participantes, como experiência prévia, para formar grupos mais homogêneos. A literatura também menciona estudos de pré e pós-evento, empregados para avaliar o efeito de uma mudança ao longo do tempo \cite{Wohlin:2012:ESE:2349018}.
+
 \subsubsection{Apresentação e Empacotamento}
 Esta atividade final envolve a documentação e comunicação das descobertas, "achados".
 O foco principal é a documentação dos resultados, seja em um artigo de pesquisa, um relatório para tomadores de decisão, ou 
@@ -227,6 +231,12 @@ Os \textit{LLMs} são fundamentados majoritariamente nessa arquitetura, utilizan
 diferentes pesos às palavras de uma mesma sentença, identificando aquelas mais relevantes para compreender o significado 
 do enunciado \cite{Vaswani2017}, permitindo aplicações como síntese textual, tradução, sumarização e resposta automática 
 a perguntas, sem necessidade de instruções específicas para cada tarefa.
+
+\subsection{Estratégias de Prompt:}
+
+No contexto de \textit{LLMs}, o termo \textit{shot} refere-se à quantidade de exemplos de entrada e saída fornecidos no próprio \textit{prompt} para demonstrar ao modelo como a tarefa deve ser resolvida. Em outras palavras, os \textit{shots} funcionam como uma forma de aprendizagem em contexto, na qual o modelo ajusta o padrão de resposta com base nas demonstrações recebidas, sem re-treinamento dos parâmetros \cite{Babikian2025StringValues}.
+
+A partir desse conceito, distinguem-se diferentes regimes de prompting, como \textit{zero-shot} (nenhum exemplo), \textit{one-shot} (um exemplo), \textit{few-shot} (poucos exemplos) e \textit{many-shot} (um conjunto maior de exemplos no contexto). Para este trabalho, \textit{zero-shot} e \textit{few-shot} são especialmente relevantes porque representam dois cenários metodológicos complementares: no primeiro, avalia-se a capacidade de generalização do modelo com instrução mínima; no segundo, observa-se o efeito da inclusão de exemplos guiados sobre consistência e precisão da resposta. Essa comparação é útil para analisar o trade-off entre qualidade da inferência em tarefas de Engenharia de \textit{Software} \cite{Bommasani2021,Abtahi2025LLMStaticAnalysis,Babikian2025StringValues}.
 
 Apesar do desempenho expressivo, os \textit{LLMs} também levantam preocupações relevantes. A literatura enfatiza riscos como a 
 reprodução de vieses presentes nos dados de treinamento, a opacidade dos processos internos e a geração de informações 
