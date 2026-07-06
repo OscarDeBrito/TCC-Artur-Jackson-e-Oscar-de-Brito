@@ -1,32 +1,13 @@
 \begin{resumo}
- A qualidade de produtos de software é essencial para garantir a 
- manutenibilidade e reduzir custos ao longo do ciclo de vida. Modelos de 
- qualidade como ISO/IEC 25010 destacam a manutenibilidade como característica 
- fundamental, composta por atributos como analisabilidade, modificabilidade e 
- testabilidade. Os code smells, indícios de problemas de projeto e 
- implementação, estão associados a maior esforço de manutenção e degradação 
- da qualidade interna. Ferramentas tradicionais de análise estática, como 
- SonarQube, são amplamente utilizadas na detecção desses problemas, porém 
- apresentam limitações relacionadas a falsos positivos e dependência de 
- limiares fixos de métricas. Recentemente, técnicas de Inteligência Artificial 
- (IA), especialmente Modelos de Linguagem de Grande Escala (LLMs), 
- têm demonstrado potencial para capturar padrões estruturais e semânticos 
- mais complexos. Este trabalho investiga empiricamente como sistemas baseados 
- em IA auxiliam a garantia de qualidade de software na detecção de anomalias 
- em código-fonte. Para isso, foi realizada uma revisão estruturada da literatura, 
- adaptada do protocolo de revisão  sistemática, que identificou 42 estudos relevantes 
- publicados entre 2022 e 2025. A análise evidenciou que, embora ferramentas de 
- análise estática continuem predominantes na indústria, abordagens baseadas em IA 
- apresentam capacidade de identificação de padrões que extrapolam 
- regras sintáticas fixas. Foi então planejado um experimento controlado que compara as 
- LLMs com o SonarQube na detecção de code smells, utilizando datasets anotados
- manualmente como referência. Os resultados esperados visam produzir evidências empíricas 
- sobre a contribuição relativa de cada abordagem, identificando limitações e oportunidades 
- de integração entre métodos tradicionais e técnicas emergentes de IA na garantia de 
- qualidade de código.
+ A qualidade de produtos de software é um fator central para a manutenibilidade e para a redução de custos ao longo do ciclo de vida. Nesse contexto, modelos como a ISO/IEC 25010 destacam a manutenibilidade e suas subcaracterísticas, enquanto os 
+\textit{code smells} são compreendidos como indícios de problemas de projeto e implementação associados à degradação da qualidade interna. Ferramentas tradicionais de análise estática, como o SonarQube, são amplamente utilizadas na detecção dessas anomalias, mas apresentam limitações relacionadas à dependência de limiares fixos e à ocorrência de falsos positivos. Paralelamente, abordagens baseadas em Inteligência Artificial, especialmente os Modelos de Linguagem de Grande Escala (\textit{LLMs}), têm demonstrado potencial para capturar padrões estruturais e semânticos mais complexos.
+
+Este trabalho investiga empiricamente como sistemas baseados em IA e ferramentas de análise estática auxiliam a garantia de qualidade de software na detecção de \textit{code smells}. Para isso, foi realizada uma revisão estruturada da literatura, adaptada do protocolo de revisão sistemática, que identificou 42 estudos relevantes publicados entre 2022 e 2025. Em seguida, foi planejado e executado um experimento controlado com sete tratamentos: SonarQube, ChatGPT, Claude e DeepSeek em versões \textit{zero-shot} e \textit{few-shot}, tomando o dataset MLCQ, anotado manualmente, como referência.
+
+Os resultados evidenciaram diferenças estatisticamente significativas entre os tratamentos, indicando comportamentos distintos na detecção de \textit{code smells}. De modo geral, o SonarQube apresentou maior acurácia global e comportamento mais conservador, enquanto as LLMs mostraram maior sensibilidade para identificar possíveis anomalias, sugerindo que abordagens baseadas em IA podem complementar ferramentas tradicionais e ampliar a cobertura da análise de qualidade de código.
 
  \vspace{\onelineskip}
     
  \noindent
- \textbf{Palavras-chave}: engenharia de software. inteligência artificial. code smells. qualidade de software. modelos de linguagem. análise estática.
+ \textbf{Palavras-chave}: engenharia de software. inteligência artificial. 	\textit{code smells}. qualidade de software. modelos de linguagem. análise estática.
 \end{resumo}
