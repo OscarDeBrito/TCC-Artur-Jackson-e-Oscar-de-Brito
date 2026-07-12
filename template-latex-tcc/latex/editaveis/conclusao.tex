@@ -40,6 +40,22 @@ Apresentação final & TCC 2 & Agendada \\
 \end{tabular}
 \end{table}
 
+\subsection{Cronograma da Segunda Etapa da Monografia}
+
+A segunda etapa da monografia consistiu na correção do trabalho, execução integral do experimento planejado, no tratamento e análise
+dos dados obtidos e na redação da versão final do trabalho. O cronograma executado é apresentado na Figura~\ref{fig:cronograma-atividades-tcc2}.
+
+Entre as principais atividades estão:
+
+\begin{figure}[H]
+    \centering
+	\caption{Cronograma da Segunda Etapa}
+    \includegraphics[width=1.1\textwidth]{figuras/Atividades-tcc2-concretizado.png}
+
+    \label{fig:cronograma-atividades-tcc2}
+	Fonte: Autor
+\end{figure}
+
 Durante a execução do TCC 2, algumas dessas atividades foram desdobradas em subatividades, necessárias para viabilizar a condução do experimento. 
 A atividade de preparação e coleta dos dados, por exemplo, envolveu o tratamento do dataset, a reconstrução dos trechos de código, configuração do ambiente e execução do experimento. 
 De forma semelhante, a análise dos dados incluiu etapas específicas de análise estatística e análise descritiva. 
@@ -57,7 +73,7 @@ automatizadas sobre o código-fonte. No entanto, a literatura também aponta lim
 limiares fixos, a geração de falsos positivos e a dificuldade em capturar aspectos semânticos mais complexos do código.
 
 Em paralelo, observou-se um crescimento de pesquisas que investigam o potencial da Inteligência artificial
-em tarefas de compreensão e avaliação de código. Diversos estudos apontam que abordagens envolvendo IA e Machine Learning conseguem
+em tarefas de compreensão e avaliação de código. Diversos estudos apontam que abordagens envolvendo IA e \textit{Machine Learning} conseguem
 identificar padrões estruturais e semânticos que extrapolam as regras tradicionais de análise estática, abrindo espaço
 para novas possibilidades em detecção de code smells, previsão de defeitos, explicações automáticas e
 refatorações sugeridas. Apesar disso, as pesquisas também apontam desafios relevantes, como a falta de padronização
@@ -127,24 +143,42 @@ negativos, enquanto as LLMs demonstraram maior sensibilidade para identificar ca
 que as LLMs podem atuar como abordagem complementar às ferramentas tradicionais de análise estática, especialmente em cenários 
 nos quais se busca maior cobertura na identificação de possíveis \textit{code smells}.
 
+\section{Limitações}
 
-\section{Cronograma da Segunda Etapa da Monografia}
+Apesar dos resultados obtidos, algumas limitações devem ser consideradas. A primeira está relacionada à base de dados utilizada. 
+O experimento foi conduzido com o MLCQ, que possui vereditos humanos e permite a comparação entre os tratamentos avaliados. 
+No entanto, os resultados estão condicionados às características dessa base, incluindo sua distribuição de casos positivos e negativos, 
+os critérios utilizados na construção do \textit{ground truth} e os tipos de \textit{code smells} disponíveis.
 
-A segunda etapa da monografia consistiu na correção do trabalho, execução integral do experimento planejado, no tratamento e análise
-dos dados obtidos e na redação da versão final do trabalho. O cronograma executado é apresentado na Figura~\ref{fig:cronograma-atividades-tcc2}.
+Outra limitação diz respeito ao desbalanceamento da base. Como há predominância de casos negativos, a taxa de acerto geral 
+pode favorecer tratamentos que identificam corretamente a ausência de \textit{smells}. Por esse motivo, os resultados foram 
+interpretados em conjunto com métricas complementares, como precisão, \textit{recall}, F1-score, especificidade, MCC e Kappa de Cohen.
 
-Entre as principais atividades estão:
+Também há limitações relacionadas aos tratamentos avaliados. No caso do SonarQube, os resultados dependem das regras, 
+limiares e configurações utilizadas no experimento. Alterações nessas regras poderiam modificar o desempenho observado. 
+No caso das LLMs, as respostas podem variar conforme o provedor, a versão do modelo, a formulação do prompt, os limites 
+de tokens e eventuais mudanças nas APIs. Além disso, uma resposta foi removida da análise principal por ter sido interrompida 
+por limite de tokens, o que ilustra a necessidade de validação das saídas geradas por modelos de linguagem.
 
-\begin{figure}[H]
-    \centering
-	\caption{Cronograma da Segunda Etapa}
-    \includegraphics[width=1.1\textwidth]{figuras/Atividades-tcc2-concretizado.png}
+Por fim, o experimento avaliou apenas quatro tipos de \textit{code smells}: Blob/God Class, Data Class, Feature Envy e Long Method. 
+Dessa forma, os resultados não devem ser generalizados automaticamente para outros \textit{smells}, linguagens de 
+programação ou bases de dados sem novas avaliações empíricas.
 
-    \label{fig:cronograma-atividades-tcc2}
-	Fonte: Autor
-\end{figure}
+\section{Trabalhos Futuros}
 
+Como trabalhos futuros, recomenda-se ampliar o experimento para outras bases de referência, a fim de verificar se os padrões 
+observados se mantêm em diferentes conjuntos de dados. Também seria relevante incluir outros tipos de \textit{code smells}, 
+especialmente aqueles que dependem de maior compreensão semântica, arquitetural ou contextual do código.
 
+Outra possibilidade é investigar novas estratégias de prompt. Os resultados indicaram que o uso de few-shot não produziu 
+melhoria consistente em todos os modelos e \textit{smells}. Assim, estudos futuros podem comparar diferentes formatos de 
+instrução, quantidades de exemplos, respostas estruturadas e estratégias de validação automática das saídas.
 
-\todo[inline, color=pink]{Faltou escrever as subseções das limitações do estudo e trabalhos futuros. Isso é dito na introdução.}
+Além disso, trabalhos futuros podem investigar o custo-benefício das abordagens avaliadas, considerando não apenas 
+métricas de desempenho, mas também custo financeiro das APIs, tempo de execução, esforço de revisão humana e impacto 
+prático no processo de manutenção de software.
+
+Por fim, seria relevante conduzir estudos com desenvolvedores para avaliar a utilidade prática das respostas 
+produzidas pelas LLMs, incluindo clareza das justificativas, capacidade de apoiar decisões de refatoração e potencial 
+de integração em fluxos reais de garantia de qualidade.
 
