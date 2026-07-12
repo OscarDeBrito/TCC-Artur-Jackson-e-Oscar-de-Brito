@@ -18,6 +18,13 @@ solicitavam a avaliação de dois smells, mas o MLCQ continha veredito explícit
 das métricas principais, pois não havia valor de referência para comparação. Também foi removida uma resposta incompleta de uma LLM, 
 interrompida por limite de tokens, que não permitiu extrair o veredito de um dos smells avaliados.
 
+Todas as análises estatísticas, descritivas e complementares apresentadas neste capítulo foram implementadas no notebook
+\path{Analise-resultados-experimento/analise_resultados_experimento.ipynb},
+disponível no repositório do projeto no GitHub \cite{repositorio_tcc}. 
+Os datasets gerados a partir das análises também estão disponibilizados no mesmo repositório, no diretório
+\path{Analise-resultados-experimento/outputs}, incluindo os arquivos com as respostas consolidadas de cada tratamento utilizados para a construção das tabelas, métricas e gráficos apresentados neste capítulo. 
+Ao final de cada seção ou subseção, indica-se a seção correspondente do notebook utilizada para gerar os resultados apresentados.
+
 \section{Análise Estatística}
 
 \subsection{Teste de Normalidade}
@@ -29,6 +36,8 @@ Em ambos os casos, os resultados apresentaram p-valor inferior a 0,05, indicando
 Esse resultado é compatível com a natureza dos dados analisados, uma vez que a variável de acerto é binária, assumindo valor 1 quando o 
 tratamento concorda com o MLCQ e valor 0 quando discorda. Além disso, as diferenças pareadas entre tratamentos assumem valores discretos. 
 Dessa forma, optou-se pela utilização de testes não paramétricos apropriados para dados binários e pareados.
+
+A implementação do teste de normalidade encontra-se na Seção 8 do notebook.
 
 \subsection{Teste de Cochran's Q}
 
@@ -49,13 +58,30 @@ Para a aplicação do teste, foi construída uma matriz em que cada linha repres
 e cada coluna representa um dos sete tratamentos. O valor de cada célula indica se o tratamento acertou ou errou em relação ao veredito do MLCQ. 
 Após a remoção dos casos sem ground truth correspondente e de uma predição não extraída, o teste foi aplicado sobre 8710 blocos completos.
 
-O resultado do teste de Cochran's Q apresentou estatística $Q = 886{,}96$ e $p$-valor igual a $2{,}47 \times 10^{-188}$. Como esse valor é inferior 
+O resultado do teste de Cochran's Q é apresentado na Tabela~\ref{tab:resultado-cochran-kendall}. A estatística obtida foi $Q = 886{,}96$ com $p$-valor igual a $2{,}47 \times 10^{-188}$. Como esse valor é inferior 
 ao nível de significância adotado de 0,05, rejeita-se a hipótese nula. Portanto, há evidência estatística de que os sete tratamentos não possuem a mesma proporção de acerto.
 
 Também foi calculado o coeficiente $W$ de Kendall, obtido por $W = Q / n(k-1)$, em que $n$ representa o número de blocos e $k$ o número de tratamentos. 
 O valor obtido foi $W = 0{,}01697$, indicando que, embora a diferença entre os tratamentos seja estatisticamente significativa, o tamanho do efeito global é baixo. 
 Esse resultado sugere que a significância estatística deve ser interpretada em conjunto com as métricas descritivas e complementares, especialmente 
 devido ao tamanho da amostra analisada.
+
+\begin{table}[H]
+\centering
+\caption{Resultado do teste de Cochran's Q e W de Kendall}
+\label{tab:resultado-cochran-kendall}
+\begin{tabular}{lccccccc}
+\hline
+Teste & Blocos & Tratamentos & Estatística & $p$-valor & $\alpha$ & Decisão & $W$ de Kendall \\
+\hline
+Cochran's Q & 8710 & 7 & 886,962 & $2{,}47 \times 10^{-188}$ & 0,05 & Rejeita $H_0$ & 0,01697 \\
+\hline
+\end{tabular}
+
+Fonte: Autores
+\end{table}
+
+A implementação do teste de Cochran's Q e W de Kendall encontram-se na Seção 9 do notebook.
 
 \subsection{Teste de McNemar com correção de Holm-Bonferroni}
 
@@ -69,16 +95,55 @@ ocorrência de erro Tipo I acumulado, isto é, a chance de rejeitar indevidament
 os $p$-valores obtidos nos testes de McNemar foram ajustados pelo procedimento de Holm-Bonferroni \cite{holm1979simple}. Dessa forma, a decisão estatística foi 
 baseada nos $p$-valores ajustados, e não apenas nos $p$-valores brutos.
 
+A Tabela~\ref{tab:mcnemar-holm} apresenta a síntese das 21 comparações par a par realizadas com o teste de McNemar e correção de Holm-Bonferroni. 
 Após a correção de Holm-Bonferroni, 19 das 21 comparações apresentaram diferença estatisticamente significativa ao nível de significância de 0,05. 
 Apenas dois pares não apresentaram diferença significativa após o ajuste: ChatGPT few-shot versus Claude zero-shot e ChatGPT zero-shot versus DeepSeek zero-shot. 
 Esses resultados indicam que, para a maioria dos pares de tratamentos, as proporções de acerto diferem significativamente quando avaliadas sobre os 
 mesmos pares \texttt{sample\_id} e \texttt{smell}.
+
+\begin{table}[H]
+\centering
+\caption{Comparações par a par pelo teste de McNemar com correção de Holm-Bonferroni}
+\label{tab:mcnemar-holm}
+\scriptsize
+\begin{tabular}{llcccl}
+\hline
+Tratamento 1 & Tratamento 2 & Dif. acerto & Estatística & $p$-valor ajustado & Decisão \\
+\hline
+Claude few-shot & DeepSeek few-shot & -0,076 & 360,102 & $5{,}62 \times 10^{-79}$ & Rejeita $H_0$ \\
+Claude few-shot & SonarQube & -0,086 & 303,266 & $1{,}28 \times 10^{-66}$ & Rejeita $H_0$ \\
+ChatGPT zero-shot & Claude few-shot & 0,068 & 293,530 & $1{,}61 \times 10^{-64}$ & Rejeita $H_0$ \\
+Claude few-shot & DeepSeek zero-shot & -0,067 & 254,934 & $3{,}93 \times 10^{-56}$ & Rejeita $H_0$ \\
+ChatGPT few-shot & DeepSeek few-shot & -0,054 & 221,953 & $5{,}76 \times 10^{-49}$ & Rejeita $H_0$ \\
+ChatGPT few-shot & SonarQube & -0,064 & 189,279 & $7{,}31 \times 10^{-42}$ & Rejeita $H_0$ \\
+Claude zero-shot & SonarQube & -0,064 & 188,122 & $1{,}23 \times 10^{-41}$ & Rejeita $H_0$ \\
+ChatGPT few-shot & ChatGPT zero-shot & -0,046 & 186,107 & $3{,}15 \times 10^{-41}$ & Rejeita $H_0$ \\
+Claude zero-shot & DeepSeek few-shot & -0,055 & 183,435 & $1{,}12 \times 10^{-40}$ & Rejeita $H_0$ \\
+ChatGPT zero-shot & Claude zero-shot & 0,047 & 151,923 & $7{,}91 \times 10^{-34}$ & Rejeita $H_0$ \\
+ChatGPT few-shot & DeepSeek zero-shot & -0,046 & 132,891 & $1{,}05 \times 10^{-29}$ & Rejeita $H_0$ \\
+Claude zero-shot & DeepSeek zero-shot & -0,046 & 128,181 & $1{,}02 \times 10^{-28}$ & Rejeita $H_0$ \\
+Claude few-shot & Claude zero-shot & -0,021 & 42,976 & $4{,}99 \times 10^{-10}$ & Rejeita $H_0$ \\
+ChatGPT few-shot & Claude few-shot & 0,022 & 39,402 & $2{,}76 \times 10^{-9}$ & Rejeita $H_0$ \\
+DeepSeek zero-shot & SonarQube & -0,018 & 23,294 & $9{,}73 \times 10^{-6}$ & Rejeita $H_0$ \\
+ChatGPT zero-shot & SonarQube & -0,018 & 20,864 & $2{,}96 \times 10^{-5}$ & Rejeita $H_0$ \\
+DeepSeek few-shot & DeepSeek zero-shot & 0,009 & 7,286 & 0,0347 & Rejeita $H_0$ \\
+DeepSeek few-shot & SonarQube & -0,010 & 6,714 & 0,0383 & Rejeita $H_0$ \\
+ChatGPT zero-shot & DeepSeek few-shot & -0,008 & 5,758 & 0,0492 & Rejeita $H_0$ \\
+ChatGPT few-shot & Claude zero-shot & 0,000 & 0,001 & 1,0000 & Não rejeita $H_0$ \\
+ChatGPT zero-shot & DeepSeek zero-shot & 0,001 & 0,037 & 1,0000 & Não rejeita $H_0$ \\
+\hline
+\end{tabular}
+
+Fonte: Autores
+\end{table}
 
 As maiores diferenças observadas envolveram o Claude few-shot em comparação com DeepSeek few-shot, SonarQube e ChatGPT zero-shot. 
 Nessas comparações, o Claude few-shot apresentou menor taxa de acerto. Por outro lado, o SonarQube apresentou a maior taxa de acerto geral, 
 seguido pelo DeepSeek few-shot. Entretanto, essa interpretação deve considerar que a taxa de acerto é influenciada pelo desbalanceamento da base, 
 uma vez que há predominância de casos negativos para presença de smell. Por isso, as comparações estatísticas foram complementadas por 
 métricas de classificação, como precisão, recall, F1-score e especificidade.
+
+A implementação do teste de McNemar com correção de Holm-Bonferroni encontra-se na Seção 10 do notebook.
 
 \section{Análise Descritiva}
 
@@ -93,7 +158,7 @@ A Figura~\ref{fig:boxplot-taxa-acerto-tratamento} apresenta a distribuição da 
 \begin{figure}[H]
     \centering
     \caption{Box-plot da taxa de acerto por tratamento}
-    \includegraphics[width=0.9\textwidth]{figuras/boxplot-taxa-acerto-tratamento.png}
+    \includegraphics[width=1.0\textwidth]{figuras/boxplot-taxa-acerto-tratamento-smell.png}
     \label{fig:boxplot-taxa-acerto-tratamento}
     Fonte: Autor
 \end{figure}
@@ -148,6 +213,42 @@ A dispersão mostra que os tratamentos se concentram em uma faixa elevada de tax
 O SonarQube aparece com a maior taxa de acerto, porém com F1-score inferior ao das principais LLMs. Esse resultado indica 
 que sua concordância geral com o MLCQ é alta, mas o equilíbrio entre precisão e \textit{recall} é menor. O DeepSeek few-shot, por outro lado, 
 apresenta o maior F1-score, indicando melhor equilíbrio entre identificação de positivos e controle de falsos positivos.
+
+\subsection{Estatísticas descritivas do F1-score}
+
+A Tabela~\ref{tab:descritiva-f1-tratamento} apresenta as estatísticas descritivas do F1-score por tratamento, 
+considerando os resultados obtidos nos diferentes \textit{smells}. Essa tabela complementa a análise de dispersão 
+ao mostrar a média, mediana e desvio-padrão em cada tratamento.
+
+\begin{table}[H]
+\centering
+\caption{Estatísticas descritivas do F1-score por tratamento}
+\label{tab:descritiva-f1-tratamento}
+\begin{tabular}{lccccccc}
+\hline
+Tratamento & Média & Mediana & Desvio-padrão\\
+\hline
+Claude zero-shot & 0,525 & 0,575 & 0,233\\
+DeepSeek few-shot & 0,495 & 0,557 & 0,225\\
+ChatGPT zero-shot & 0,492 & 0,556 & 0,217\\
+Claude few-shot & 0,496 & 0,540 & 0,234\\
+ChatGPT few-shot & 0,495 & 0,532 & 0,257\\
+DeepSeek zero-shot & 0,490 & 0,515 & 0,211\\
+SonarQube & 0,319 & 0,311 & 0,122\\
+\hline
+\end{tabular}
+
+Fonte: Autor
+\end{table}
+
+Observa-se que o SonarQube apresentou a menor média e a menor mediana de F1-score, apesar de ter obtido a maior taxa de acerto geral. 
+Esse resultado reforça que sua boa concordância geral está mais associada ao reconhecimento de casos negativos do que ao equilíbrio 
+entre precisão e \textit{recall}. Entre as LLMs, as medianas ficaram mais próximas, com destaque para Claude zero-shot, DeepSeek few-shot 
+e ChatGPT zero-shot. O ChatGPT few-shot apresentou o maior valor máximo, mas também maior desvio-padrão, indicando maior variação de 
+desempenho entre os \textit{smells}.
+
+Os códigos utilizados para a análise descritiva encontram-se na seção 17 - ``Análise Descritiva'' do notebook.
+
 \section{Análises complementares}
 
 Após a análise estatística principal, como dito na na seção \ref{sec:analise-complementar}, foram conduzidas análises complementares 
@@ -260,6 +361,8 @@ embora o SonarQube tenha apresentado a maior taxa de acerto geral, algumas LLMs 
 	Fonte: Autor
 \end{figure}
 
+As métricas de classificação e complementares apresentadas nesta seção foram calculadas consolidadas na Seção 12 do notebook.
+
 \subsection{Resultados por smell}
 
 A análise por tipo de \textit{code smell} permite observar se os tratamentos apresentam comportamento homogêneo entre as categorias avaliadas 
@@ -296,6 +399,8 @@ entre 0,86 e 0,88. Essa proximidade indica menor variação entre os tratamentos
     \label{fig:heatmap-smells}
 	Fonte: Autor
 \end{figure}
+
+Os resultados por \textit{smell} foram calculados na Seção 13 do notebook.
 
 \subsection{Falsos positivos e falsos negativos}
 
