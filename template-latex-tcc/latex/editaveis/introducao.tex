@@ -11,7 +11,7 @@ Avaliar a qualidade de produtos de \textit{software} é essencial para orientar 
 subjetividades e padronizar a medição de atributos ao longo do ciclo de vida. Os primeiros referenciais surgiram 
 com o modelo de \citeonline{McCall77}, que organizou fatores e subfatores de qualidade e propôs um método de 
 avaliação quantitativa. Em seguida, \citeonline{boehm1978characteristics} ampliaram e sistematizaram essas ideias, 
-estabelecendo uma base conceitual que influenciou normas posteriores. A \citeonline{ISOIEC9126} consolidou um 
+estabelecendo uma base conceitual que influenciou normas posteriores. A \citeonline{ISO9126} consolidou um 
 vocabulário comum e, mais tarde, a \citeonline{ISOIEC25010} atualizou a taxonomia e introduziu a distinção entre 
 qualidade interna, externa e em uso, destacando \textit{manutenibilidade} como característica de primeira ordem 
 composta, entre outras, por \textit{analisabilidade}, \textit{modificabilidade} e \textit{testabilidade}.
@@ -45,12 +45,12 @@ garantir a boa qualidade do código \cite{Haroon2025}. \textit{Code smells} são
 violações dos princípios fundamentais de design \cite{Fowler2018} e afetam negativamente a testabilidade, a 
 manutenibilidade e a evolução dos produtos de software \cite{SharmaSpinellis2018}. Embora já exista
 muito conhecimento acumulado na área, ainda carecemos de métodos que superem a subjetividade inerente a 
-certos \textit{code smells}, como o \textit{God Class} \cite{Haroon2025}
+certos \textit{code smells}, como o \textit{God Class} \cite{Haroon2025}.
 
 Frequentemente, os métodos tradicionais de inspeção manual são baseados em critérios subjetivos, como a 
 interpretação de desenvolvedores, e não possuem escalabilidade, o que afeta a confiabilidade dos resultados. 
 A natureza subjetiva dos \textit{code smells} e a complexidade das relações no código-fonte tornam sua detecção um 
-desafio contínuo \cite{AlKhatib2023}, onde os profissionais frequentemente discordam em suas avaliações.
+desafio contínuo \cite{AlKhatib2023}, onde os profissionais frequentemente discordam em suas avaliações
 \cite{ArcelliFontana2016}.
 
 No contexto do desenvolvimento e entrega contínua, esse desafio se torna ainda mais difícil. Métodos manuais 
@@ -69,11 +69,11 @@ degradar a qualidade e a manutenibilidade do software \cite{Haroon2025}.
 Nesse cenário, técnicas de \textit{Machine Learning} (ML) têm se mostrado promissoras para detecção de \textit{code smells}, 
 com o objetivo de melhorar a precisão e reduzir o viés associado a outras técnicas. Contudo, o principal 
 desafio na aplicação de algoritmos de ML reside na criação de uma representação vetorial adequada do trecho 
-de código analisado, jutamente com um bom treinamneto aplicado a ML. \cite{Haroon2025}.
+de código analisado, juntamente com um bom treinamento aplicado a ML. \cite{Haroon2025}.
 
 Visto que a eficácia desses modelos depende diretamente da forma como o código é empacotado e da mitigação de 
 ameaças à validade, existe a necessidade contínua de investigar e refinar as técnicas de treinamento e 
-representação para garantir melhor uso dessas tecnicas.
+representação para garantir melhor uso dessas técnicas.
 
 
 \section{Questão de Pesquisa}
@@ -110,7 +110,7 @@ conforme ilustrado na Figura~\ref{fig:gqm}. Essa estrutura foi ajustada ao escop
 Considerando essa perspectiva definimos a seguinte questão principal de pesquisa deste estudo
 
 \begin{center} 
-\textbf{\textit{Como sistemas baseadas em (IA) tem auxiliado a garantia de qualidade de software, especialmente na detecção de anomalias em código-fonte pontecialmente problemático? }}
+\textbf{\textit{Como sistemas baseados em (IA) têm auxiliado a garantia de qualidade de software, especialmente na detecção de anomalias em código-fonte potencialmente problemático? }}
 \end{center}
 
 
@@ -131,13 +131,13 @@ O objetivo geral deste trabalho é analisar a contribuição de abordagens basea
     Para alcançar o objetivo proposto, foram definidos os seguintes objetivos específicos:
 
 \begin{itemize}
-	\item Mapear as principais abordagens de Inteligência Artificial (IA) aplicadas à detecção de \textit{code smells} em produtos de software.;
+	\item Mapear as principais abordagens de Inteligência Artificial (IA) aplicadas à detecção de \textit{code smells} em produtos de software;
 	\item Comparar ferramentas baseadas em IA com ferramentas de análise estática quanto ao desempenho 
     relacionado às subcaracterísticas de manutenibilidade, especialmente analisabilidade.;
     \item Identificar limitações e desafios na aplicação de técnicas de IA à garantia da qualidade de 
     código, em comparação com os métodos tradicionais de análise estática
-    \item  Apresentar as conclusões e os insights resultantes desta investigação.
-.
+    \item  Apresentar as conclusões e os principais achados  desta pesquisa.
+
 \end{itemize}
 
 \section{Estrutura do Trabalho}
