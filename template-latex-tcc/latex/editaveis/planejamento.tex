@@ -121,18 +121,13 @@ além de abranger uma grande diversidade de sistemas reais.
 
 \textbf{Sujeito do experimento:} Os sujeitos do experimento são os trechos de código-fonte presentes nos projetos que compõem o \textit{dataset MLCQ}.
 
-\textbf{População:} a população é composta pelos 792 projetos Java provenientes do
+\textbf{População:} a população é composta pelos 522 repositórios Java provenientes do
 dataset MLCQ.
 
-\todo[color=yellow, size=\tiny]{792 ou 522? Explicar ou corrigir a diferença}
-
-\textbf{Amostra:} a amostra é formada pelos aproximadamente \textcolor{red}{15.000} \todo[color=yellow, size=\tiny]{ATENCAO aqui!} registros de código-fonte individualmente anotados
+\textbf{Amostra:} a amostra é formada pelos aproximadamente 15.000 instâncias individualmente anotados
 no MLCQ. Cada registro corresponde a uma instância candidata de \textit{code smell}, definida pelos
 metadados do dataset, incluindo: \textit{repository}, \textit{commit hash}, \textit{path}, \textit{start line},
 \textit{end line}, \textit{smell type}, \textit{severity} e \textit{type}.
-
-\todo[inline, color=pink]{ Escrever um parágrafo explicando  como sai de 15.000 para 8.711 registros válidos, correspondentes a 4.364 trechos únicos, em 522 repositórios. Precisa ficar claro como ocorreu essa filtragem que levou da amostra planejada à amostra executada (quantos registros foram descartados e por que?
-}
 
 
 Para a execução do experimento, cada trecho de código será reconstruído a partir dos metadados fornecidos pelo dataset
@@ -226,7 +221,7 @@ decorrentes de ordem ou de efeitos sistemáticos de execução.
 \label{tab:rcbd-exemplo}
 \begin{tabular}{c|c c c c c c c}
 \hline
-\textbf{Objeto (Arquivo)} & \textbf{Trat. 1} & \textbf{Trat. 2} & \textbf{Trat. 3} & \textbf{Trat. 4} & \textbf{Trat. 5} & \textbf{Trat. 6} & \textbf{Trat. 7} \\
+\textbf{Objeto (Trecho)} & \textbf{Trat. 1} & \textbf{Trat. 2} & \textbf{Trat. 3} & \textbf{Trat. 4} & \textbf{Trat. 5} & \textbf{Trat. 6} & \textbf{Trat. 7} \\
 \hline
 1 & 3 & 1 & 6 & 2 & 4 & 7 & 5\\
 2 & 1 & 4 & 2 & 5 & 3 & 6 & 7\\
