@@ -11,8 +11,8 @@ A execução envolveu a preparação da base experimental, a recuperação dos t
 a construção dos prompts utilizados nos modelos de linguagem, a configuração do ambiente do SonarQube, a 
 aplicação dos tratamentos experimentais e a organização dos resultados para posterior análise estatística.
 
-O experimento avaliou sete tratamentos: SonarQube, ChatGPT com prompt zero-shot, Claude com prompt zero-shot, DeepSeek com prompt zero-shot, 
-ChatGPT com prompt few-shot, Claude com prompt few-shot e DeepSeek com prompt few-shot. Cada modelo de linguagem associado a uma versão 
+O experimento avaliou sete tratamentos: SonarQube, ChatGPT com prompt zero-shot, ChatGPT com prompt few-shot, Claude com prompt zero-shot, 
+Claude com prompt few-shot, DeepSeek com prompt zero-shot e DeepSeek com prompt few-shot. Cada modelo de linguagem associado a uma versão 
 específica de prompt foi considerado um tratamento distinto.
 
 
@@ -26,6 +26,9 @@ a execução do experimento e verificar a quantidade de registros aptos para uso
 A partir dessa inspeção inicial, foram identificados 8.711 registros válidos no MLCQ, correspondentes a 4.364 trechos únicos de código, 
 distribuídos em 522 repositórios. Esses números foram utilizados para caracterizar a base experimental e orientar as etapas seguintes 
 de recuperação dos trechos e construção dos instrumentos de avaliação.
+
+
+
 
 O MLCQ fornece metadados associados a cada amostra, como o identificador do trecho, o repositório de origem, o tipo do elemento analisado, 
 as linhas de código correspondentes e o veredito final atribuído à presença ou ausência de determinado code smell. Com base nesses metadados, 
@@ -57,7 +60,7 @@ entre os resultados produzidos pelas LLMs e pela ferramenta de análise estátic
 
 \section{Construção dos prompts}
 
-Para tipo de trecho recuperado, foram criadas duas versões de prompt: uma versão zero-shot e uma versão few-shot. 
+Para cada tipo de trecho recuperado, foram criadas duas versões de prompt: uma versão zero-shot e uma versão few-shot. 
 A versão zero-shot foi construída sem explicações conceituais ou exemplos prévios sobre os code smells. 
 Nesse caso, o modelo recebia apenas o trecho de código e a pergunta sobre a presença ou ausência dos smells correspondentes ao tipo de elemento analisado.
 
@@ -68,6 +71,8 @@ A versão few-shot, por sua vez, incluiu informações adicionais sobre os smell
 Nessa versão, o prompt apresentava uma definição conceitual dos code smells pertinentes ao tipo de elemento analisado e incluía 
 um exemplo conceitual de como esses smells poderiam se manifestar. Assim, para trechos de classe, o prompt continha definições e 
 exemplos relacionados a Blob/God Class e Data Class. Para trechos de método ou função, o prompt continha definições e exemplos relacionados a Long Method e Feature Envy.
+
+\todo[inline, color=pink]{1)Todos os prompts precisam estar documentados em um apêndice. Aqui, vocês devem dar um exemplo de cada um dos prompts utilizados. 2) Eu não me lembro se eles estão no notebook. Por sinal, ele encontrei nenhuma citação a ele. O notebook deve ser formalmente apresentado, descrito e citado. 3) Todo dataset gerado deve ser igualmente apresentado, descrito e citado. Assim como vocês viram no MLCQ. 4) faltam exemolos/orints de tela do sonar  e explicação do plugin. Ex: o que precisa para desenvolver? Como ele recebia e processava os trechos de código? }
 
 Os prompts foram organizados de forma estruturada, associando cada entrada ao identificador da amostra, ao tipo do elemento analisado, 
 ao smell avaliado e à versão do prompt. Essa organização permitiu rastrear cada resposta gerada pelos modelos até o respectivo trecho de código e veredito de referência.
@@ -102,13 +107,13 @@ Após a preparação da base, dos prompts e do ambiente de análise estática, a
 conforme descrito por \citeonline{Wohlin:2012:ESE:2349018}. Nesse desenho, todos os tratamentos são aplicados a cada objeto experimental, mas a ordem de aplicação é aleatorizada.
 
 Neste trabalho, cada sample ou trecho de código foi considerado um objeto experimental. Para cada objeto, os sete tratamentos foram aplicados: 
-SonarQube, ChatGPT zero-shot, Claude zero-shot, DeepSeek zero-shot, ChatGPT few-shot, Claude few-shot e DeepSeek few-shot.
+SonarQube, ChatGPT zero-shot, ChatGPT few-shot, Claude zero-shot, Claude few-shot, DeepSeek zero-shot e DeepSeek few-shot.
 
 A ordem de aplicação dos tratamentos foi definida aleatoriamente para cada sample. Assim, antes da análise de um determinado trecho, 
 era sorteada a sequência em que os tratamentos seriam executados. Após todos os tratamentos serem aplicados ao mesmo sample, 
 o experimento avançava para o próximo trecho, no qual uma nova ordem aleatória era definida.
 
-Esse procedimento foi adotado para reduzir possíveis efeitos relacionados à ordem de execução dos tratamentos ou resquicios de dados mantidos em memória. 
+Esse procedimento foi adotado para reduzir possíveis efeitos relacionados à ordem de execução dos tratamentos ou resquícios de dados mantidos em memória. 
 Embora os tratamentos automatizados não apresentem os mesmos efeitos de fadiga ou aprendizagem observados em 
 experimentos com participantes humanos, a aleatorização contribui para manter o rigor experimental e evitar que algum 
 tratamento seja sistematicamente favorecido ou prejudicado por sua posição na sequência de execução.
