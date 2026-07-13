@@ -70,9 +70,114 @@ Nessa versão, o prompt apresentava uma definição conceitual dos code smells p
 um exemplo conceitual de como esses smells poderiam se manifestar. Assim, para trechos de classe, o prompt continha definições e 
 exemplos relacionados a Blob/God Class e Data Class. Para trechos de método ou função, o prompt continha definições e exemplos relacionados a Long Method e Feature Envy.
 
-Os prompts utilizados no experimento são documentados no Apêndice~\ref{ap:prompts-execucao}, por meio de exemplos representativos de cada configuração. Para a reprodução integral dos prompts, recomenda-se consultar o arquivo \textit{Script-Api-LLMs/prompts.json} disponível no repositório de execução do trabalho no GitHub\footnote{\label{fn:repo}Disponível em: \url{https://github.com/OscarDeBrito/TCC-Artur-Jackson-e-Oscar-de-Brito--BaseMLCQ}. Acesso em: 12 jul. 2026.}. Essa organização permite explicitar a estrutura textual empregada em cada tratamento.
+A seguir, apresenta-se um exemplo representativo da configuração few-shot para classes:
 
-Exemplos de few shot classe e metdodo
+\begin{verbatim}
+Você é especialista em qualidade de código Java.
+
+Definições:
+- Blob: classe com responsabilidades excessivas, concentrando muitas funções 
+ou coordenando múltiplos aspectos do sistema.
+- Data Class: classe focada principalmente em armazenar dados, com pouca ou 
+nenhuma lógica de negócio relevante.
+
+Exemplo 1:
+Código:
+public class OrderManager {
+	private List<Order> orders;
+	private DatabaseConnection dbConnection;
+	private EmailService emailService;
+	private PaymentGateway paymentGateway;
+	private TaxCalculator taxCalculator;
+	private ReportingService reportingService;
+
+	public void createOrder(Order order) {
+		/* implementação complexa */
+	}
+
+	public void validateUser(String userId) {
+		/* implementação complexa */
+	}
+
+	public void processPayment(PaymentInfo payment) {
+		/* implementação complexa */
+	}
+
+	public void sendConfirmationEmail(String email) {
+		/* implementação complexa */
+	}
+
+	public void generateMonthlySalesReport() {
+		/* implementação complexa */
+	}
+
+	public double calculateTotalTax(double subtotal) {
+		/* implementação complexa */
+	}
+}
+
+Resposta:
+Blob: SIM
+Data Class: NÃO
+
+Exemplo 2:
+Código:
+public class Point {
+	public double x;
+	public double y;
+
+	public Point(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
+}
+
+Resposta:
+Blob: NÃO
+Data Class: SIM
+
+Agora analise a classe abaixo.
+
+Responda apenas com:
+Blob: SIM ou NÃO
+Data Class: SIM ou NÃO
+Sem explicações adicionais.
+
+Código:
+public interface PlaybackNearlyFinishedRequestHandler extends RequestHandler {
+
+	boolean canHandle(
+		HandlerInput input,
+		PlaybackNearlyFinishedRequest playbackNearlyFinishedRequest
+	);
+
+	Optional<Response> handle(
+		HandlerInput input,
+		PlaybackNearlyFinishedRequest playbackNearlyFinishedRequest
+	);
+
+	@Override
+	default boolean canHandle(HandlerInput handlerInput) {
+		if (handlerInput.getRequest() instanceof PlaybackNearlyFinishedRequest) {
+			return canHandle(
+				handlerInput,
+				(PlaybackNearlyFinishedRequest) handlerInput.getRequest()
+			);
+		}
+		return false;
+	}
+
+	@Override
+	default Optional<Response> handle(HandlerInput handlerInput) {
+		return handle(
+			handlerInput,
+			(PlaybackNearlyFinishedRequest) handlerInput.getRequest()
+		);
+	}
+}
+\end{verbatim}
+
+Os prompts utilizados no experimento são documentados no Apêndice~\ref{ap:prompts-execucao}, por meio de exemplos representativos de cada configuração. Para a reprodução integral dos prompts, recomenda-se consultar o arquivo \textit{Script-Api-LLMs/prompts.json} disponível no repositório de execução do trabalho no GitHub\footnote{\label{fn:repo}Disponível em: \url{https://github.com/OscarDeBrito/TCC-Artur-Jackson-e-Oscar-de-Brito--BaseMLCQ}. Acesso em: 12 jul. 2026.}. Essa organização permite explicitar a estrutura textual empregada em cada tratamento.
 
 \section{Preparação do ambiente com SonarQube}
 
