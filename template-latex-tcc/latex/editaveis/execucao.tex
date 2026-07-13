@@ -70,8 +70,9 @@ Nessa versão, o prompt apresentava uma definição conceitual dos code smells p
 um exemplo conceitual de como esses smells poderiam se manifestar. Assim, para trechos de classe, o prompt continha definições e 
 exemplos relacionados a Blob/God Class e Data Class. Para trechos de método ou função, o prompt continha definições e exemplos relacionados a Long Method e Feature Envy.
 
-Os prompts utilizados no experimento são documentados no Apêndice~\ref{ap:prompts-execucao} por meio de exemplos representativos de cada configuração. Para a reprodução integral dos prompts, recomenda-se consultar o arquivo \textit{Script-Api-LLMs/prompts.json} disponível no repositório de execução do trabalho \cite{repositorio_tcc}. Essa organização permite explicitar a estrutura textual empregada em cada tratamento.
+Os prompts utilizados no experimento são documentados no Apêndice~\ref{ap:prompts-execucao}, por meio de exemplos representativos de cada configuração. Para a reprodução integral dos prompts, recomenda-se consultar o arquivo \textit{Script-Api-LLMs/prompts.json} disponível no repositório de execução do trabalho \cite{repositorio_tcc}. Essa organização permite explicitar a estrutura textual empregada em cada tratamento.
 
+Exemplos de few shot classe e metdodo
 
 \section{Preparação do ambiente com SonarQube}
 
@@ -128,6 +129,13 @@ Para cada \textit{sample}, os tratamentos definidos no experimento foram aplicad
 Os resultados gerados por cada tratamento foram armazenados em arquivos no formato JSONL, organizados a partir do notebook de execução e dos artefatos mantidos no repositório do trabalho \cite{repositorio_tcc}. Além dos arquivos de saída das LLMs e do SonarQube, 
 foi mantido um arquivo de log de execução contendo os registros de início, término, duração, tratamento aplicado, tipo de tratamento, 
 código de retorno e status da execução. Esse log permitiu rastrear a execução de cada tratamento para cada \textit{sample}.
+
+Todas as análises estatísticas, descritivas e complementares apresentadas neste capítulo foram implementadas no notebook
+\path{Analise-resultados-experimento/analise_resultados_experimento.ipynb},
+disponível no repositório do projeto no GitHub \cite{repositorio_tcc}. 
+Os \textit{datasets} gerados a partir das análises também estão disponibilizados no mesmo repositório, no diretório
+\path{Analise-resultados-experimento/outputs}, incluindo os arquivos com as respostas consolidadas de cada tratamento utilizados para a construção das tabelas, métricas e gráficos apresentados neste capítulo. 
+Ao final de cada seção ou subseção, indica-se a seção correspondente do notebook utilizada para gerar os resultados apresentados.
 
 O período total de execução do experimento foi identificado a partir dos logs registrados durante o experimento. Com base nesses registros, 
 o experimento teve início em 21/06/2026 às 01:08:47 e término em 23/06/2026 às 13:39:59, 
