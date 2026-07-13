@@ -70,7 +70,7 @@ Nessa versão, o prompt apresentava uma definição conceitual dos code smells p
 um exemplo conceitual de como esses smells poderiam se manifestar. Assim, para trechos de classe, o prompt continha definições e 
 exemplos relacionados a Blob/God Class e Data Class. Para trechos de método ou função, o prompt continha definições e exemplos relacionados a Long Method e Feature Envy.
 
-Os prompts utilizados no experimento são documentados no Apêndice~\ref{ap:prompts-execucao} por meio de exemplos representativos de cada configuração. Para a reprodução integral dos prompts, recomenda-se consultar o arquivo \textit{Script-Api-LLMs/prompts.json} disponível no repositório de execução do trabalho \cite{respositorio_tcc}. Essa organização permite explicitar a estrutura textual empregada em cada tratamento.
+Os prompts utilizados no experimento são documentados no Apêndice~\ref{ap:prompts-execucao} por meio de exemplos representativos de cada configuração. Para a reprodução integral dos prompts, recomenda-se consultar o arquivo \textit{Script-Api-LLMs/prompts.json} disponível no repositório de execução do trabalho \cite{repositorio_tcc}. Essa organização permite explicitar a estrutura textual empregada em cada tratamento.
 
 
 \section{Preparação do ambiente com SonarQube}
@@ -101,7 +101,7 @@ As evidências visuais da configuração do projeto e da ativação das regras c
 
 Como o SonarQube realiza análise estática sobre arquivos de código-fonte, os trechos do dataset foram previamente convertidos em arquivos Java individuais. Cada arquivo recebeu no nome o identificador original da amostra, como \textit{Snippet\_3698323.java}, permitindo associar posteriormente cada \textit{issue} detectada ao respectivo \textit{sample\_id}.
 
-As \textit{issues} geradas foram exportadas para o arquivo \textit{sonar\_snippet\_issues.jsonl} e, em seguida, convertidas para uma representação simplificada em \textit{sonar\_sample\_smells.jsonl}, contendo o \textit{sample\_id}, o arquivo analisado e o smell detectado. Essa etapa permitiu comparar a saída do SonarQube com as respostas produzidas pelos modelos de linguagem, conforme os artefatos disponibilizados no repositório de execução do trabalho na pasta sonar-trechos. \cite{respositorio_tcc}.
+As \textit{issues} geradas foram exportadas para o arquivo \textit{sonar\_snippet\_issues.jsonl} e, em seguida, convertidas para uma representação simplificada em \textit{sonar\_sample\_smells.jsonl}, contendo o \textit{sample\_id}, o arquivo analisado e o smell detectado. Essa etapa permitiu comparar a saída do SonarQube com as respostas produzidas pelos modelos de linguagem, conforme os artefatos disponibilizados no repositório de execução do trabalho na pasta sonar-trechos. \cite{repositorio_tcc}.
 
 \section{Desenho de execução e aleatorização dos tratamentos}
 
@@ -125,7 +125,7 @@ tratamento seja sistematicamente favorecido ou prejudicado por sua posição na 
 A execução dos tratamentos experimentais foi realizada de forma integrada, contemplando tanto os modelos de linguagem quanto o SonarQube. 
 Para cada \textit{sample}, os tratamentos definidos no experimento foram aplicados conforme a ordem estabelecida pelo processo de aleatorização descrito anteriormente.
 
-Os resultados gerados por cada tratamento foram armazenados em arquivos no formato JSONL, organizados a partir do notebook de execução e dos artefatos mantidos no repositório do trabalho \cite{respositorio_tcc}. Além dos arquivos de saída das LLMs e do SonarQube, 
+Os resultados gerados por cada tratamento foram armazenados em arquivos no formato JSONL, organizados a partir do notebook de execução e dos artefatos mantidos no repositório do trabalho \cite{repositorio_tcc}. Além dos arquivos de saída das LLMs e do SonarQube, 
 foi mantido um arquivo de log de execução contendo os registros de início, término, duração, tratamento aplicado, tipo de tratamento, 
 código de retorno e status da execução. Esse log permitiu rastrear a execução de cada tratamento para cada \textit{sample}.
 
@@ -190,7 +190,7 @@ Fonte: Autores
 \section{Organização dos resultados}
 
 Após a execução dos tratamentos, os resultados foram organizados em uma base única de análise. Essa base integrou as respostas dos modelos de linguagem, 
-os resultados do SonarQube, os metadados dos prompts e os vereditos de referência do MLCQ, todos consolidados a partir dos arquivos produzidos no repositório de execução do trabalho \cite{respositorio_tcc}.
+os resultados do SonarQube, os metadados dos prompts e os vereditos de referência do MLCQ, todos consolidados a partir dos arquivos produzidos no repositório de execução do trabalho \cite{repositorio_tcc}.
 
 Cada registro da base final correspondeu à avaliação de um tratamento sobre um determinado sample e smell. 
 Para cada linha, foram armazenadas informações como identificador da amostra, tipo do elemento analisado, smell avaliado, 
