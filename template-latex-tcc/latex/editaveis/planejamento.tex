@@ -158,6 +158,8 @@ O fator possui sete níveis (tratamentos), correspondentes às ferramentas avali
     \item \textbf{DeepSeek - few shot} (DeepSeek-V4-flash).
 \end{enumerate}
 
+        Para as LLMs serão utilizadas 2 versões de prompt, few-shot e zero-shot. A adoção simultânea de \textit{zero-shot} e \textit{few-shot} é dada por esses dois regimes que representam condições complementares de avaliação. O \textit{zero-shot} mede o desempenho do modelo com instrução mínima, destacando sua capacidade de generalização e aproximando-se de um uso mais econômico em contexto. Já o \textit{few-shot} permite observar se exemplos guiados melhoram a consistência e a precisão da resposta, ao custo de maior uso de contexto. A literatura recente em Engenharia de \textit{Software} e em estudos sobre uso de \textit{LLMs} em qualidade de código não apresenta consenso definitivo sobre a superioridade de um regime em relação ao outro, o que reforça a necessidade de comparação empírica entre ambas as configurações \cite{Babikian2025StringValues,Bommasani2021,Abtahi2025LLMStaticAnalysis,DellaPortaEtAll,alomari2026}.
+
 \subsubsection*{Variável Independente}
 A variável independente corresponde ao \textbf{tratamento aplicado}, isto é, à ferramenta ou abordagem de detecção de \textit{code smells} utilizada (SonarQube ou um dos LLMs avaliados, em suas versões \textit{zero-shot} e \textit{few-shot}), conforme os sete níveis definidos no fator experimental.
 
