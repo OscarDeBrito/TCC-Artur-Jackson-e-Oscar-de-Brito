@@ -68,14 +68,14 @@ embasamento teórico e metodológico construído a partir da síntese da literat
 empíricos obtidos com a execução do experimento comparando SonarQube e modelos de linguagem na detecção de \textit{code smells}.
 
 Na etapa inicial, os artigos analisados evidenciaram que ferramentas de análise estática, como o SonarQube, continuam amplamente 
-utilizadas na indústria devido à sua eficiência, integração com pipelines de desenvolvimento e capacidade de aplicar regras 
+utilizadas na indústria devido à sua eficiência, integração com \textit{pipelines} de desenvolvimento e capacidade de aplicar regras 
 automatizadas sobre o código-fonte. No entanto, a literatura também aponta limitações dessas ferramentas, como a dependência de 
 limiares fixos, a geração de falsos positivos e a dificuldade em capturar aspectos semânticos mais complexos do código.
 
 Em paralelo, observou-se um crescimento de pesquisas que investigam o potencial da Inteligência artificial
 em tarefas de compreensão e avaliação de código. Diversos estudos apontam que abordagens envolvendo IA e \textit{Machine Learning} conseguem
 identificar padrões estruturais e semânticos que extrapolam as regras tradicionais de análise estática, abrindo espaço
-para novas possibilidades em detecção de code smells, previsão de defeitos, explicações automáticas e
+para novas possibilidades em detecção de \textit{code smells}, previsão de defeitos, explicações automáticas e
 refatorações sugeridas. Apesar disso, as pesquisas também apontam desafios relevantes, como a falta de padronização
 das respostas dos modelos, o risco de alucinações, a dificuldade de controlar variações entre versões e a necessidade
 de protocolos rigorosos de avaliação empírica.
@@ -84,8 +84,8 @@ A revisão estruturada também evidenciou uma lacuna relevante: embora existam e
 sobre modelos baseados em IA, ainda são menos frequentes comparações experimentais diretas entre ferramentas de análise estática 
 e LLMs para detecção de \textit{code smells}. Essa lacuna fundamentou a proposta experimental deste trabalho.
 
-Na etapa experimental, foram avaliados sete tratamentos: SonarQube, ChatGPT zero-shot, ChatGPT few-shot, Claude zero-shot, 
-Claude few-shot, DeepSeek zero-shot e DeepSeek few-shot. A unidade de análise foi definida como o par \texttt{sample\_id} e 
+Na etapa experimental, foram avaliados sete tratamentos: SonarQube, ChatGPT \textit{zero-shot}, ChatGPT \textit{few-shot}, Claude \textit{zero-shot}, 
+Claude \textit{few-shot}, DeepSeek \textit{zero-shot} e DeepSeek \textit{few-shot}. A unidade de análise foi definida como o par \texttt{sample\_id} e 
 \texttt{smell}, considerando que um mesmo trecho de código pode ser avaliado em relação a mais de um \textit{code smell}. 
 Os resultados dos tratamentos foram comparados ao \textit{ground truth} do MLCQ, e cada predição foi codificada como acerto 
 ou erro em relação ao veredito de referência.
@@ -98,13 +98,13 @@ seja estatisticamente significativa, o tamanho de efeito global é baixo.
 
 Após o teste global, foram realizadas comparações par a par com o teste de McNemar, aplicando-se a correção de Holm-Bonferroni 
 para controle do erro Tipo I acumulado. Das 21 comparações realizadas, 19 apresentaram diferença estatisticamente significativa 
-após a correção. Apenas os pares ChatGPT few-shot versus Claude zero-shot e ChatGPT zero-shot versus DeepSeek zero-shot não 
+após a correção. Apenas os pares ChatGPT \textit{few-shot} versus Claude \textit{zero-shot} e ChatGPT \textit{zero-shot} versus DeepSeek \textit{zero-shot} não 
 apresentaram diferença significativa. Esses resultados confirmam que, na maior parte das comparações, os tratamentos apresentaram 
 comportamentos distintos em relação à proporção de acerto.
 
 Na análise geral por tratamento, o SonarQube apresentou a maior taxa de acerto, com valor aproximado de 0,897. Entre as LLMs, o 
-melhor resultado nessa métrica foi obtido pelo DeepSeek few-shot, com taxa de acerto aproximada de 0,888. Em seguida, apareceram 
-ChatGPT zero-shot e DeepSeek zero-shot, com taxas de acerto próximas de 0,880. No entanto, a taxa de acerto geral deve ser 
+melhor resultado nessa métrica foi obtido pelo DeepSeek \textit{few-shot}, com taxa de acerto aproximada de 0,888. Em seguida, apareceram 
+ChatGPT \textit{zero-shot} e DeepSeek \textit{zero-shot}, com taxas de acerto próximas de 0,880. No entanto, a taxa de acerto geral deve ser 
 interpretada com cautela, pois a base apresenta predominância de casos negativos, isto é, casos em que o MLCQ indica ausência de \textit{smell}.
 
 As métricas de classificação mostraram diferenças importantes entre os tratamentos. O SonarQube apresentou alta especificidade, 
@@ -113,16 +113,16 @@ com valor aproximado de 0,974, indicando boa capacidade de reconhecer corretamen
 Esse comportamento caracteriza uma abordagem mais conservadora.
 
 As LLMs, por outro lado, apresentaram maior tendência a predizer a presença de \textit{smells}. Esse comportamento resultou 
-em valores mais altos de \textit{recall}, mas também em maior número de falsos positivos. O Claude zero-shot apresentou o 
-maior \textit{recall}, com valor aproximado de 0,750, enquanto o DeepSeek few-shot apresentou o melhor F1-score geral, com 
+em valores mais altos de \textit{recall}, mas também em maior número de falsos positivos. O Claude \textit{zero-shot} apresentou o 
+maior \textit{recall}, com valor aproximado de 0,750, enquanto o DeepSeek \textit{few-shot} apresentou o melhor F1-score geral, com 
 valor aproximado de 0,533. Esse resultado indica que, embora o SonarQube tenha obtido maior taxa de acerto geral, algumas 
 LLMs apresentaram melhor equilíbrio entre precisão e \textit{recall}.
 
 A análise por \textit{smell} mostrou que o desempenho dos tratamentos varia conforme a categoria avaliada. O SonarQube 
 apresentou melhores taxas de acerto em Blob/God Class e Feature Envy, enquanto as LLMs se destacaram em Long Method. 
-Para Data Class, os resultados foram mais próximos entre os tratamentos. Também se observou que o uso de few-shot não 
-produziu melhoria consistente em todos os modelos. Em alguns casos, a versão zero-shot apresentou desempenho igual ou 
-superior à versão few-shot, indicando que o efeito da estratégia de prompt depende do modelo e do tipo de \textit{smell} avaliado.
+Para Data Class, os resultados foram mais próximos entre os tratamentos. Também se observou que o uso de \textit{few-shot} não 
+produziu melhoria consistente em todos os modelos. Em alguns casos, a versão \textit{zero-shot} apresentou desempenho igual ou 
+superior à versão \textit{few-shot}, indicando que o efeito da estratégia de \textit{prompt} depende do modelo e do tipo de \textit{smell} avaliado.
 
 A análise dos falsos positivos e falsos negativos reforçou essa diferença de comportamento. O SonarQube apresentou menor 
 número de falsos positivos, mas maior número de falsos negativos. As LLMs apresentaram maior número de verdadeiros positivos, 
@@ -145,7 +145,7 @@ nos quais se busca maior cobertura na identificação de possíveis \textit{code
 
 \section{Uso de Inteligência Artificial}
 
-Cabe destacar que a Inteligência Artificial foi utilizada neste trabalho em duas dimensões distintas. A primeira refere-se ao próprio objeto de investigação, uma vez que modelos de linguagem de grande porte foram avaliados como tratamentos experimentais para a detecção de \textit{code smells}. Nesse caso, as LLMs foram submetidas a prompts controlados e suas respostas foram comparadas ao \textit{ground truth} do MLCQ, conforme o protocolo experimental definido. A segunda dimensão refere-se ao apoio ao desenvolvimento da monografia, em que ferramentas de IA foram utilizadas de forma auxiliar para revisão textual, organização de trechos, apoio à interpretação de resultados e estruturação de códigos de análise. Todas as sugestões fornecidas por ferramentas de IA foram revisadas, adaptadas e validadas pelos autores antes de sua incorporação ao trabalho.
+Cabe destacar que a Inteligência Artificial foi utilizada neste trabalho em duas dimensões distintas. A primeira refere-se ao próprio objeto de investigação, uma vez que modelos de linguagem de grande porte foram avaliados como tratamentos experimentais para a detecção de \textit{code smells}. Nesse caso, as LLMs foram submetidas a \textit{prompts} controlados e suas respostas foram comparadas ao \textit{ground truth} do MLCQ, conforme o protocolo experimental definido. A segunda dimensão refere-se ao apoio ao desenvolvimento da monografia, em que ferramentas de IA foram utilizadas de forma auxiliar para revisão textual, organização de trechos, apoio à interpretação de resultados e estruturação de códigos de análise. Todas as sugestões fornecidas por ferramentas de IA foram revisadas, adaptadas e validadas pelos autores antes de sua incorporação ao trabalho.
 
 Dessa forma, o uso de IA generativa teve caráter instrumental e assistivo, contribuindo para a organização, revisão e apoio técnico durante o desenvolvimento do estudo, sem substituir a análise crítica, a tomada de decisão metodológica e a responsabilidade autoral dos pesquisadores.
 
@@ -164,7 +164,7 @@ interpretados em conjunto com métricas complementares, como precisão, \textit{
 
 Também há limitações relacionadas aos tratamentos avaliados. No caso do SonarQube, os resultados dependem das regras, 
 limiares e configurações utilizadas no experimento. Alterações nessas regras poderiam modificar o desempenho observado. 
-No caso das LLMs, as respostas podem variar conforme o provedor, a versão do modelo, a formulação do prompt, os limites 
+No caso das LLMs, as respostas podem variar conforme o provedor, a versão do modelo, a formulação do \textit{prompt}, os limites 
 de tokens e eventuais mudanças nas APIs. Além disso, uma resposta foi removida da análise principal por ter sido interrompida 
 por limite de tokens, o que ilustra a necessidade de validação das saídas geradas por modelos de linguagem.
 
@@ -178,13 +178,13 @@ Como trabalhos futuros, recomenda-se ampliar o experimento para outras bases de 
 observados se mantêm em diferentes conjuntos de dados. Também seria relevante incluir outros tipos de \textit{code smells}, 
 especialmente aqueles que dependem de maior compreensão semântica, arquitetural ou contextual do código.
 
-Outra possibilidade é investigar novas estratégias de prompt. Os resultados indicaram que o uso de few-shot não produziu 
+Outra possibilidade é investigar novas estratégias de \textit{prompt}. Os resultados indicaram que o uso de \textit{few-shot} não produziu 
 melhoria consistente em todos os modelos e \textit{smells}. Assim, estudos futuros podem comparar diferentes formatos de 
 instrução, quantidades de exemplos, respostas estruturadas e estratégias de validação automática das saídas.
 
 Além disso, trabalhos futuros podem investigar o custo-benefício das abordagens avaliadas, considerando não apenas 
 métricas de desempenho, mas também custo financeiro das APIs, tempo de execução, esforço de revisão humana e impacto 
-prático no processo de manutenção de software.
+prático no processo de manutenção de \textit{software}.
 
 Por fim, seria relevante conduzir estudos com desenvolvedores para avaliar a utilidade prática das respostas 
 produzidas pelas LLMs, incluindo clareza das justificativas, capacidade de apoiar decisões de refatoração e potencial 

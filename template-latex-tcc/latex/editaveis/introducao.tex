@@ -1,7 +1,7 @@
 
 \chapter[Introdução]{Introdução}
 
-Este capítulo tem como objetivo introduzir o leitor(a) aos temas principais que serão abordados neste trabalho. São apresentados conceitos como manutenibilidade de software, 
+Este capítulo tem como objetivo introduzir o leitor(a) aos temas principais que serão abordados neste trabalho. São apresentados conceitos como manutenibilidade de \textit{software}, 
 modelos de qualidade e \textit{code smells}, além de delimitar o escopo do problema, explicitar a 
 questão de pesquisa que orienta a investigação e descrever a organização geral do documento.
 
@@ -40,10 +40,10 @@ indicando oportunidades concretas de pesquisa e de adoção em ambientes de dese
 
 \section{Problema}
 
-Medir e detectar \textit{code smells} é uma tarefa crítica no desenvolvimento de software para 
+Medir e detectar \textit{code smells} é uma tarefa crítica no desenvolvimento de \textit{software} para 
 garantir a boa qualidade do código \cite{Haroon2025}. \textit{Code smells} são estruturas de código que indicam 
 violações dos princípios fundamentais de design \cite{Fowler2018} e afetam negativamente a testabilidade, a 
-manutenibilidade e a evolução dos produtos de software \cite{SharmaSpinellis2018}. Embora já exista
+manutenibilidade e a evolução dos produtos de \textit{software} \cite{SharmaSpinellis2018}. Embora já exista
 muito conhecimento acumulado na área, ainda carecemos de métodos que superem a subjetividade inerente a 
 certos \textit{code smells}, como o \textit{God Class} \cite{Haroon2025}.
 
@@ -64,7 +64,7 @@ O \textit{code smell} é uma propriedade multifacetada, contribuindo para o acú
 A presença de \textit{code smell} sinaliza um design deficiente e demonstra ser mais propensa a alterações e defeitos.
 Em essência, a falta de ferramentas inteligentes que forneçam feedback contínuo e 
 \textit{just-in-time} para detecção de \textit{code smells} pode comprometer ou mesmo inviabilizar a estratégia de negócio ao 
-degradar a qualidade e a manutenibilidade do software \cite{Haroon2025}.
+degradar a qualidade e a manutenibilidade do \textit{software} \cite{Haroon2025}.
 
 Nesse cenário, técnicas de \textit{Machine Learning} (ML) têm se mostrado promissoras para detecção de \textit{code smells}, 
 com o objetivo de melhorar a precisão e reduzir o viés associado a outras técnicas. Contudo, o principal 
@@ -92,7 +92,7 @@ conforme ilustrado na Figura~\ref{fig:gqm}. Essa estrutura foi ajustada ao escop
         \hline
         \textbf{Característica} & \textbf{Valor} \\
         \hline
-        \textbf{Analisar} & a característica de qualidade de produto de software referente à manutenibilidade e, em especial, a subcaracterística de analisabilidade,  considerando as visão de qualidade interna \\ 
+        \textbf{Analisar} & a característica de qualidade de produto de \textit{software} referente à manutenibilidade e, em especial, a subcaracterística de analisabilidade,  considerando as visão de qualidade interna \\ 
         \hline
         \textbf{Com o propósito de} & Caracterizar \\
         \hline
@@ -100,7 +100,7 @@ conforme ilustrado na Figura~\ref{fig:gqm}. Essa estrutura foi ajustada ao escop
         \hline
         \textbf{Do ponto de vista de} & Pesquisadores da área de Engenharia de Software. \\
         \hline
-        \textbf{No contexto do} & projetos de software livre voltados para aplicações web\\
+        \textbf{No contexto do} & projetos de \textit{software} livre voltados para aplicações web\\
         \hline
     \end{tabular} \\[0.5em]
    	Fonte: Adaptado de \citeonline{Basili1994}
@@ -126,12 +126,12 @@ Considerando essa perspectiva definimos a seguinte questão principal de pesquis
 \section{Objetivos}
 
 O objetivo geral deste trabalho é analisar a contribuição de abordagens baseadas em Inteligência Artificial
-(IA), em comparação com ferramentas de análise estática, na detecção de \textit{code smells}, considerando a característica de manutenibilidade, especialmente subcaracterística analisabilidade,  em projetos de software livre, voltados a aplicações web.
+(IA), em comparação com ferramentas de análise estática, na detecção de \textit{code smells}, considerando a característica de manutenibilidade, especialmente subcaracterística analisabilidade,  em projetos de \textit{software} livre, voltados a aplicações web.
 
     Para alcançar o objetivo proposto, foram definidos os seguintes objetivos específicos:
 
 \begin{itemize}
-	\item Mapear as principais abordagens de Inteligência Artificial (IA) aplicadas à detecção de \textit{code smells} em produtos de software;
+	\item Mapear as principais abordagens de Inteligência Artificial (IA) aplicadas à detecção de \textit{code smells} em produtos de \textit{software};
 	\item Comparar ferramentas baseadas em IA com ferramentas de análise estática quanto ao desempenho 
     relacionado às subcaracterísticas de manutenibilidade, especialmente analisabilidade.;
     \item Identificar limitações e desafios na aplicação de técnicas de IA à garantia da qualidade de 
@@ -145,19 +145,18 @@ O objetivo geral deste trabalho é analisar a contribuição de abordagens basea
 
 A seguir, são apresentados os capítulos que compõem a estrutura deste trabalho.
 
+\begin{itemize}[itemsep=0.4em, topsep=0.5em, parsep=0pt, partopsep=0pt]
+	\item \textbf{Introdução:} é apresentada uma contextualização do trabalho, o problema investigado, a definição da questão de pesquisa e dos objetivos do trabalho. Por fim, descreve a estrutura e o cronograma das atividades realizadas;
 
-\begin{itemize}
-	\item Introdução: é apresentada uma contextualização do trabalho, o problema investigado, a
- definição da questão de pesquisa e dos objetivos do trabalho. Por fim, descreve a
- estrutura e o cronograma das atividades realizadas;
-	\item Referencial Teórico: são apresentados os fundamentos conceituais e metodológicos que 
-    sustentam o desenvolvimento deste trabalho, abordando os princípios da Engenharia de Software 
-    Experimental, os modelos de qualidade aplicáveis à manutenibilidade, os conceitos de \textit{code smells} e 
-    de Inteligência Artificial (IA), que servem como base para o experimento conduzido;
-	\item Revisão Estruturada da Literatura: formaliza e documenta o processo empregado para a seleção dos estudos
- que fundamentam este trabalho, incluindo o protocolo de busca, adaptado da revisão sistemática de literatura \cite{kitchenham2007guidelines}; 
-    \item  Planejamento do experimento controlado; 
- 	\item Conclusão: consolida os achados obtidos parcial ou integralmente e como esses resultados respondem à questão de pesquisa principal. Além disso, são discutidas as limitações do estudo e as possibilidades de aprofundamento em trabalhos futuros.
+	\item \textbf{Referencial Teórico:} são apresentados os fundamentos conceituais e metodológicos que sustentam o desenvolvimento deste trabalho, abordando os princípios da Engenharia de Software Experimental, os modelos de qualidade aplicáveis à manutenibilidade, os conceitos de \textit{code smells} e de Inteligência Artificial (IA), que servem como base para o experimento conduzido;
+
+	\item \textbf{Revisão Estruturada da Literatura:} formaliza e documenta o processo empregado para a seleção dos estudos que fundamentam este trabalho, incluindo o protocolo de busca, adaptado da revisão sistemática de literatura \cite{kitchenham2007guidelines};
+
+	\item \textbf{Planejamento do experimento controlado:} apresenta a definição dos tratamentos, objetos, variáveis, hipóteses, métricas, procedimentos de execução e estratégia de análise estatística adotada no experimento;
+
+	\item \textbf{Interpretação dos Resultados:} apresenta a consolidação dos dados, a análise estatística, a análise descritiva e as análises complementares realizadas a partir dos resultados obtidos no experimento;
+
+	\item \textbf{Conclusão:} consolida os achados obtidos e discute como os resultados respondem à questão de pesquisa principal. Além disso, são apresentadas as limitações do estudo e as possibilidades de aprofundamento em trabalhos futuros.
 \end{itemize} 
 
 \section{Cronograma e Fluxo de Atividades}
@@ -187,8 +186,8 @@ Figura \ref{fig:cronograma}.
 \end{figure}
 
 \begin{itemize}
-    \item \textbf{Contextualização sobre Engenharia de Software Experimental:} O objetivo inicial foi fundamentar os princípios da Engenharia de Software Experimental, explorando metodologias empíricas como revisões sistemáticas da literatura, questionários, experimentos e estudos de caso. \cite{Wohlin:2012:ESE:2349018} \cite{yin2015estudo} \cite{Runeson2009}
-    \item \textbf{Definição do GQM:} Uso da abordagem Goal Question Metric (GQM) \cite{Basili1994} para a construção da questão principal de pesquisa, suas subquestões e as medidas a serem analisadas.
+    \item \textbf{Contextualização sobre Engenharia de \textit{Software} Experimental:} O objetivo inicial foi fundamentar os princípios da Engenharia de \textit{Software} Experimental, explorando metodologias empíricas como revisões sistemáticas da literatura, questionários, experimentos e estudos de caso. \cite{Wohlin:2012:ESE:2349018} \cite{yin2015estudo} \cite{Runeson2009}
+    \item \textbf{Definição do GQM:} Uso da abordagem \textit{Goal Question Metric} (GQM) \cite{Basili1994} para a construção da questão principal de pesquisa, suas subquestões e as medidas a serem analisadas.
     \item \textbf{Elaboração do Protocolo de Revisão da Literatura:} Estruturação e adaptação do protocolo de revisão sistemática da literatura proposto por \citeonline{kitchenham2007guidelines}. Este processo inclui a definição da string de busca baseada no protocolo PICO, adapatado da área da medicina \cite{pai_clinical_2004}. Por meio desse protocolo definimos sinônimos de termos, critérios de inclusão e exclusão de estudos, além do método de análise  e  extração de dados.
     \item \textbf{Seleção dos Artigos:} A etapa envolveu a filtragem inicial dos estudos por meio da análise de títulos, resumos e palavras-chave, aplicando os critérios de inclusão e exclusão definidos no protocolo de revisão.
     \item \textbf{Leitura do Material Selecionado:} Leitura dos estudos selecionados para aprofundar o conhecimento sobre métodos de avaliação de manutenibilidade e abordagens de detecção de \textit{code smells}.

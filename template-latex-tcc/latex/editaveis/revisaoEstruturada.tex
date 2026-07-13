@@ -93,12 +93,12 @@ incluídos na síntese da literatura.
         \hline
         Questões secundárias de pesquisa &
         \begin{enumerate}[leftmargin=*, label=\arabic*.]
-            \item Quais tipos de code smells são mais frequentemente investigados na literatura?
-            \item As ferramentas de inteligência artificial estão realmente sendo utilizadas na detecção de code smells?
-            \item Quais abordagens de inteligência artificial são mais utilizadas na detecção de code smells?
-            \item Quais ferramentas de análise estática são mais comumente empregadas na detecção de code smells?
-            \item Quais métricas de avaliação são mais comumente usadas para medir a eficácia da detecção de code smells?
-            \item Quais limitações e desafios são mais relatados nos estudos sobre detecção de code smells com IA?
+            \item Quais tipos de \textit{code smells} são mais frequentemente investigados na literatura?
+            \item As ferramentas de inteligência artificial estão realmente sendo utilizadas na detecção de \textit{code smells}?
+            \item Quais abordagens de inteligência artificial são mais utilizadas na detecção de \textit{code smells}?
+            \item Quais ferramentas de análise estática são mais comumente empregadas na detecção de \textit{code smells}?
+            \item Quais métricas de avaliação são mais comumente usadas para medir a eficácia da detecção de \textit{code smells}?
+            \item Quais limitações e desafios são mais relatados nos estudos sobre detecção de \textit{code smells} com IA?
             \item Quantos estudos apresentam validação experimental dos resultados?
             \item Quantos artigos foram publicados em revistas acadêmicas?
             \item Quais as principais atenções com os falsos positivos, segundo a literatura?
@@ -120,8 +120,8 @@ incluídos na síntese da literatura.
         
         \textbf{Critérios de Inclusão} &
         \begin{enumerate}[leftmargin=*, label=\arabic*.]
-            \item Aborda a detecção ou análise de code smells em código-fonte.
-            \item Apresenta ou avalia ferramentas baseadas em inteligência artificial e/ou ferramentas de análise estática para detecção de code smells.
+            \item Aborda a detecção ou análise de \textit{code smells} em código-fonte.
+            \item Apresenta ou avalia ferramentas baseadas em inteligência artificial e/ou ferramentas de análise estática para detecção de \textit{code smells}.
         \end{enumerate} \\
         \hline
         
@@ -155,7 +155,7 @@ incluídos na síntese da literatura.
             \item Autores
             \item Ano de publicação
             \item Fonte de publicação
-            \item Code smells investigados
+            \item \textit{Code smells} investigados
             \item Abordagem de inteligência artificial
             \item Ferramentas de inteligência artificial
             \item Ferramentas de Analise estática
@@ -259,10 +259,10 @@ elementos definidos no formulário apresentado na Tabela \ref{tab:form_extracao}
 
 As subseções seguintes apresentam a síntese dos resultados obtidos para cada uma das questões secundárias de pesquisa estabelecidas para esta revisão.
 
-\subsection{Quais tipos de code smells são mais frequentemente investigados na literatura?}
+\subsection{Quais tipos de \textit{code smells} são mais frequentemente investigados na literatura?}
 
 A análise dos estudos revisados revela que há um conjunto relativamente 
-estável de \textit{code smells} que aparecem de forma recorrente nos produtos de software 
+estável de \textit{code smells} que aparecem de forma recorrente nos produtos de \textit{software} 
 avaliados. Entre eles, quatro se destacam com maior frequência: \textit{God Class}, 
 \textit{Long Method}, \textit{Feature Envy} e \textit{Data Class}, mencionados de forma 
 consistente tanto no estudo principal quanto nos trabalhos secundários utilizados como base \cite{Ho2025EnseSmells,Madeyski2023Industry,Sahu2024Predicting}. 
@@ -285,7 +285,7 @@ Em resumo, os resultados convergem para um núcleo recorrente de smells
 que formam a base das análises de qualidade nos produtos estudados.
 
 
-\subsection{Quais abordagens de inteligência artificial são mais utilizadas na detecção de code smells?}
+\subsection{Quais abordagens de inteligência artificial são mais utilizadas na detecção de \textit{code smells}?}
 
 Os artigos analisados empregam um conjunto variado de abordagens de Inteligência 
 Artificial para detecção de \textit{code smells}. A estratégia mais recorrente é o 
@@ -304,7 +304,7 @@ estruturas internas do código, bem como modelagem probabilística profunda \cit
 Por fim, alguns estudos incorporam IA generativa e \textit{LLMs} como apoio ao processo de 
 análise, além de técnicas de \textit{XAI} para aumentar a interpretabilidade e priorização\cite{Huang2024AligningXAI,Rashid2025InterpretableDL}.
 
-\subsection{As ferramentas de inteligência artificial estão realmente sendo utilizadas na detecção de code smells?}
+\subsection{As ferramentas de inteligência artificial estão realmente sendo utilizadas na detecção de \textit{code smells}?}
 
 A literatura analisada evidencia o uso de uma ampla variedade de ferramentas de 
 Inteligência Artificial para detecção de \textit{code smells}, distribuídas principalmente 
@@ -332,7 +332,7 @@ Em síntese, os estudos utilizam desde algoritmos clássicos até arquiteturas p
 detecção de \textit{code smells}.
 
 
-\subsection{Quais ferramentas de análise estática são mais comumente empregadas na detecção de code smells?}
+\subsection{Quais ferramentas de análise estática são mais comumente empregadas na detecção de \textit{code smells}?}
 
 Nos artigos analisados, observa-se uma grande variação no uso de ferramentas de análise
 estática, além disso, muitos estudos não aplicam diretamente uma ferramenta, utilizando apenas \textit{datasets} previamente rotulados por 
@@ -370,7 +370,7 @@ até \textit{parsers}, ASTs e métricas customizadas, refletindo a diversidade
 das estratégias de extração de características antes da aplicação dos métodos 
 de Inteligência Artificial.
 
-\subsection{Quais métricas de avaliação são mais comumente usadas para medir a eficácia da detecção de code smells?}
+\subsection{Quais métricas de avaliação são mais comumente usadas para medir a eficácia da detecção de \textit{code smells}?}
 
 Foi envidenciado que a eficácia da detecção de \textit{code smells} é 
 avaliada, majoritamente, por métricas derivadas da matriz de confusão, com foco especial 
@@ -398,7 +398,7 @@ Em síntese, a avaliação combinada de \textit{Precision}, \textit{Recall}, \te
 estruturais de código e análises qualitativas nos estudos mais recentes.
 
 
-\subsection{Quais limitações e desafios são mais relatados nos estudos sobre detecção de code smells com IA?}
+\subsection{Quais limitações e desafios são mais relatados nos estudos sobre detecção de \textit{code smells} com IA?}
 
 A análise dos estudos revela que a detecção de \textit{code smells} por meio de técnicas 
 de Inteligência Artificial ainda enfrenta limitações significativas em diversas frentes. 
@@ -505,7 +505,7 @@ Cabe destacar que a pesquisa em detecção de \textit{code smells} já se desenv
 diferentes ferramentas têm sido efetivamente utilizadas em ambientes reais, inclusive antes da popularização dos \textit{LLMs}. As taxas 
 elevadas de falsos positivos, recorrentes na literatura, não significam que essas abordagens sejam inviáveis na prática, mas 
 indicam a necessidade de calibração cuidadosa. Em conjunto, os artigos sugerem que controlar os falsos positivos é fundamental 
-para que as técnicas de IA para detecção de code smells sejam efetivamente úteis e confiáveis em contextos reais de desenvolvimento,
+para que as técnicas de IA para detecção de \textit{code smells} sejam efetivamente úteis e confiáveis em contextos reais de desenvolvimento,
 tanto nas abordagens anteriores quanto nas posteriores aos \textit{LLMs}.
 
     

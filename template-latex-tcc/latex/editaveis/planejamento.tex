@@ -20,7 +20,7 @@ frequentemente associada à degradação da qualidade do código.
 \subsection{Questão de Pesquisa}
 
 Visando responder a questão principal de pesquisa do trabalho apresentado na Seção \ref{qp_principal} 
-(\textit{Como sistemas baseados em (IA) têm auxiliado a garantia de qualidade de software, especialmente 
+(\textit{Como sistemas baseados em (IA) têm auxiliado a garantia de qualidade de \textit{software}, especialmente 
 na detecção de anomalias em código-fonte potencialmente problemático? }), a metodologia GQM \citeonline{Basili1994} 
 foi utilizada para definição das perguntas específicas, derivadas da pergunta principal e suas respectivas métricas
 
@@ -35,9 +35,9 @@ foi utilizada para definição das perguntas específicas, derivadas da pergunta
     
     %\begin{itemize}
     %    \item Métrica 2.1 - Média de falsos positivos por tratamento: proporção média de casos em que a ferramenta 
-    %    indica code smell quando o rótulo humano indica ausência.
+    %    indica \textit{code smell} quando o rótulo humano indica ausência.
     %    \item Métrica 2.2 - Média de falsos negativos por tratamento: proporção média de casos em que a ferramenta 
-    %    não identifica corretamente o code smell comparado ao rotulado no MLCQ.
+    %    não identifica corretamente o \textit{code smell} comparado ao rotulado no MLCQ.
     %    \item Métrica 2.3 - Razão FP/FN por abordagem: medida complementar que evidencia tendências específicas 
     %    de erro de cada técnica.
     %\end{itemize}
@@ -67,11 +67,11 @@ No que se refere a base de qualidade adotada, foram considerados os modelos clá
 \citeonline{boehm1978characteristics}, que organizaram fatores e subfatores de qualidade e propuseram uma estrutura hierárquica para análise 
 de produtos de \textit{software}. Esses referenciais fornecem uma base conceitual para relacionar propriedades de projeto e 
 implementação a atributos de qualidade interna e de manutenibilidade, servindo como fundamento para a discussão sobre 
-como code smells podem impactar a qualidade do produto ao longo de seu ciclo de vida.
+como \textit{code smells} podem impactar a qualidade do produto ao longo de seu ciclo de vida.
 
 A partir desses modelos, normas posteriores como a \citeonline{ISO9126} e a \citeonline{ISOIEC25010} consolidaram e refinaram a taxonomia de 
 características de qualidade, destacando, entre outras, a analisabilidade. Neste trabalho, tais modelos 
-foram utilizados como pano de fundo conceitual para enquadrar os code smells como indícios de degradação da qualidade interna 
+foram utilizados como pano de fundo conceitual para enquadrar os \textit{code smells} como indícios de degradação da qualidade interna 
 e para justificar o foco na detecção e análise desses problemas de projeto.
 
 Para o estudo de \textit{code smells}, o trabalho de \citeonline{Fowler1999} foi crucial para a aplicação desenvolvida neste estudo, 
@@ -84,10 +84,10 @@ fundamental, pois apresentou o \textit{dataset} MLCQ, que reúne trechos de cód
 de diferentes \textit{code smells}. Esse \textit{dataset} serve como base para a avaliação comparativa das abordagens de detecção 
 adotadas no experimento, fornecendo rótulos humanos que funcionam como referência  para medir a eficácia 
 das técnicas avaliadas. Em complemento, o estudo de \citeonline{Fontana2016} descreve outra base de dados, que foi bastante utilizada nos estudos, com características 
-semelhantes ao MLCQ, que também foi considerada como referência para a seleção dos code smells analisados e para a 
+semelhantes ao MLCQ, que também foi considerada como referência para a seleção dos \textit{code smells} analisados e para a 
 definição das avaliações utilizadas neste trabalho.
 
-Para o uso de \textit{LLMs} na análise de código, o trabalho de \cite{Abtahi2025LLMStaticAnalysis, Tkachuk2025RefactoringGAI} foi 
+Para o uso de \textit{LLMs} na análise de código, o trabalho de \cite{Abtahi2025LLMStaticAnalysis, Tkachuk2025RefactoringGAI} foi  
 relevante, pois explorou o potencial de modelos de linguagem para tarefas de análise estática e refatoração de código. 
 Esses estudos demonstraram a viabilidade de empregar \textit{LLMs} para compreender e avaliar trechos de código, fornecendo 
 ideias sobre como esses modelos podem ser aplicados na detecção de \textit{code smells}. As abordagens metodológicas 
@@ -106,7 +106,7 @@ e os procedimentos de coleta e análise de dados adotados neste estudo.
 \subsection{Contexto}
 
 O experimento será conduzido no contexto dos projetos \textit{open-source} que compõem o
-dataset MLCQ, apresentado por \citeonline{MadeyskiLewowski2020MLCQ}. O MLCQ reúne trechos de código
+\textit{dataset} MLCQ, apresentado por \citeonline{MadeyskiLewowski2020MLCQ}. O MLCQ reúne trechos de código
 extraídos de sistemas Java reais e anotados manualmente por desenvolvedores quanto à presença,
 tipo e severidade de \textit{code smells}, funcionando como referência (rótulo humano) para a
 avaliação dos tratamentos experimentais.
@@ -115,22 +115,22 @@ A escolha do MLCQ como fonte de dados experimentais fundamenta-se em evidências
 identificadas na revisão estruturada da literatura. Diversos estudos recentes têm utilizado o 
 MLCQ em experimentos envolvendo detecção automática de \textit{code smells} 
 \cite{Kovacevic2022AutomaticDetection,Ho2025EnseSmells,Sandouka2025CrossLanguage}. 
-Essa adoção decorre do fato de que o dataset foi construído com a participação de desenvolvedores profissionais, 
+Essa adoção decorre do fato de que o \textit{dataset} foi construído com a participação de desenvolvedores profissionais, 
 cujas anotações foram validadas por múltiplos revisores, assegurando confiabilidade e reduzindo vieses individuais, 
 além de abranger uma grande diversidade de sistemas reais.
 
 \textbf{Sujeito do experimento:} Os sujeitos do experimento são os trechos de código-fonte presentes nos projetos que compõem o \textit{dataset MLCQ}.
 
 \textbf{População:} a população é composta pelos 522 repositórios Java provenientes do
-dataset MLCQ.
+\textit{dataset} MLCQ.
 
 \textbf{Amostra:} a amostra é formada pelos aproximadamente 15.000 instâncias individualmente anotados
 no MLCQ. Cada registro corresponde a uma instância candidata de \textit{code smell}, definida pelos
-metadados do dataset, incluindo: \textit{repository}, \textit{commit hash}, \textit{path}, \textit{start line},
+metadados do \textit{dataset}, incluindo: \textit{repository}, \textit{commit hash}, \textit{path}, \textit{start line},
 \textit{end line}, \textit{smell type}, \textit{severity} e \textit{type}.
 
 
-Para a execução do experimento, cada trecho de código será reconstruído a partir dos metadados fornecidos pelo dataset
+Para a execução do experimento, cada trecho de código será reconstruído a partir dos metadados fornecidos pelo \textit{dataset}
 (\textit{repository}, \textit{commit hash}, \textit{path}, \textit{start line} e \textit{end line}),
 garantindo a fidelidade ao código original existente no momento da anotação. As abordagens de detecção serão então aplicadas sobre o mesmo conjunto de trechos de código-fonte,
 permitindo comparações entre abordagens distintas de detecção de \textit{code smells}.
@@ -145,7 +145,7 @@ ambiente técnico composto pelo dataset, repositórios GitHub e ferramentas auto
 As variáveis são definidas conforme terminologia de \citeonline{Wohlin:2012:ESE:2349018}.
 
 \subsubsection*{Fator Experimental}
-O experimento possui um único fator: \textbf{Analisabilidade aplicada à detecção de code smells}.
+O experimento possui um único fator: \textbf{Analisabilidade aplicada à detecção de \textit{code smells}}.
 O fator possui sete níveis (tratamentos), correspondentes às ferramentas avaliadas:
 
 \begin{enumerate}
@@ -158,10 +158,10 @@ O fator possui sete níveis (tratamentos), correspondentes às ferramentas avali
     \item \textbf{DeepSeek - few shot} (DeepSeek-V4-flash).
 \end{enumerate}
 
-        Para as LLMs serão utilizadas 2 versões de prompt, few-shot e zero-shot. A adoção simultânea de \textit{zero-shot} e \textit{few-shot} é dada por esses dois regimes que representam condições complementares de avaliação. O \textit{zero-shot} mede o desempenho do modelo com instrução mínima, destacando sua capacidade de generalização e aproximando-se de um uso mais econômico em contexto. Já o \textit{few-shot} permite observar se exemplos guiados melhoram a consistência e a precisão da resposta, ao custo de maior uso de contexto. A literatura recente em Engenharia de \textit{Software} e em estudos sobre uso de \textit{LLMs} em qualidade de código não apresenta consenso definitivo sobre a superioridade de um regime em relação ao outro, o que reforça a necessidade de comparação empírica entre ambas as configurações \cite{Babikian2025StringValues,Bommasani2021,Abtahi2025LLMStaticAnalysis,DellaPortaEtAll,alomari2026}.
+        Para as \textit{LLMs} serão utilizadas 2 versões de \textit{prompt}, \textit{few-shot} e \textit{zero-shot}. A adoção simultânea de \textit{zero-shot} e \textit{few-shot} é dada por esses dois regimes que representam condições complementares de avaliação. O \textit{zero-shot} mede o desempenho do modelo com instrução mínima, destacando sua capacidade de generalização e aproximando-se de um uso mais econômico em contexto. Já o \textit{few-shot} permite observar se exemplos guiados melhoram a consistência e a precisão da resposta, ao custo de maior uso de contexto. A literatura recente em Engenharia de \textit{Software} e em estudos sobre uso de \textit{LLMs} em qualidade de código não apresenta consenso definitivo sobre a superioridade de um regime em relação ao outro, o que reforça a necessidade de comparação empírica entre ambas as configurações \cite{Babikian2025StringValues,Bommasani2021,Abtahi2025LLMStaticAnalysis,DellaPortaEtAll,alomari2026}.
 
 \subsubsection*{Variável Independente}
-A variável independente corresponde ao \textbf{tratamento aplicado}, isto é, à ferramenta ou abordagem de detecção de \textit{code smells} utilizada (SonarQube ou um dos LLMs avaliados, em suas versões \textit{zero-shot} e \textit{few-shot}), conforme os sete níveis definidos no fator experimental.
+A variável independente corresponde ao \textbf{tratamento aplicado}, isto é, à ferramenta ou abordagem de detecção de \textit{code smells} utilizada (SonarQube ou um dos \textit{LLMs} avaliados, em suas versões \textit{zero-shot} e \textit{few-shot}), conforme os sete níveis definidos no fator experimental.
 
 Os objetos experimentais sobre os quais os tratamentos são aplicados são os \textbf{trechos de código-fonte}, que funcionam como blocos no desenho \textit{Randomized Complete Block Design}: cada trecho recebe todos os sete tratamentos, em ordem aleatorizada. Cada trecho é identificado por meio de metadados estruturados, especificamente o arquivo de origem, a linha inicial e a linha final do trecho dentro desse arquivo.
 
@@ -174,7 +174,7 @@ Com base nessa variável primária, é calculada a \textbf{taxa de acerto por tr
 Com base nessa variável primária, serão calculadas as seguintes medidas estatísticas:
 
 \begin{itemize}
-    \item \textbf{Mediana} do número de code smells detectados;
+    \item \textbf{Mediana} do número de \textit{code smells} detectados;
     \item \textbf{Variância} e \textbf{desvio padrão} das distribuições;
 \end{itemize}
 
@@ -401,26 +401,26 @@ mitigá-las no contexto do experimento orientado à tecnologia aqui planejado.
 \subsubsection*{Validade de Constructo}
 
 A validade de construto refere-se ao grau em que o experimento reflete adequadamente os conceitos teóricos que pretende investigar, neste caso, o papel da 
-analisabilidade na detecção de code smells e, de forma mais ampla, a contribuição de sistemas baseados em IA para a garantia da qualidade de software. 
+analisabilidade na detecção de \textit{code smells} e, de forma mais ampla, a contribuição de sistemas baseados em IA para a garantia da qualidade de \textit{software}. 
 Uma primeira ameaça é a explicação pré-operacional inadequada dos construtos}: o construto “capacidade de detecção de code smells” é 
 operacionalizado, neste estudo, pela taxa de acerto de cada tratamento, medida derivada da comparação binária entre as predições das ferramentas e 
 os rótulos humanos do MLCQ para cada par \textit{sample\_id} e \textit{smell}. Essa escolha enfatiza a concordância geral com o rótulo humano mas não captura outros aspectos relevantes, como 
 o esforço necessário para interpretar as saídas ou a severidade dos problemas encontrados. Tais dimensões são reconhecidas como parte do construto mais amplo de 
 analisabilidade, mas não são diretamente abordadas na operacionalização.
 
-    Outra ameaça importante é a \textit{mono-operation bias}. O experimento considera um único dataset (MLCQ), um conjunto específico de 
-    code smells e uma família particular de ferramentas com um analisador estático e três LLMs. Embora o MLCQ seja amplamente utilizado na literatura e 
+    Outra ameaça importante é a \textit{mono-operation bias}. O experimento considera um único \textit{dataset} (MLCQ), um conjunto específico de 
+    \textit{code smells} e uma família particular de ferramentas com um analisador estático e três \textit{LLMs}. Embora o MLCQ seja amplamente utilizado na literatura e 
     construído com anotações de desenvolvedores profissionais, ele representa apenas um recorte possível do universo de sistemas Java e tipos de anomalias 
     estruturais. Da mesma forma, a escolha de um único analisador estático (SonarQube) e de um subconjunto específico de modelos de linguagem (ChatGPT, 
     Claude e DeepSeek) pode sub-representar o construto “tratamentos baseados em análise automática” como um todo. Esse viés é parcialmente atenuado pelo fato 
-    de o MLCQ ser composto por múltiplos projetos open-source de domínios diversos, e pela inclusão de mais de um LLM, o que reduz a dependência de um 
+    de o MLCQ ser composto por múltiplos projetos \textit{open-source} de domínios diversos, e pela inclusão de mais de um \textit{LLM}, o que reduz a dependência de um 
     único modelo.
 
 Também é relevante a ameaça de \textit{mono-method bias}, uma vez que a avaliação da eficácia dos tratamentos baseia-se em medidas extraídas de uma única fonte 
 de rótulo (o MLCQ) e em um único tipo de métrica quantitativa: a taxa de acerto por tratamento. Não são incorporadas, 
 por exemplo, avaliações qualitativas sobre a utilidade prática dos alertas gerados ou sobre a adequação das explicações fornecidas pelos LLMs. Esses 
 aspectos são reconhecidos como limitações do estudo e indicados como oportunidades para trabalhos futuros que possam combinar métricas quantitativas e 
-qualitativas na avaliação de abordagens de detecção de code smells.
+qualitativas na avaliação de abordagens de detecção de \textit{code smells}.
 
 \subsubsection*{Validade Interna}
 
@@ -430,8 +430,8 @@ sem a participação de sujeitos humanos, diversas ameaças clássicas, como mat
 participantes são naturalmente mitigadas.
 
     Ainda assim, algumas ameaças de natureza instrumental permanecem relevantes. Em particular, a ameaça de \textit{instrumentation} diz respeito à possibilidade 
-    de que os artefatos usados na execução do experimento, como scripts em Python, configuração do SonarQube, \textit{plugins} personalizados e prompts dos LLMs, introduzam vieses nas medições. 
-    Para mitigar esse risco, o procedimento experimental foi especificado, com padronização dos dois tipos de prompt enviados aos modelos de linguagem 
+    de que os artefatos usados na execução do experimento, como scripts em Python, configuração do SonarQube, \textit{plugins} personalizados e \textit{prompts} dos \textit{LLMs}, introduzam vieses nas medições. 
+    Para mitigar esse risco, o procedimento experimental foi especificado, com padronização dos dois tipos de \textit{prompt} enviados aos modelos de linguagem 
     (\textit{zero-shot} e \textit{few-shot}), fixação das versões das ferramentas e dos \textit{plugins} empregados (incluindo SonarQube, ChatGPT, Claude e DeepSeek) e preservação das configurações utilizadas. Além 
     disso, o mesmo arquivo de código será fornecido a todos os tratamentos, reduzindo diferenças de contexto que poderiam favorecer ou prejudicar seletivamente 
     alguma ferramenta.
@@ -446,15 +446,15 @@ variações transitórias de desempenho ou disponibilidade das ferramentas duran
 
 A validade externa diz respeito à possibilidade de generalizar os resultados do experimento para além do contexto específico estudado. Uma ameaça central é a 
 \textit{interaction of selection and treatment}: a população de interesse do experimento é composta por mais de 700 projetos Java que integram o MLCQ, 
-open-source e, em parte, classificados como relevantes para a indústria. Embora esse recorte aumente a relevância prática dos resultados em relação 
+\textit{open-source} e, em parte, classificados como relevantes para a indústria. Embora esse recorte aumente a relevância prática dos resultados em relação 
 a estudos baseados apenas em exemplos de pequeno porte, ele não abrange sistemas desenvolvidos em outras linguagens, ambientes proprietários ou contextos 
 organizacionais específicos. Assim, a generalização dos resultados para sistemas não Java, para domínios altamente especializados ou para bases de código 
 legadas deve ser feita com cautela.
 
 Outra ameaça é a \textit{interaction of setting and treatment}, relacionada ao fato de que o experimento é conduzido em um ambiente controlado, no qual os 
 tratamentos são aplicados sobre arquivos de código extraídos diretamente dos repositórios, sem levar em conta fatores processuais, por exemplo, práticas de 
-revisão de código, políticas de branching ou integração contínua que podem influenciar a detecção e a correção de code smells em contextos 
-industriais reais. Além disso, os modelos de linguagem são utilizados por meio de prompts padronizados, o que não necessariamente reflete a variedade 
+revisão de \textit{código}, políticas de branching ou integração contínua que podem influenciar a detecção e a correção de \textit{code smells} em contextos 
+industriais reais. Além disso, os modelos de linguagem são utilizados por meio de \textit{prompts} padronizados, o que não necessariamente reflete a variedade 
 de usos e interações que desenvolvedores fariam em um ambiente de trabalho.
 
 Por fim, há a ameaça de \textit{interaction of history and treatment}, uma vez que o desempenho de LLMs e ferramentas baseadas em IA pode evoluir rapidamente 
