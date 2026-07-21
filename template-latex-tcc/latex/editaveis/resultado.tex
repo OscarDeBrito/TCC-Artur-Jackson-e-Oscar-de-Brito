@@ -14,9 +14,9 @@ a indicação de presença do smell e 0 representa sua ausência. Para o SonarQu
 \texttt{sample\_id} e \texttt{smell}, sendo atribuída predição positiva quando havia ao menos uma issue correspondente ao smell avaliado.
 
 Durante a consolidação, foram identificadas predições sem correspondência no \textit{ground truth}, decorrentes de casos em que os \textit{prompts} 
-solicitavam a avaliação de dois smells, mas o MLCQ continha veredito explícito apenas para um deles. Esses casos foram excluídos 
-das métricas principais, pois não havia valor de referência para comparação. Também foi removida uma resposta incompleta de uma LLM, 
-interrompida por limite de tokens, que não permitiu extrair o veredito de um dos smells avaliados.
+solicitavam a avaliação de dois \textit{smells}, mas o MLCQ continha veredito explícito apenas para um deles. Esses casos foram excluídos 
+das métricas principais, pois não havia valor de referência para comparação. Também foi removida uma resposta incompleta de uma \textit{LLM}, 
+interrompida por limite de tokens, que não permitiu extrair o veredito de um dos \textit{smells} avaliados.
 
 Os procedimentos de consolidação, os códigos utilizados para processamento dos resultados e os \textit{datasets} gerados para as análises deste capítulo podem ser 
 encontrados no repositório do projeto conforme descritos na Seção~\ref{sec:execucao-experimento}. 
@@ -195,7 +195,7 @@ taxa mínima, com 0,657, sugerindo maior instabilidade em pelo menos uma das cat
 
 \subsection{Dispersão entre taxa de acerto e F1-score}
 
-A Figura~\ref{fig:dispersao-taxa-acerto-f1} apresenta a relação entre a taxa de acerto geral e o F1-score dos tratamentos.
+A Figura~\ref{fig:dispersao-taxa-acerto-f1} apresenta a relação entre a taxa de acerto geral e o \textit{F1-score} dos tratamentos.
 
 \begin{figure}[H]
     \centering

@@ -7,23 +7,23 @@ o planejamento apresentado no capítulo anterior. Enquanto o capítulo anterior 
 incluindo objetivo, questão de pesquisa, variáveis, hipóteses, desenho experimental, instrumentação e ameaças à validade, 
 este capítulo detalha como o experimento foi operacionalizado na prática.
 
-A execução envolveu a preparação da base experimental, a recuperação dos trechos de código a partir do dataset MLCQ, 
-a construção dos prompts utilizados nos modelos de linguagem, a configuração do ambiente do SonarQube, a 
+A execução envolveu a preparação da base experimental, a recuperação dos trechos de código a partir do \textit{dataset} MLCQ, 
+a construção dos \textit{prompts} utilizados nos modelos de linguagem, a configuração do ambiente do SonarQube, a 
 aplicação dos tratamentos experimentais e a organização dos resultados para posterior análise estatística.
 
-O experimento avaliou sete tratamentos: SonarQube, ChatGPT com prompt zero-shot, ChatGPT com prompt few-shot, Claude com prompt zero-shot, 
-Claude com prompt few-shot, DeepSeek com prompt zero-shot e DeepSeek com prompt few-shot. Cada modelo de linguagem associado a uma versão 
-específica de prompt foi considerado um tratamento distinto.
+O experimento avaliou sete tratamentos: SonarQube, ChatGPT com \textit{prompt} \textit{zero-shot}, ChatGPT com \textit{prompt} \textit{few-shot}, Claude com \textit{prompt} \textit{zero-shot}, 
+Claude com \textit{prompt} \textit{few-shot}, DeepSeek com \textit{prompt} \textit{zero-shot} e DeepSeek com \textit{prompt} \textit{few-shot}. Cada modelo de linguagem associado a uma versão 
+específica de \textit{prompt} foi considerado um tratamento distinto.
 
 
 \section{Preparação da base experimental}
 
-A preparação da base experimental teve início com a análise do dataset MLCQ, apresentado por \citeonline{MadeyskiLewowski2020MLCQ}, que reúne amostras de código Java previamente 
-classificadas quanto à presença ou ausência de diferentes tipos de code smells, utilizado como fonte dos exemplos de código e dos respectivos vereditos de referência. 
+A preparação da base experimental teve início com a análise do \textit{dataset} MLCQ, apresentado por \citeonline{MadeyskiLewowski2020MLCQ}, que reúne amostras de código Java previamente 
+classificadas quanto à presença ou ausência de diferentes tipos de \textit{code smells}, utilizado como fonte dos exemplos de código e dos respectivos vereditos de referência. 
 Essa análise inicial teve como objetivo compreender a estrutura dos dados disponíveis, identificar os campos necessários para 
 a execução do experimento e verificar a quantidade de registros aptos para uso. 
 
-No MLCQ, o dataset é composto por respostas de avaliadores, de modo que um mesmo \textit{sample} pode possuir mais de uma resposta associada. A inspeção inicial considerou 14.739 registros desse tipo. Após o processo de filtragem, no qual foram removidos registros inválidos (sem \textit{sample} válido ou com links de origem quebrados/inacessíveis) e respostas duplicadas para o mesmo \textit{sample}, permaneceram 8.711 registros válidos para execução. Como cada trecho tende a aparecer em dois registros, um para cada smell aplicável ao tipo do elemento analisado, os 8.711 registros correspondem a 4.364 \textit{samples} únicos: em 4.347 casos houve duas avaliações por \textit{sample} (totalizando 8.694 registros) e, em 17 casos, houve apenas uma avaliação, resultando no total final de 8.711 registros. Esses \textit{samples} estão distribuídos em 522 repositórios. Esses números foram utilizados para caracterizar a base experimental e orientar as etapas seguintes de recuperação dos trechos e construção dos instrumentos de avaliação.
+No MLCQ, o \textit{dataset} é composto por respostas de avaliadores, de modo que um mesmo \textit{sample} pode possuir mais de uma resposta associada. A inspeção inicial considerou 14.739 registros desse tipo. Após o processo de filtragem, no qual foram removidos registros inválidos (sem \textit{sample} válido ou com links de origem quebrados/inacessíveis) e respostas duplicadas para o mesmo \textit{sample}, permaneceram 8.711 registros válidos para execução. Como cada trecho tende a aparecer em dois registros, um para cada smell aplicável ao tipo do elemento analisado, os 8.711 registros correspondem a 4.364 \textit{samples} únicos: em 4.347 casos houve duas avaliações por \textit{sample} (totalizando 8.694 registros) e, em 17 casos, houve apenas uma avaliação, resultando no total final de 8.711 registros. Esses \textit{samples} estão distribuídos em 522 repositórios. Esses números foram utilizados para caracterizar a base experimental e orientar as etapas seguintes de recuperação dos trechos e construção dos instrumentos de avaliação.
 
 
 
@@ -58,17 +58,17 @@ entre os resultados produzidos pelas LLMs e pela ferramenta de análise estátic
 
 \section{Construção dos prompts}
 
-Para cada tipo de trecho recuperado, foram criadas duas versões de prompt: uma versão zero-shot e uma versão few-shot. 
-A versão zero-shot foi construída sem explicações conceituais ou exemplos prévios sobre os code smells. 
-Nesse caso, o modelo recebia apenas o trecho de código e a pergunta sobre a presença ou ausência dos smells correspondentes ao tipo de elemento analisado.
+Para cada tipo de trecho recuperado, foram criadas duas versões de \textit{prompt}: uma versão \textit{zero-shot} e uma versão \textit{few-shot}. 
+A versão \textit{zero-shot} foi construída sem explicações conceituais ou exemplos prévios sobre os \textit{code smells}. 
+Nesse caso, o modelo recebia apenas o trecho de código e a pergunta sobre a presença ou ausência dos \textit{smells} correspondentes ao tipo de elemento analisado.
 
 Quando o trecho analisado correspondia a uma classe, o prompt questionava se o código apresentava Blob/God Class e/ou Data Class. 
 Quando o trecho correspondia a um método ou função, o prompt questionava se o código apresentava Long Method e/ou Feature Envy.
 
-A versão few-shot, por sua vez, incluiu informações adicionais sobre os smells avaliados. 
-Nessa versão, o prompt apresentava uma definição conceitual dos code smells pertinentes ao tipo de elemento analisado e incluía 
-um exemplo conceitual de como esses smells poderiam se manifestar. Assim, para trechos de classe, o prompt continha definições e 
-exemplos relacionados a Blob/God Class e Data Class. Para trechos de método ou função, o prompt continha definições e exemplos relacionados a Long Method e Feature Envy.
+A versão \textit{few-shot}, por sua vez, incluiu informações adicionais sobre os \textit{smells} avaliados. 
+Nessa versão, o \textit{prompt} apresentava uma definição conceitual dos \textit{code smells} pertinentes ao tipo de elemento analisado e incluía 
+um exemplo conceitual de como esses \textit{smells} poderiam se manifestar. Assim, para trechos de classe, o \textit{prompt} continha definições e 
+exemplos relacionados a Blob/God Class e Data Class. Para trechos de método ou função, o \textit{prompt} continha definições e exemplos relacionados a Long Method e Feature Envy.
 
 A seguir, apresenta-se um exemplo representativo da configuração few-shot para classes:
 
@@ -183,8 +183,8 @@ Os prompts utilizados no experimento são documentados no Apêndice~\ref{ap:prom
 
 Além da avaliação com modelos de linguagem, o experimento incluiu um tratamento baseado no SonarQube, empregado como plataforma de análise estática. Para isso, foi criada uma máquina virtual com 12 GB de memória RAM, utilizada para instalar e configurar o ambiente local de execução da ferramenta, bem como os componentes necessários para o processamento dos trechos de código recuperados do MLCQ.
 
-Como o SonarQube, por padrão, não identifica code smells seguindo diretamente a nomenclatura do catálogo de \citeonline{Fowler1999}, 
-foi desenvolvido um plugin específico para detectar os quatro smells considerados neste trabalho: Blob/God Class, Data Class, Feature Envy e Long Method.
+Como o SonarQube, por padrão, não identifica \textit{code smells} seguindo diretamente a nomenclatura do catálogo de \citeonline{Fowler1999}, 
+foi desenvolvido um \textit{plugin} específico para detectar os quatro \textit{smells} considerados neste trabalho: Blob/God Class, Data Class, Feature Envy e Long Method.
 
 Para Blob/God Class, Data Class e Feature Envy, foram utilizadas estratégias de detecção baseadas nas métricas descritas 
 por \citeonline{Lanza2006}. Essas estratégias também são utilizadas 
@@ -207,7 +207,7 @@ As evidências visuais da configuração do projeto e da ativação das regras c
 
 Como o SonarQube realiza análise estática sobre arquivos de código-fonte, os trechos do dataset foram previamente convertidos em arquivos Java individuais. Cada arquivo recebeu no nome o identificador original da amostra, como \textit{Snippet\_3698323.java}, permitindo associar posteriormente cada \textit{issue} detectada ao respectivo \textit{sample\_id}.
 
-As \textit{issues} geradas foram exportadas para o arquivo \textit{sonar\_snippet\_issues.jsonl} e, em seguida, convertidas para uma representação simplificada em \textit{sonar\_sample\_smells.jsonl}, contendo o \textit{sample\_id}, o arquivo analisado e o smell detectado. Essa etapa permitiu comparar a saída do SonarQube com as respostas produzidas pelos modelos de linguagem, conforme os artefatos disponibilizados no repositório de execução do trabalho na pasta sonar-trechos no GitHub\footref{fn:repo}.
+As \textit{issues} geradas foram exportadas para o arquivo \textit{sonar\_snippet\_issues.jsonl} e, em seguida, convertidas para uma representação simplificada em \textit{sonar\_sample\_smells.jsonl}, contendo o \textit{sample\_id}, o arquivo analisado e o \textit{smell} detectado. Essa etapa permitiu comparar a saída do SonarQube com as respostas produzidas pelos modelos de linguagem, conforme os artefatos disponibilizados no repositório de execução do trabalho na pasta sonar-trechos no GitHub\footref{fn:repo}.
 
 \section{Desenho de execução e aleatorização dos tratamentos}
 

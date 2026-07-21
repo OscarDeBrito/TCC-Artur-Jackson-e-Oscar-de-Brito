@@ -150,12 +150,12 @@ O fator possui sete níveis (tratamentos), correspondentes às ferramentas avali
 
 \begin{enumerate}
     \item \textbf{SonarQube} (versão Community Build Release 25.11.0.114957)
-    \item \textbf{ChatGPT - zero shot} (GPT-5.4-mini);
-    \item \textbf{ChatGPT - few shot} (GPT-5.4-mini);
-    \item \textbf{Claude - zero shot} (Haiku-4-5);
-    \item \textbf{Claude - few shot} (Haiku-4-5);
-    \item \textbf{DeepSeek - zero shot} (DeepSeek-V4-flash);
-    \item \textbf{DeepSeek - few shot} (DeepSeek-V4-flash).
+    \item \textbf{ChatGPT - \textit{zero-shot}} (GPT-5.4-mini);
+    \item \textbf{ChatGPT - \textit{few-shot}} (GPT-5.4-mini);
+    \item \textbf{Claude - \textit{zero-shot}} (Haiku-4-5);
+    \item \textbf{Claude - \textit{few-shot}} (Haiku-4-5);
+    \item \textbf{DeepSeek - \textit{zero-shot}} (DeepSeek-V4-flash);
+    \item \textbf{DeepSeek - \textit{few-shot}} (DeepSeek-V4-flash).
 \end{enumerate}
 
         Para as \textit{LLMs} serão utilizadas 2 versões de \textit{prompt}, \textit{few-shot} e \textit{zero-shot}. A adoção simultânea de \textit{zero-shot} e \textit{few-shot} é dada por esses dois regimes que representam condições complementares de avaliação. O \textit{zero-shot} mede o desempenho do modelo com instrução mínima, destacando sua capacidade de generalização e aproximando-se de um uso mais econômico em contexto. Já o \textit{few-shot} permite observar se exemplos guiados melhoram a consistência e a precisão da resposta, ao custo de maior uso de contexto. A literatura recente em Engenharia de \textit{Software} e em estudos sobre uso de \textit{LLMs} em qualidade de código não apresenta consenso definitivo sobre a superioridade de um regime em relação ao outro, o que reforça a necessidade de comparação empírica entre ambas as configurações \cite{Babikian2025StringValues,Bommasani2021,Abtahi2025LLMStaticAnalysis,DellaPortaEtAll,alomari2026}.
