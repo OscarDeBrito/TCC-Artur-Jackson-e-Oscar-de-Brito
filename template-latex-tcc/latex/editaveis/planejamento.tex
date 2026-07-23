@@ -215,7 +215,7 @@ O experimento caracteriza-se como um \textbf{experimento orientado à tecnologia
 o foco está na avaliação comparativa de técnicas, ferramentas ou algoritmos aplicados
 a artefatos de \textit{software}.
 
-O desenho experimental adotado é o \textbf{Randomized Complete Block Design}, 
+O desenho experimental adotado é o \textbf{\textit{Randomized Complete Block Design}}, 
 no qual os tratamentos são aplicados em ordem aleatória sobre cada objeto experimental.
 Nesse tipo de design, todos os objetos pertencem a um único grupo, e a aleatorização 
 garante que cada tratamento seja aplicado em condições equivalentes, reduzindo vieses 
@@ -223,7 +223,7 @@ decorrentes de ordem ou de efeitos sistemáticos de execução.
 
 \begin{table}[H]
 \centering
-\caption{Exemplo ilustrativo de atribuição aleatória dos tratamentos aos objetos experimentais (Randomized Complete Block Design) }
+\caption{Exemplo ilustrativo de atribuição aleatória dos tratamentos aos objetos experimentais (\textit{Randomized Complete Block Design}) }
 \label{tab:rcbd-exemplo}
 \begin{tabular}{c|c c c c c c c}
 \hline
@@ -238,7 +238,7 @@ decorrentes de ordem ou de efeitos sistemáticos de execução.
 \end{tabular}
 
 \vspace{0.3em}
-\small{Tratamentos: 1 = SonarQube, 2 = ChatGPT (Zero shot), 3 = ChatGPT (Few shot), 4 = Claude (Zero shot), 5 = Claude (Few shot), 6 = DeepSeek (Zero shot), 7 = DeepSeek (Few shot)}
+\small{Tratamentos: 1 = SonarQube, 2 = ChatGPT (\textit{zero-shot}), 3 = ChatGPT (\textit{few-shot}), 4 = Claude (\textit{zero-shot}), 5 = Claude (\textit{few-shot}), 6 = DeepSeek (\textit{zero-shot}), 7 = DeepSeek (\textit{few-shot})}
 \end{table}
 
 
@@ -349,8 +349,6 @@ execução do experimento. Serão utilizados os seguintes instrumentos para apoi
     para cálculo das métricas, construção das distribuições e execução dos testes estatísticos necessários.
 \end{itemize}
 
-\clearpage
-
 \subsection{Procedimento de aplicação dos instrumentos}
 
 \begin{enumerate}
@@ -362,7 +360,7 @@ execução do experimento. Serão utilizados os seguintes instrumentos para apoi
     realizar o \textit{clone} (ou atualizar um clone existente) e extrair o arquivo indicado em \textit{path}. Em seguida, o trecho correspondente é extraído, e as linhas compreendidas entre \textit{start line} e \textit{end line} são usadas apenas como referência de localização do \textit{code smell}. Ou seja, o insumo para as ferramentas de detecção são os \textbf{trechos de código}.
 
     \item \textbf{Validação, registro e randomização dos tratamentos.}
-    O arquivo recuperado, bem como a região correspondente ao trecho anotado, são validados. Arquivos ou anotações inconsistentes são descartados. Para os casos válidos, scripts em \textbf{Python} registram o arquivo, seus metadados e a faixa de linhas associada à instância de \textit{code smell} e randomizam a ordem dos sete tratamentos a serem aplicados, em conformidade com o \textit{Randomized Complete Block Design} exemplificado na tabela \ref{tab:rcbd-exemplo}, adotando: \textbf{SonarQube}, \textbf{ChatGPT zero-shot}, \textbf{ChatGPT few-shot}, \textbf{Claude zero-shot}, \textbf{Claude few-shot}, \textbf{DeepSeek zero-shot} e \textbf{DeepSeek few-shot}. 
+    O arquivo recuperado, bem como a região correspondente ao trecho anotado, são validados. Arquivos ou anotações inconsistentes são descartados. Para os casos válidos, scripts em \textbf{Python} registram o arquivo, seus metadados e a faixa de linhas associada à instância de \textit{code smell} e randomizam a ordem dos sete tratamentos a serem aplicados, em conformidade com o \textit{Randomized Complete Block Design} exemplificado na tabela \ref{tab:rcbd-exemplo}, adotando: \textbf{SonarQube}, \textbf{ChatGPT \textit{zero-shot}}, \textbf{ChatGPT \textit{few-shot}}, \textbf{Claude \textit{zero-shot}}, \textbf{Claude \textit{few-shot}}, \textbf{DeepSeek \textit{zero-shot}} e \textbf{DeepSeek \textit{few-shot}}. 
     Neste trabalho, o termo \textit{sample} será mantido em inglês e utilizado para se referir a uma amostra do conjunto de dados, isto é, a um trecho de código selecionado para avaliação. Essa randomização define, então, para cada \textit{sample}, a ordem de envio dos sete tratamentos.
 
     \item \textbf{Aplicação do tratamento baseado em análise estática (SonarQube).}
@@ -372,7 +370,7 @@ execução do experimento. Serão utilizados os seguintes instrumentos para apoi
     \item \textbf{Aplicação dos tratamentos baseados em LLMs.}
     Serão construídos dois tipos de \textit{prompt} padronizado: um \textit{zero-shot}, sem 
     exemplos de apoio, e um \textit{few-shot}, com exemplos representativos. Ambos conterão instruções em 
-    linguagem natural e o conteúdo completo do trecho de código associado à instância do MLCQ. Esses \textit{prompts} e seus respectivos trechos de código já existirão previamente em arquivos \textit{JSON}, separados por tipo de prompt, de modo que cada arquivo fique vinculado ao \textit{sample} correspondente. Durante a execução, o código em Python sorteia a ordem dos sete tratamentos para cada \textit{sample} e, quando um tratamento de LLM é selecionado, envia ao modelo o \textit{JSON} da versão \textit{zero-shot} ou \textit{few-shot} correspondente.
+    linguagem natural e o conteúdo completo do trecho de código associado à instância do MLCQ. Esses \textit{prompts} e seus respectivos trechos de código já existirão previamente em arquivos \textit{JSON}, separados por tipo de \textit{prompts}, de modo que cada arquivo fique vinculado ao \textit{sample} correspondente. Durante a execução, o código em Python sorteia a ordem dos sete tratamentos para cada \textit{sample} e, quando um tratamento de LLM é selecionado, envia ao modelo o \textit{JSON} da versão \textit{zero-shot} ou \textit{few-shot} correspondente.
 
     \begin{itemize}
         \item \textbf{ChatGPT} (GPT-5.4-mini);

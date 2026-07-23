@@ -48,7 +48,7 @@ as linhas correspondentes ao trecho avaliado. Dessa forma, cada sample passou a 
 efetivamente associado ao veredito de referência do MLCQ.
 
 Essa decisão foi importante para manter a equivalência entre os tratamentos experimentais. Como as LLMs receberiam 
-apenas o trecho de código no prompt, o SonarQube também deveria analisar uma entrada equivalente. Por isso, os arquivos 
+apenas o trecho de código no \textit{prompt}, o SonarQube também deveria analisar uma entrada equivalente. Por isso, os arquivos 
 submetidos ao SonarQube foram preparados contendo apenas os trechos identificados na análise de cada sample, evitando que a ferramenta 
 tivesse acesso a um contexto maior do que aquele fornecido aos modelos de linguagem.
 
@@ -62,13 +62,13 @@ Para cada tipo de trecho recuperado, foram criadas duas versões de \textit{prom
 A versão \textit{zero-shot} foi construída sem explicações conceituais ou exemplos prévios sobre os \textit{code smells}. 
 Nesse caso, o modelo recebia apenas o trecho de código e a pergunta sobre a presença ou ausência dos \textit{smells} correspondentes ao tipo de elemento analisado.
 
-Quando o trecho analisado correspondia a uma classe, o prompt questionava se o código apresentava Blob/God Class e/ou Data Class. 
-Quando o trecho correspondia a um método ou função, o prompt questionava se o código apresentava Long Method e/ou Feature Envy.
+Quando o trecho analisado correspondia a uma classe, o \textit{prompt} questionava se o código apresentava \textit{Blob/God Class} e/ou \textit{Data Class}. 
+Quando o trecho correspondia a um método ou função, o \textit{prompt} questionava se o código apresentava \textit{Long Method} e/ou \textit{Feature Envy}.
 
 A versão \textit{few-shot}, por sua vez, incluiu informações adicionais sobre os \textit{smells} avaliados. 
 Nessa versão, o \textit{prompt} apresentava uma definição conceitual dos \textit{code smells} pertinentes ao tipo de elemento analisado e incluía 
 um exemplo conceitual de como esses \textit{smells} poderiam se manifestar. Assim, para trechos de classe, o \textit{prompt} continha definições e 
-exemplos relacionados a Blob/God Class e Data Class. Para trechos de método ou função, o \textit{prompt} continha definições e exemplos relacionados a Long Method e Feature Envy.
+exemplos relacionados a \textit{Blob/God Class} e \textit{Data Class}. Para trechos de método ou função, o \textit{prompt} continha definições e exemplos relacionados a \textit{Long Method} e \textit{Feature Envy}.
 
 A seguir, apresenta-se um exemplo representativo da configuração few-shot para classes:
 
@@ -177,48 +177,48 @@ public interface PlaybackNearlyFinishedRequestHandler extends RequestHandler {
 }
 \end{verbatim}
 
-Os prompts utilizados no experimento são documentados no Apêndice~\ref{ap:prompts-execucao}, por meio de exemplos representativos de cada configuração. Para a reprodução integral dos prompts, recomenda-se consultar o arquivo \textit{Script-Api-LLMs/prompts.json} disponível no repositório de execução do trabalho no GitHub\footnote{\label{fn:repo}Disponível em: \url{https://github.com/OscarDeBrito/TCC-Artur-Jackson-e-Oscar-de-Brito--BaseMLCQ}. Acesso em: 12 jul. 2026.}. Essa organização permite explicitar a estrutura textual empregada em cada tratamento.
+Os \textit{prompts} utilizados no experimento são documentados no Apêndice~\ref{ap:prompts-execucao}, por meio de exemplos representativos de cada configuração. Para a reprodução integral dos prompts, recomenda-se consultar o arquivo \textit{Script-Api-LLMs/prompts.json} disponível no repositório de execução do trabalho no GitHub\footnote{\label{fn:repo}Disponível em: \url{https://github.com/OscarDeBrito/TCC-Artur-Jackson-e-Oscar-de-Brito--BaseMLCQ}. Acesso em: 12 jul. 2026.}. Essa organização permite explicitar a estrutura textual empregada em cada tratamento.
 
 \section{Preparação do ambiente com SonarQube}
 
 Além da avaliação com modelos de linguagem, o experimento incluiu um tratamento baseado no SonarQube, empregado como plataforma de análise estática. Para isso, foi criada uma máquina virtual com 12 GB de memória RAM, utilizada para instalar e configurar o ambiente local de execução da ferramenta, bem como os componentes necessários para o processamento dos trechos de código recuperados do MLCQ.
 
 Como o SonarQube, por padrão, não identifica \textit{code smells} seguindo diretamente a nomenclatura do catálogo de \citeonline{Fowler1999}, 
-foi desenvolvido um \textit{plugin} específico para detectar os quatro \textit{smells} considerados neste trabalho: Blob/God Class, Data Class, Feature Envy e Long Method.
+foi desenvolvido um \textit{plugin} específico para detectar os quatro \textit{smells} considerados neste trabalho: \textit{Blob/God Class}, \textit{Data Class}, \textit{Feature Envy} e \textit{Long Method}.
 
-Para Blob/God Class, Data Class e Feature Envy, foram utilizadas estratégias de detecção baseadas nas métricas descritas 
+Para \textit{Blob/God Class}, \textit{Data Class} e \textit{Feature Envy}, foram utilizadas estratégias de detecção baseadas nas métricas descritas 
 por \citeonline{Lanza2006}. Essas estratégias também são utilizadas 
 como referência em outras ferramentas e estudos de detecção de code smells.
 
-No caso do Long Method, embora ferramentas como SonarQube e PMD possuam regras relacionadas ao tamanho de métodos, 
+No caso do \textit{Long Method}, embora ferramentas como SonarQube e PMD possuam regras relacionadas ao tamanho de métodos, 
 essas regras geralmente se baseiam apenas na métrica LOC, isto é, na quantidade de linhas de código. 
 Como não há consenso único sobre o limiar mais adequado para caracterizar esse smell, optou-se por utilizar a regra 
 descrita por \citeonline{ArcelliFontana2016}. 
 Nesse estudo, os autores utilizaram técnicas de aprendizado de máquina para derivar regras de detecção de smells. 
-Para Long Method, foi adotada a regra que combina LOC e complexidade ciclomática: LOC(method) > 79 e CYCLO > 9.
+Para \textit{Long Method}, foi adotada a regra que combina LOC e complexidade ciclomática: LOC(\textit{method}) > 79 e \textit{CYCLO} > 9.
 
-O plugin foi implementado como um projeto Java, gerenciado com Maven, e continha regras específicas para os smells Long Method, Data Class, Feature Envy e Blob/God Class. Cada regra foi responsável por percorrer a estrutura do código Java analisado e registrar uma \textit{issue} quando os critérios definidos para o respectivo smell eram atendidos.
+O plugin foi implementado como um projeto Java, gerenciado com Maven, e continha regras específicas para os smells \textit{Long Method}, \textit{Data Class}, \textit{Feature Envy} e \textit{Blob/God Class}. Cada regra foi responsável por percorrer a estrutura do código Java analisado e registrar uma \textit{issue} quando os critérios definidos para o respectivo smell eram atendidos.
 
 O desenvolvimento do plugin envolveu a criação de uma classe principal responsável por registrar as extensões no SonarQube, uma definição do repositório de regras customizadas e classes específicas para cada regra de detecção. Após a implementação, o plugin foi compilado com Maven, gerando um arquivo \textit{.jar}. Esse arquivo foi copiado para o diretório \textit{extensions/plugins} da instalação local do SonarQube.
 
-Após a habilitação, as regras customizadas passaram a estar disponíveis na interface do SonarQube e puderam ser utilizadas durante a análise dos arquivos Java gerados a partir do dataset. As regras foram identificadas por chaves como \textit{custom-java-smells:long-method}, \textit{custom-java-smells:data-class}, \textit{custom-java-smells:feature-envy} e \textit{custom-java-smells:blob-god-class}. Assim, o SonarQube funcionou como plataforma de análise estática, enquanto o plugin customizado foi responsável pela operacionalização dos critérios de detecção dos smells avaliados.
+Após a habilitação, as regras customizadas passaram a estar disponíveis na interface do SonarQube e puderam ser utilizadas durante a análise dos arquivos Java gerados a partir do dataset. As regras foram identificadas por chaves como \textit{custom-java-smells:long-method}, \textit{custom-java-smells:data-class}, \textit{custom-java-smells:feature-envy} e \textit{custom-java-smells:blob-god-class}. Assim, o SonarQube funcionou como plataforma de análise estática, enquanto o plugin customizado foi responsável pela operacionalização dos critérios de detecção dos \textit{smells} avaliados.
 
 As evidências visuais da configuração do projeto e da ativação das regras customizadas foram reunidas no Apêndice~\ref{ap:sonar-evidencias}, de modo a concentrar as capturas de tela do SonarQube em um espaço próprio de documentação.
 
-Como o SonarQube realiza análise estática sobre arquivos de código-fonte, os trechos do dataset foram previamente convertidos em arquivos Java individuais. Cada arquivo recebeu no nome o identificador original da amostra, como \textit{Snippet\_3698323.java}, permitindo associar posteriormente cada \textit{issue} detectada ao respectivo \textit{sample\_id}.
+Como o SonarQube realiza análise estática sobre arquivos de código-fonte, os trechos do \textit{dataset} foram previamente convertidos em arquivos Java individuais. Cada arquivo recebeu no nome o identificador original da amostra, como \textit{Snippet\_3698323.java}, permitindo associar posteriormente cada \textit{issue} detectada ao respectivo \textit{sample\_id}.
 
 As \textit{issues} geradas foram exportadas para o arquivo \textit{sonar\_snippet\_issues.jsonl} e, em seguida, convertidas para uma representação simplificada em \textit{sonar\_sample\_smells.jsonl}, contendo o \textit{sample\_id}, o arquivo analisado e o \textit{smell} detectado. Essa etapa permitiu comparar a saída do SonarQube com as respostas produzidas pelos modelos de linguagem, conforme os artefatos disponibilizados no repositório de execução do trabalho na pasta sonar-trechos no GitHub\footref{fn:repo}.
 
 \section{Desenho de execução e aleatorização dos tratamentos}
 
-Após a preparação da base, dos prompts e do ambiente de análise estática, a execução do experimento seguiu o desenho Randomized Complete Block Design, 
+Após a preparação da base, dos \textit{prompts} e do ambiente de análise estática, a execução do experimento seguiu o desenho \textit{Randomized Complete Block Design}, 
 conforme descrito por \citeonline{Wohlin:2012:ESE:2349018}. Nesse desenho, todos os tratamentos são aplicados a cada objeto experimental, mas a ordem de aplicação é aleatorizada.
 
-Neste trabalho, cada sample ou trecho de código foi considerado um objeto experimental. Para cada objeto, os sete tratamentos foram aplicados: 
-SonarQube, ChatGPT zero-shot, ChatGPT few-shot, Claude zero-shot, Claude few-shot, DeepSeek zero-shot e DeepSeek few-shot.
+Neste trabalho, cada \textit{sample} ou trecho de código foi considerado um objeto experimental. Para cada objeto, os sete tratamentos foram aplicados: 
+SonarQube, ChatGPT \textit{zero-shot}, ChatGPT \textit{few-shot}, Claude \textit{zero-shot}, Claude \textit{few-shot}, DeepSeek \textit{zero-shot} e DeepSeek \textit{few-shot}.
 
-A ordem de aplicação dos tratamentos foi definida aleatoriamente para cada sample. Assim, antes da análise de um determinado trecho, 
-era sorteada a sequência em que os tratamentos seriam executados. Após todos os tratamentos serem aplicados ao mesmo sample, 
+A ordem de aplicação dos tratamentos foi definida aleatoriamente para cada \textit{sample}. Assim, antes da análise de um determinado trecho, 
+era sorteada a sequência em que os tratamentos seriam executados. Após todos os tratamentos serem aplicados ao mesmo \textit{sample}, 
 o experimento avançava para o próximo trecho, no qual uma nova ordem aleatória era definida.
 
 Esse procedimento foi adotado para reduzir possíveis efeitos relacionados à ordem de execução dos tratamentos ou resquícios de dados mantidos em memória. 
@@ -243,7 +243,7 @@ Os \textit{datasets} gerados a partir das análises também estão disponibiliza
 \path{Analise-resultados-experimento/outputs}, incluindo os arquivos com as respostas consolidadas de cada tratamento utilizados para a construção das tabelas, métricas e gráficos apresentados neste capítulo. 
 Ao final de cada seção ou subseção, indica-se a seção correspondente do notebook utilizada para gerar os resultados apresentados.
 
-O período total de execução do experimento foi identificado a partir dos logs registrados durante o experimento. Com base nesses registros, 
+O período total de execução do experimento foi identificado a partir dos \textit{logs} registrados durante o experimento. Com base nesses registros, 
 o experimento teve início em 21/06/2026 às 01:08:47 e término em 23/06/2026 às 13:39:59, 
 totalizando uma duração cronológica de 2 dias, 12 horas, 31 minutos e 12 segundos.
 
@@ -276,7 +276,38 @@ Total & 30548 & 3582,63 & -- \\
 Fonte: Autores
 \end{table}
 
-Além do tempo de execução, também foram registrados os custos associados ao uso das APIs dos modelos de linguagem. 
+Além do tempo de execução, também foi registrado o consumo de \textit{tokens} das chamadas realizadas às APIs dos modelos de linguagem. 
+Essa informação é relevante porque o custo financeiro das LLMs está diretamente associado à quantidade de \textit{tokens} processados, podendo haver distinção entre \textit{tokens} de entrada, \textit{tokens} de saída e, em alguns provedores, \textit{tokens} de entrada recuperados de cache.
+
+Durante a execução do experimento, o DeepSeek consumiu 9.878.244 \textit{tokens}, sendo 7.338.414 \textit{tokens} de entrada e 2.539.830 \textit{tokens} de saída. 
+Dentro dos \textit{tokens} de entrada, 1.745.408 foram recuperados de cache e 5.593.006 foram processados sem cache. 
+O ChatGPT processou aproximadamente 7.179.097 \textit{tokens}, dos quais 6.944.000 corresponderam à entrada e 235.097 à saída. 
+Já o Claude processou 9.846.795 \textit{tokens}, sendo 9.072.771 de entrada e 774.024 de saída.
+
+Observa-se que, nos três modelos, houve predominância de tokens de entrada. 
+Esse comportamento está relacionado ao tamanho dos \textit{prompts} e, principalmente, ao volume de código-fonte enviado para análise em cada solicitação. 
+As respostas geradas pelos modelos, por sua vez, foram comparativamente menores e mais estruturadas.
+
+A Tabela~\ref{tab:tokens-llms} apresenta o consumo de \textit{tokens} por provedor durante a execução do experimento.
+
+\begin{table}[H]
+\centering
+\caption{Consumo de \textit{tokens} por provedor}
+\label{tab:tokens-llms}
+\begin{tabular}{lrrrr}
+\hline
+Provedor & Tokens totais & Tokens de entrada & Tokens de saída & Entrada (\%) \\
+\hline
+DeepSeek & 9.878.244 & 7.338.414 & 2.539.830 & 74,3 \\
+ChatGPT & 7.179.097 & 6.944.000 & 235.097 & 96,7 \\
+Claude & 9.846.795 & 9.072.771 & 774.024 & 92,1 \\
+\hline
+\end{tabular}
+
+Fonte: Autores
+\end{table}
+
+A partir disso, também foram registrados os custos associados ao uso das APIs dos modelos de linguagem. 
 Esses custos correspondem exclusivamente às chamadas realizadas para as LLMs, não incluindo o SonarQube, que foi executado localmente. 
 Os valores foram registrados em dólar americano, conforme a cobrança dos respectivos provedores.
 
@@ -306,12 +337,12 @@ Fonte: Autores
 Após a execução dos tratamentos, os resultados foram organizados em uma base única de análise. Essa base integrou as respostas dos modelos de linguagem, 
 os resultados do SonarQube, os metadados dos prompts e os vereditos de referência do MLCQ, todos consolidados a partir dos arquivos produzidos no repositório de execução do trabalho no GitHub\footref{fn:repo}.
 
-Cada registro da base final correspondeu à avaliação de um tratamento sobre um determinado sample e smell. 
-Para cada linha, foram armazenadas informações como identificador da amostra, tipo do elemento analisado, smell avaliado, 
-tratamento aplicado, versão do prompt quando aplicável, predição produzida e veredito de referência.
+Cada registro da base final correspondeu à avaliação de um tratamento sobre um determinado \textit{sample} e \textit{smell}. 
+Para cada linha, foram armazenadas informações como identificador da amostra, tipo do elemento analisado, \textit{smell} avaliado, 
+tratamento aplicado, versão do \textit{prompt} quando aplicável, predição produzida e veredito de referência.
 
-No caso das LLMs, as respostas textuais foram convertidas em rótulos padronizados, indicando presença ou ausência do smell. 
-Esse processo de padronização foi necessário para permitir a comparação direta entre as predições dos modelos e o ground truth. 
+No caso das LLMs, as respostas textuais foram convertidas em rótulos padronizados, indicando presença ou ausência do \textit{smell}. 
+Esse processo de padronização foi necessário para permitir a comparação direta entre as predições dos modelos e o \textit{ground truth}. 
 No caso do SonarQube, os resultados da análise estática também foram convertidos para o mesmo formato de rótulo.
 
 

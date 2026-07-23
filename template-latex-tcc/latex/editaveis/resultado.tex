@@ -8,15 +8,15 @@ uma vez que um mesmo trecho de código pode ser avaliado em relação a mais de 
 representa uma decisão binária de um tratamento para um smell específico em um determinado trecho de código.
 
 O arquivo do MLCQ foi utilizado como valor de referência para a avaliação dos tratamentos. Nos casos em que houve empate entre 
-avaliadores humanos, o veredito foi considerado positivo para a presença do smell, pois ao menos parte dos avaliadores indicou 
+avaliadores humanos, o veredito foi considerado positivo para a presença do \textit{smell}, pois ao menos parte dos avaliadores indicou 
 sua ocorrência. As saídas das \textit{LLMs} foram processadas para extrair os vereditos textuais em formato binário, em que 1 representa 
-a indicação de presença do smell e 0 representa sua ausência. Para o SonarQube, as issues identificadas foram agrupadas por 
-\texttt{sample\_id} e \texttt{smell}, sendo atribuída predição positiva quando havia ao menos uma issue correspondente ao smell avaliado.
+a indicação de presença do \textit{smell} e 0 representa sua ausência. Para o SonarQube, as issues identificadas foram agrupadas por 
+\texttt{sample\_id} e \texttt{smell}, sendo atribuída predição positiva quando havia ao menos uma issue correspondente ao \textit{smell} avaliado.
 
 Durante a consolidação, foram identificadas predições sem correspondência no \textit{ground truth}, decorrentes de casos em que os \textit{prompts} 
 solicitavam a avaliação de dois \textit{smells}, mas o MLCQ continha veredito explícito apenas para um deles. Esses casos foram excluídos 
 das métricas principais, pois não havia valor de referência para comparação. Também foi removida uma resposta incompleta de uma \textit{LLM}, 
-interrompida por limite de tokens, que não permitiu extrair o veredito de um dos \textit{smells} avaliados.
+interrompida por limite de \textit{tokens}, que não permitiu extrair o veredito de um dos \textit{smells} avaliados.
 
 Os procedimentos de consolidação, os códigos utilizados para processamento dos resultados e os \textit{datasets} gerados para as análises deste capítulo podem ser 
 encontrados no repositório do projeto conforme descritos na Seção~\ref{sec:execucao-experimento}. 
@@ -25,7 +25,7 @@ encontrados no repositório do projeto conforme descritos na Seção~\ref{sec:ex
 
 \subsection{Teste de Normalidade}
 
-Antes da comparação estatística entre os tratamentos, foi avaliado o pressuposto de normalidade por meio do teste \textit{omnibus} de D’Agostino’s K-squared. 
+Antes da comparação estatística entre os tratamentos, foi avaliado o pressuposto de normalidade por meio do teste \textit{omnibus de D’Agostino’s K-squared}. 
 O teste foi aplicado sobre a variável de acerto dos tratamentos e também sobre as diferenças pareadas de acerto entre tratamentos.  
 Em ambos os casos, os resultados apresentaram p-valor inferior a 0,05, indicando rejeição da hipótese nula de normalidade.
 
@@ -33,7 +33,7 @@ Esse resultado é compatível com a natureza dos dados analisados, uma vez que a
 tratamento concorda com o MLCQ e valor 0 quando discorda. Além disso, as diferenças pareadas entre tratamentos assumem valores discretos. 
 Dessa forma, optou-se pela utilização de testes não paramétricos apropriados para dados binários e pareados.
 
-A implementação do teste de normalidade encontra-se na Seção 8 do notebook.
+A implementação do teste de normalidade encontra-se na Seção 8 do \textit{notebook}.
 
 \subsection{Teste de Cochran's Q}
 
@@ -77,7 +77,7 @@ Cochran's Q & 8710 & 7 & 886,962 & $2{,}47 \times 10^{-188}$ & 0,05 & Rejeita $H
 Fonte: Autores
 \end{table}
 
-A implementação do teste de Cochran's Q e W de Kendall encontram-se na Seção 9 do notebook.
+A implementação do teste de Cochran's Q e W de Kendall encontram-se na Seção 9 do \textit{notebook}.
 
 \subsection{Teste de McNemar com correção de Holm-Bonferroni}
 
@@ -93,7 +93,7 @@ baseada nos $p$-valores ajustados, e não apenas nos $p$-valores brutos.
 
 A Tabela~\ref{tab:mcnemar-holm} apresenta a síntese das 21 comparações par a par realizadas com o teste de McNemar e correção de Holm-Bonferroni. 
 Após a correção de Holm-Bonferroni, 19 das 21 comparações apresentaram diferença estatisticamente significativa ao nível de significância de 0,05. 
-Apenas dois pares não apresentaram diferença significativa após o ajuste: ChatGPT few-shot versus Claude zero-shot e ChatGPT zero-shot versus DeepSeek zero-shot. 
+Apenas dois pares não apresentaram diferença significativa após o ajuste: ChatGPT \textit{few-shot} versus Claude \textit{zero-shot} e ChatGPT \textit{zero-shot} versus DeepSeek \textit{zero-shot}. 
 Esses resultados indicam que, para a maioria dos pares de tratamentos, as proporções de acerto diferem significativamente quando avaliadas sobre os 
 mesmos pares \texttt{sample\_id} e \texttt{smell}.
 
@@ -133,13 +133,65 @@ ChatGPT zero-shot & DeepSeek zero-shot & 0,001 & 0,037 & 1,0000 & Não rejeita $
 Fonte: Autores
 \end{table}
 
-As maiores diferenças observadas envolveram o Claude few-shot em comparação com DeepSeek few-shot, SonarQube e ChatGPT zero-shot. 
-Nessas comparações, o Claude few-shot apresentou menor taxa de acerto. Por outro lado, o SonarQube apresentou a maior taxa de acerto geral, 
-seguido pelo DeepSeek few-shot. Entretanto, essa interpretação deve considerar que a taxa de acerto é influenciada pelo desbalanceamento da base, 
-uma vez que há predominância de casos negativos para presença de smell. Por isso, as comparações estatísticas foram complementadas por 
-métricas de classificação, como precisão, recall, F1-score e especificidade.
+As maiores diferenças observadas envolveram o Claude \textit{few-shot} em comparação com DeepSeek \textit{few-shot}, SonarQube e ChatGPT \textit{zero-shot}.
 
 A implementação do teste de McNemar com correção de Holm-Bonferroni encontra-se na Seção 10 do notebook.
+
+\subsection{Taxa de acerto por tratamento}
+
+A taxa de acerto representa a proporção de casos em que o tratamento concordou com o veredito do MLCQ. Essa métrica considera como acerto 
+tanto os casos em que o tratamento indicou corretamente a presença de um \textit{smell} quanto os casos em que indicou corretamente sua ausência. 
+Formalmente, a taxa de acerto corresponde à razão entre a soma de verdadeiros positivos e verdadeiros negativos pelo total de casos avaliados.
+
+Na análise geral, o SonarQube apresentou a maior taxa de acerto, com valor aproximado de 0,897. Entre os modelos de linguagem, o melhor resultado 
+foi obtido pelo DeepSeek \textit{few-shot}, com taxa de acerto aproximada de 0,888. Em seguida, aparecem ChatGPT \textit{zero-shot}, com aproximadamente 0,880, 
+e DeepSeek \textit{zero-shot}, com aproximadamente 0,879. Os menores valores foram observados em ChatGPT \textit{few-shot}, Claude \textit{zero-shot} e Claude \textit{few-shot}.
+
+Apesar de o SonarQube apresentar a maior taxa de acerto geral, esse resultado deve ser interpretado com cautela. A base possui maior quantidade de casos negativos, 
+isto é, casos em que o MLCQ indica ausência de \textit{smell}. Assim, tratamentos que classificam muitos casos como negativos tendem a obter alta taxa de acerto 
+quando conseguem reconhecer corretamente essas ausências. Por esse motivo, a taxa de acerto foi analisada em conjunto com outras métricas de classificação.
+
+A Tabela~\ref{tab:taxa-acerto-geral-tratamento} apresenta o número de casos avaliados, a quantidade de acertos, a quantidade de erros e a taxa de acerto geral de cada tratamento.
+
+\begin{table}[H]
+\centering
+\caption{Taxa de acerto geral por tratamento}
+\label{tab:taxa-acerto-geral-tratamento}
+\begin{tabular}{lcccc}
+\hline
+Tratamento & $n$ & Acertos & Erros & Taxa de acerto \\
+\hline
+SonarQube & 8711 & 7817 & 894 & 0,897 \\
+DeepSeek few-shot & 8711 & 7732 & 979 & 0,888 \\
+ChatGPT zero-shot & 8711 & 7663 & 1048 & 0,880 \\
+DeepSeek zero-shot & 8711 & 7656 & 1055 & 0,879 \\
+ChatGPT few-shot & 8711 & 7258 & 1453 & 0,833 \\
+Claude zero-shot & 8710 & 7255 & 1455 & 0,833 \\
+Claude few-shot & 8711 & 7069 & 1642 & 0,812 \\
+\hline
+\end{tabular}
+
+Fonte: Autores
+\end{table}
+
+\begin{figure}[H]
+    \centering
+	\caption{Gráfico de barras - Taxa de acerto por tratamento}
+    \includegraphics[width=1\textwidth]{figuras/taxa-acerto-por-tratamento.png}
+
+    \label{fig:taxa-acerto-tratamentos}
+	Fonte: Autores
+\end{figure}
+
+O ChatGPT \textit{zero-shot} e o DeepSeek \textit{zero-shot} apresentaram taxas de acerto muito próximas, resultado que também foi observado na análise 
+estatística par a par, em que não houve diferença significativa entre esses dois tratamentos após a correção de Holm-Bonferroni.
+
+
+
+Nessas comparações, o Claude \textit{few-shot} apresentou menor taxa de acerto. Por outro lado, o SonarQube apresentou a maior taxa de acerto geral, 
+seguido pelo DeepSeek \textit{few-shot}. Entretanto, essa interpretação deve considerar que a taxa de acerto é influenciada pelo desbalanceamento da base, 
+uma vez que há predominância de casos negativos para presença de smell. Por isso, as comparações estatísticas foram complementadas por 
+métricas de classificação, como precisão, recall, F1-score e especificidade na seção \ref{sec:analise-complementar-resultados} de Análise Complementar, fora do escopo do experimento.
 
 \section{Análise Descritiva}
 
@@ -156,12 +208,12 @@ A Figura~\ref{fig:boxplot-taxa-acerto-tratamento} apresenta a distribuição da 
     \caption{\textit{Box-plot} da taxa de acerto por tratamento}
     \includegraphics[width=1.0\textwidth]{figuras/boxplot-taxa-acerto-tratamento-smell.png}
     \label{fig:boxplot-taxa-acerto-tratamento}
-    Fonte: Autor
+    Fonte: Autores
 \end{figure}
 
 Observa-se que o SonarQube apresentou distribuição mais concentrada em valores elevados, indicando desempenho mais estável entre os \textit{smells}. 
-O DeepSeek few-shot também apresentou taxas de acerto altas e com baixa variação. Em contraste, Claude zero-shot, ChatGPT few-shot e 
-Claude few-shot apresentaram maior dispersão, sugerindo desempenho mais dependente do tipo de \textit{smell} avaliado.
+O DeepSeek \textit{few-shot} também apresentou taxas de acerto altas e com baixa variação. Em contraste, Claude \textit{zero-shot}, ChatGPT \textit{few-shot} e 
+Claude \textit{few-shot} apresentaram maior dispersão, sugerindo desempenho mais dependente do tipo de \textit{smell} avaliado.
 
 \subsection{Percentis da taxa de acerto por tratamento}
 
@@ -185,12 +237,12 @@ Claude few-shot & 0,657 & 0,778 & 0,822 & 0,855 & 0,946 \\
 \hline
 \end{tabular}
 
-Fonte: Autor
+Fonte: Autores
 \end{table}
 
 Os percentis confirmam o comportamento observado no \textit{box-plot}. O SonarQube apresentou a maior mediana, com 0,897, 
-seguido pelo DeepSeek few-shot, com 0,876. Além disso, o SonarQube apresentou menor amplitude entre mínimo e máximo, 
-indicando maior regularidade entre os \textit{smells}. Claude few-shot apresentou a menor mediana, com 0,822, e também a menor 
+seguido pelo DeepSeek \textit{few-shot}, com 0,876. Além disso, o SonarQube apresentou menor amplitude entre mínimo e máximo, 
+indicando maior regularidade entre os \textit{smells}. Claude \textit{few-shot} apresentou a menor mediana, com 0,822, e também a menor 
 taxa mínima, com 0,657, sugerindo maior instabilidade em pelo menos uma das categorias avaliadas.
 
 \subsection{Dispersão entre taxa de acerto e F1-score}
@@ -200,14 +252,15 @@ A Figura~\ref{fig:dispersao-taxa-acerto-f1} apresenta a relação entre a taxa d
 \begin{figure}[H]
     \centering
     \caption{Dispersão entre taxa de acerto e F1-score por tratamento}
-    \includegraphics[width=0.9\textwidth]{figuras/dispersao-taxa-acerto-f1.png}
+    \includegraphics[width=0.88\textwidth]{figuras/dispersao-taxa-acerto-f1.png}
     \label{fig:dispersao-taxa-acerto-f1}
-    Fonte: Autor
+    
+    Fonte: Autores
 \end{figure}
 
 A dispersão mostra que os tratamentos se concentram em uma faixa elevada de taxa de acerto, mas diferem no F1-score. 
 O SonarQube aparece com a maior taxa de acerto, porém com F1-score inferior ao das principais \textit{LLMs}. Esse resultado indica 
-que sua concordância geral com o MLCQ é alta, mas o equilíbrio entre precisão e \textit{recall} é menor. O DeepSeek few-shot, por outro lado, 
+que sua concordância geral com o MLCQ é alta, mas o equilíbrio entre precisão e \textit{recall} é menor. O DeepSeek \textit{few-shot}, por outro lado, 
 apresenta o maior F1-score, indicando melhor equilíbrio entre identificação de positivos e controle de falsos positivos.
 
 \subsection{Estatísticas descritivas do F1-score}
@@ -234,18 +287,19 @@ SonarQube & 0,319 & 0,311 & 0,122\\
 \hline
 \end{tabular}
 
-Fonte: Autor
+Fonte: Autores
 \end{table}
 
 Observa-se que o SonarQube apresentou a menor média e a menor mediana de F1-score, apesar de ter obtido a maior taxa de acerto geral. 
 Esse resultado reforça que sua boa concordância geral está mais associada ao reconhecimento de casos negativos do que ao equilíbrio 
-entre precisão e \textit{recall}. Entre as \textit{LLMs}, as medianas ficaram mais próximas, com destaque para Claude zero-shot, DeepSeek few-shot 
-e ChatGPT zero-shot. O ChatGPT few-shot apresentou o maior valor máximo, mas também maior desvio-padrão, indicando maior variação de 
+entre precisão e \textit{recall}. Entre as \textit{LLMs}, as medianas ficaram mais próximas, com destaque para Claude \textit{zero-shot}, DeepSeek \textit{few-shot} 
+e ChatGPT \textit{zero-shot}. O ChatGPT \textit{few-shot} apresentou o maior valor máximo, mas também maior desvio-padrão, indicando maior variação de 
 desempenho entre os \textit{smells}.
 
-Os códigos utilizados para a análise descritiva encontram-se na seção 17 - ``Análise Descritiva'' do notebook.
+Os códigos utilizados para a análise descritiva encontram-se na seção 17 - ``Análise Descritiva'' do \textit{notebook}.
 
 \section{Análises complementares}
+\label{sec:analise-complementar-resultados}
 
 Após a análise estatística principal, como dito na  seção \ref{sec:analise-complementar}, foram conduzidas análises complementares 
 fora do escopo do experimento, com o objetivo de interpretar o comportamento dos tratamentos de forma mais detalhada. 
@@ -256,55 +310,6 @@ falsos negativos e desempenho por tipo de \textit{code smell}.
 Essas análises são particularmente importantes porque a base de referência apresenta desbalanceamento entre casos positivos e negativos. 
 Assim, a taxa de acerto geral, embora útil, não é suficiente para caracterizar completamente o desempenho dos tratamentos. 
 Por esse motivo, foram consideradas métricas adicionais, como precisão, \textit{recall}, F1-score, especificidade, MCC e Kappa de Cohen.
-
-\subsection{Taxa de acerto por tratamento}
-
-A taxa de acerto representa a proporção de casos em que o tratamento concordou com o veredito do MLCQ. Essa métrica considera como acerto 
-tanto os casos em que o tratamento indicou corretamente a presença de um \textit{smell} quanto os casos em que indicou corretamente sua ausência. 
-Formalmente, a taxa de acerto corresponde à razão entre a soma de verdadeiros positivos e verdadeiros negativos pelo total de casos avaliados.
-
-Na análise geral, o SonarQube apresentou a maior taxa de acerto, com valor aproximado de 0,897. Entre os modelos de linguagem, o melhor resultado 
-foi obtido pelo DeepSeek few-shot, com taxa de acerto aproximada de 0,888. Em seguida, aparecem ChatGPT zero-shot, com aproximadamente 0,880, 
-e DeepSeek zero-shot, com aproximadamente 0,879. Os menores valores foram observados em ChatGPT few-shot, Claude zero-shot e Claude few-shot.
-
-Apesar de o SonarQube apresentar a maior taxa de acerto geral, esse resultado deve ser interpretado com cautela. A base possui maior quantidade de casos negativos, 
-isto é, casos em que o MLCQ indica ausência de \textit{smell}. Assim, tratamentos que classificam muitos casos como negativos tendem a obter alta taxa de acerto 
-quando conseguem reconhecer corretamente essas ausências. Por esse motivo, a taxa de acerto foi analisada em conjunto com outras métricas de classificação.
-
-A Tabela~\ref{tab:taxa-acerto-geral-tratamento} apresenta o número de casos avaliados, a quantidade de acertos, a quantidade de erros e a taxa de acerto geral de cada tratamento.
-
-\begin{table}[H]
-\centering
-\caption{Taxa de acerto geral por tratamento}
-\label{tab:taxa-acerto-geral-tratamento}
-\begin{tabular}{lcccc}
-\hline
-Tratamento & $n$ & Acertos & Erros & Taxa de acerto \\
-\hline
-SonarQube & 8711 & 7817 & 894 & 0,897 \\
-DeepSeek few-shot & 8711 & 7732 & 979 & 0,888 \\
-ChatGPT zero-shot & 8711 & 7663 & 1048 & 0,880 \\
-DeepSeek zero-shot & 8711 & 7656 & 1055 & 0,879 \\
-ChatGPT few-shot & 8711 & 7258 & 1453 & 0,833 \\
-Claude zero-shot & 8710 & 7255 & 1455 & 0,833 \\
-Claude few-shot & 8711 & 7069 & 1642 & 0,812 \\
-\hline
-\end{tabular}
-
-Fonte: Autor
-\end{table}
-
-\begin{figure}[H]
-    \centering
-	\caption{Gráfico de barras - Taxa de acerto por tratamento}
-    \includegraphics[width=1\textwidth]{figuras/taxa-acerto-por-tratamento.png}
-
-    \label{fig:taxa-acerto-tratamentos}
-	Fonte: Autor
-\end{figure}
-
-O ChatGPT zero-shot e o DeepSeek zero-shot apresentaram taxas de acerto muito próximas, resultado que também foi observado na análise 
-estatística par a par, em que não houve diferença significativa entre esses dois tratamentos após a correção de Holm-Bonferroni.
 
 \subsection{Métricas de classificação}
 
@@ -332,7 +337,7 @@ Claude few-shot & 0,332 & 0,732 & 0,821 & 0,457 & 0,403 & 0,362 \\
 \hline
 \end{tabular}
 
-Fonte: Autor
+Fonte: Autores
 \end{table}
 
 Os resultados indicam que os tratamentos apresentam comportamentos distintos. O SonarQube obteve alta especificidade, indicando boa capacidade 
@@ -344,8 +349,8 @@ As \textit{LLMs}, por outro lado, apresentaram maior quantidade de predições p
 mas também em maior número de falsos positivos. Esse padrão mostra que os modelos de linguagem tendem a identificar mais casos como 
 potenciais \textit{smells}, ampliando a cobertura dos positivos, mas aumentando também a discordância em casos que o MLCQ classificou como negativos.
  
-O F1-score permite observar o equilíbrio entre precisão e \textit{recall}. Nessa métrica, o DeepSeek few-shot apresentou o melhor resultado geral, 
-com valor aproximado de 0,533, seguido por ChatGPT zero-shot, com 0,520, e DeepSeek zero-shot, com 0,503. Esse resultado mostra que, 
+O F1-score permite observar o equilíbrio entre precisão e \textit{recall}. Nessa métrica, o DeepSeek \textit{few-shot} apresentou o melhor resultado geral, 
+com valor aproximado de 0,533, seguido por ChatGPT \textit{zero-shot}, com 0,520, e DeepSeek \textit{zero-shot}, com 0,503. Esse resultado mostra que, 
 embora o SonarQube tenha apresentado a maior taxa de acerto geral, algumas \textit{LLMs} obtiveram melhor equilíbrio na identificação dos casos positivos.
 
 \begin{figure}[H]
@@ -354,38 +359,39 @@ embora o SonarQube tenha apresentado a maior taxa de acerto geral, algumas \text
     \includegraphics[width=1\textwidth]{figuras/f1-score-por-tratamento.png}
 
     \label{fig:f1-tratamentos}
-	Fonte: Autor
+	Fonte: Autores
 \end{figure}
 
-As métricas de classificação e complementares apresentadas nesta seção foram calculadas consolidadas na Seção 12 do notebook.
+As métricas de classificação e complementares apresentadas nesta seção foram calculadas consolidadas na Seção 12 do \textit{notebook}.
 
 \subsection{Resultados por smell}
 
 A análise por tipo de \textit{code smell} permite observar se os tratamentos apresentam comportamento homogêneo entre as categorias avaliadas 
 ou se o desempenho varia conforme o \textit{smell}. Essa separação é relevante porque os quatro \textit{smells} considerados possuem 
-características distintas. Blob/God Class e Data Class são avaliados no nível de classe, enquanto Feature Envy e Long Method são avaliados no nível de método. 
+características distintas. \textit{Blob/God Class} e \textit{Data Class} são avaliados no nível de classe, enquanto \textit{Feature Envy} e \textit{Long Method} são avaliados no nível de método. 
 Além disso, cada \textit{smell} envolve indícios estruturais e semânticos específicos, o que pode influenciar tanto ferramentas baseadas em regras quanto modelos de linguagem.
 
 A Figura~\ref{fig:heatmap-smells} apresenta a taxa de acerto de cada tratamento em cada \textit{smell}. 
 O \textit{heatmap} permite visualizar diferenças que não aparecem de forma evidente na taxa de acerto geral. De modo geral, 
-observa-se que Long Method apresentou as maiores taxas de acerto entre os tratamentos, com valores próximos ou 
-superiores a 0,94 para a maioria das \textit{LLMs}. Nesse \textit{smell}, o melhor resultado foi obtido pelo ChatGPT few-shot, 
-com taxa de acerto de 0,95, seguido por Claude zero-shot, Claude few-shot, ChatGPT zero-shot e DeepSeek, todos com valores elevados. 
+observa-se que \textit{Long Method} apresentou as maiores taxas de acerto entre os tratamentos, com valores próximos ou 
+superiores a 0,94 para a maioria das \textit{LLMs}. Nesse \textit{smell}, o melhor resultado foi obtido pelo ChatGPT \textit{few-shot}, 
+com taxa de acerto de 0,95, seguido por Claude \textit{zero-shot}, Claude \textit{few-shot}, ChatGPT \textit{zero-shot} e DeepSeek, todos com valores elevados. 
 O SonarQube apresentou taxa de acerto de 0,91, inferior à maioria das \textit{LLMs} nessa categoria.
 
-Para Feature Envy, observa-se maior variação entre os tratamentos. O SonarQube apresentou a maior taxa de acerto, com valor de 0,93, 
-seguido pelo DeepSeek few-shot, com 0,89, e pelo ChatGPT zero-shot, com 0,88. Por outro lado, Claude few-shot apresentou o menor 
-resultado nessa categoria, com taxa de acerto de 0,66. Esse comportamento indica que Feature Envy foi um dos \textit{smells} com 
+Para \textit{Feature Envy}, observa-se maior variação entre os tratamentos. O SonarQube apresentou a maior taxa de acerto, com valor de 0,93, 
+seguido pelo DeepSeek \textit{few-shot}, com 0,89, e pelo ChatGPT \textit{zero-shot}, com 0,88. Por outro lado, Claude \textit{few-shot} apresentou o menor 
+resultado nessa categoria, com taxa de acerto de 0,66. Esse comportamento indica que \textit{Feature Envy} foi um dos \textit{smells} com 
 maior heterogeneidade de desempenho entre os tratamentos.
 
-Em Blob/God Class, o SonarQube também apresentou o maior valor, com taxa de acerto de 0,89. Entre as \textit{LLMs}, o melhor resultado 
-foi obtido pelo DeepSeek few-shot, com 0,86, seguido pelo DeepSeek zero-shot, com 0,85. Os demais modelos apresentaram valores 
+
+Em \textit{Blob/God Class}, o SonarQube também apresentou o maior valor, com taxa de acerto de 0,89. Entre as \textit{LLMs}, o melhor resultado 
+foi obtido pelo DeepSeek \textit{few-shot}, com 0,86, seguido pelo DeepSeek \textit{zero-shot}, com 0,85. Os demais modelos apresentaram valores 
 entre 0,81 e 0,83. Esse resultado sugere que, para esse \textit{smell}, a abordagem baseada em regras métricas apresentou maior 
 concordância com o MLCQ do que os modelos de linguagem.
 
-Em Data Class, os resultados foram mais próximos entre os tratamentos. DeepSeek zero-shot e Claude zero-shot apresentaram os 
-maiores valores, ambos próximos de 0,88. SonarQube, ChatGPT zero-shot e DeepSeek few-shot também apresentaram taxas de acerto próximas, 
-entre 0,86 e 0,88. Essa proximidade indica menor variação entre os tratamentos nessa categoria quando comparada a Feature Envy.
+Em \textit{Data Class}, os resultados foram mais próximos entre os tratamentos. DeepSeek \textit{zero-shot} e Claude \textit{zero-shot} apresentaram os 
+maiores valores, ambos próximos de 0,88. SonarQube, ChatGPT \textit{zero-shot} e DeepSeek \textit{few-shot} também apresentaram taxas de acerto próximas, 
+entre 0,86 e 0,88. Essa proximidade indica menor variação entre os tratamentos nessa categoria quando comparada a \textit{Feature Envy}.
 
 \begin{figure}[H]
     \centering
@@ -393,10 +399,10 @@ entre 0,86 e 0,88. Essa proximidade indica menor variação entre os tratamentos
     \includegraphics[width=1\textwidth]{figuras/heatmap-tratamento-smell.png}
 
     \label{fig:heatmap-smells}
-	Fonte: Autor
+	Fonte: Autores
 \end{figure}
 
-Os resultados por \textit{smell} foram calculados na Seção 13 do notebook.
+Os resultados por \textit{smell} foram calculados na Seção 13 do \textit{notebook}.
 
 \subsection{Falsos positivos e falsos negativos}
 
@@ -447,8 +453,9 @@ O teste de Cochran's Q rejeitou a hipótese nula de igualdade entre as proporç�
 As comparações par a par com o teste de McNemar, ajustadas pela correção de Holm-Bonferroni, indicaram que 19 dos 21 pares 
 apresentaram diferença estatisticamente significativa.
 
-Na análise descritiva, o SonarQube apresentou a maior taxa de acerto geral, seguido pelo DeepSeek few-shot. 
-Entre as \textit{LLMs}, o DeepSeek few-shot obteve o melhor resultado nessa métrica. ChatGPT zero-shot e DeepSeek zero-shot 
+
+Na análise descritiva, o SonarQube apresentou a maior taxa de acerto geral, seguido pelo DeepSeek \textit{few-shot}. 
+Entre as \textit{LLMs}, o DeepSeek \textit{few-shot} obteve o melhor resultado nessa métrica. ChatGPT \textit{zero-shot} e DeepSeek \textit{zero-shot} 
 apresentaram desempenho muito próximo, sem diferença estatisticamente significativa após a correção dos p-valores.
 
 Apesar disso, a taxa de acerto geral deve ser interpretada em conjunto com as demais métricas, devido ao desbalanceamento da base. 
@@ -479,5 +486,5 @@ Claude few-shot & 8711 & 7069 & 1642 & 0,812 & 0,332 & 0,732 & 0,457 \\
 \hline
 \end{tabular}
 
-Fonte: Autor
+Fonte: Autores
 \end{table}

@@ -35,9 +35,10 @@ Análise dos dados & TCC 2 & Concluída \\
 Documentação dos resultados & TCC 2 & Concluída \\
 Redação final da monografia & TCC 2 & Concluída \\
 Revisão final & TCC 2 & Concluída \\
-Apresentação final & TCC 2 & Agendada \\
+Apresentação final & TCC 2 & Concluída \\
 \hline
 \end{tabular}
+Fonte: Autores
 \end{table}
 
 \subsection{Cronograma da Segunda Etapa da Monografia}
@@ -53,7 +54,7 @@ Entre as principais atividades estão:
     \includegraphics[width=1.1\textwidth]{figuras/Atividades-tcc2-concretizado.png}
 
     \label{fig:cronograma-atividades-tcc2}
-	Fonte: Autor
+	Fonte: Autores
 \end{figure}
 
 Durante a execução do TCC 2, algumas dessas atividades foram desdobradas em subatividades, necessárias para viabilizar a condução do experimento. 
@@ -119,10 +120,9 @@ valor aproximado de 0,533. Esse resultado indica que, embora o SonarQube tenha o
 LLMs apresentaram melhor equilíbrio entre precisão e \textit{recall}.
 
 A análise por \textit{smell} mostrou que o desempenho dos tratamentos varia conforme a categoria avaliada. O SonarQube 
-apresentou melhores taxas de acerto em Blob/God Class e Feature Envy, enquanto as LLMs se destacaram em Long Method. 
-Para Data Class, os resultados foram mais próximos entre os tratamentos. Também se observou que o uso de \textit{few-shot} não 
-produziu melhoria consistente em todos os modelos. Em alguns casos, a versão \textit{zero-shot} apresentou desempenho igual ou 
-superior à versão \textit{few-shot}, indicando que o efeito da estratégia de \textit{prompt} depende do modelo e do tipo de \textit{smell} avaliado.
+apresentou melhores taxas de acerto em \textit{Blob/God Class} e \textit{Feature Envy}, enquanto as LLMs se destacaram em \textit{Long Method}. 
+Para \textit{Data Class}, os resultados foram mais próximos entre os tratamentos. Também se observou que o uso de \textit{few-shot} não 
+produziu melhoria consistente em todos os modelos. Em alguns casos, a versão \textit{zero-shot} apresentou desempenho igual ou superior à versão \textit{few-shot}. Esse resultado indica que a inclusão de exemplos no \textit{prompt} não garante, por si só, melhoria de desempenho. Para que a estratégia \textit{few-shot} contribua efetivamente, é necessário que o contexto fornecido seja bem construído, com definições claras dos \textit{code smells} e exemplos representativos da tarefa. Assim, um \textit{prompt few-shot} com exemplos simples ou pouco informativos pode não auxiliar o modelo e, em alguns casos, até prejudicar sua classificação.
 
 A análise dos falsos positivos e falsos negativos reforçou essa diferença de comportamento. O SonarQube apresentou menor 
 número de falsos positivos, mas maior número de falsos negativos. As LLMs apresentaram maior número de verdadeiros positivos, 
@@ -170,7 +170,7 @@ No caso das LLMs, as respostas podem variar conforme o provedor, a versão do mo
 de tokens e eventuais mudanças nas APIs. Além disso, uma resposta foi removida da análise principal por ter sido interrompida 
 por limite de tokens, o que ilustra a necessidade de validação das saídas geradas por modelos de linguagem.
 
-Por fim, o experimento avaliou apenas quatro tipos de \textit{code smells}: Blob/God Class, Data Class, Feature Envy e Long Method. 
+Por fim, o experimento avaliou apenas quatro tipos de \textit{code smells}: \textit{Blob/God Class}, \textit{Data Class}, \textit{Feature Envy} e \textit{Long Method}. 
 Dessa forma, os resultados não devem ser generalizados automaticamente para outros \textit{smells}, linguagens de 
 programação ou bases de dados sem novas avaliações empíricas.
 
