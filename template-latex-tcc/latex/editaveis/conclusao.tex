@@ -176,19 +176,16 @@ programação ou bases de dados sem novas avaliações empíricas.
 
 \section{Trabalhos Futuros}
 
-Como trabalhos futuros, recomenda-se ampliar o experimento para outras bases de referência, a fim de verificar se os padrões 
-observados se mantêm em diferentes conjuntos de dados. Também seria relevante incluir outros tipos de \textit{code smells}, 
-especialmente aqueles que dependem de maior compreensão semântica, arquitetural ou contextual do código.
+Como trabalhos futuros, recomenda-se ampliar o experimento para outras bases de referência e incluir diferentes tipos de \textit{code smells}, especialmente aqueles que exigem maior compreensão semântica, arquitetural ou contextual do código. Essa ampliação permitiria verificar se os padrões observados se mantêm em outros conjuntos de dados e cenários de análise.
 
-Outra possibilidade é investigar novas estratégias de \textit{prompt}. Os resultados indicaram que o uso de \textit{few-shot} não produziu 
-melhoria consistente em todos os modelos e \textit{smells}. Assim, estudos futuros podem comparar diferentes formatos de 
-instrução, quantidades de exemplos, respostas estruturadas e estratégias de validação automática das saídas.
+Também se recomenda investigar sistematicamente novas estratégias de \textit{prompt}, uma vez que o uso de \textit{few-shot} não produziu melhoria consistente em todos os modelos e \textit{code smells}. O fluxo experimental desenvolvido pode ser reutilizado para realizar ciclos sucessivos de aprimoramento, alterando instruções, exemplos, formatos de resposta e estratégias de validação, com posterior avaliação dos efeitos sobre as métricas de desempenho.
 
-Além disso, trabalhos futuros podem investigar o custo-benefício das abordagens avaliadas, considerando não apenas 
-métricas de desempenho, mas também custo financeiro das APIs, tempo de execução, esforço de revisão humana e impacto 
-prático no processo de manutenção de \textit{software}.
+Nesse contexto, podem ser explorados \textit{prompts} complementares ou encadeados, bem como diferentes níveis de contexto, desde o trecho analisado até informações sobre o arquivo completo, classes relacionadas, dependências, herança e métricas de software. Isso permitiria avaliar se o acréscimo de contexto melhora a detecção ou introduz informações desnecessárias que prejudiquem o desempenho.
 
-Por fim, seria relevante conduzir estudos com desenvolvedores para avaliar a utilidade prática das respostas 
-produzidas pelas LLMs, incluindo clareza das justificativas, capacidade de apoiar decisões de refatoração e potencial 
-de integração em fluxos reais de garantia de qualidade.
+Outra possibilidade é investigar o uso de \textit{Retrieval-Augmented Generation} (RAG) como alternativa ou complemento ao \textit{few-shot}. Como os modelos avaliados não foram especificamente treinados para detectar \textit{code smells}, uma arquitetura RAG poderia fornecer acesso a uma base especializada contendo definições, critérios de detecção, exemplos, métricas, regras de ferramentas estáticas e informações contextuais dos projetos. Estudos futuros poderiam comparar as abordagens \textit{zero-shot}, \textit{few-shot}, \textit{prompt chaining} e RAG, considerando tanto o desempenho quanto a complexidade e o custo de cada estratégia.
+
+Outro aspecto relevante é a análise da variabilidade das respostas das LLMs, devido ao seu caráter não determinístico. Um mesmo código e \textit{prompt} poderiam ser executados repetidamente para avaliar a estabilidade das classificações, a concordância entre as respostas e a influência de parâmetros como temperatura, versão do modelo e configuração de amostragem. Também poderiam ser analisadas estratégias como votação majoritária ou consenso entre múltiplas execuções.
+
+Além disso, recomenda-se avaliar o custo-benefício das abordagens, considerando métricas de desempenho, custo financeiro das APIs, tempo de execução, esforço de revisão humana e complexidade de implementação. Por fim, estudos com desenvolvedores poderiam investigar a utilidade prática das respostas produzidas, incluindo a clareza das justificativas, o apoio às decisões de refatoração e o potencial de integração das LLMs em processos reais de garantia da qualidade de \textit{software}.
+
 
